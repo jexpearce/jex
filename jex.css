@@ -1,0 +1,51 @@
+
+body{
+    background: #008888;
+    display: grid;
+    place-items: center;
+    height: 100vh;
+    margin: 0;
+    font-family: 'Oswald', sans-serif;
+}
+
+
+.card{
+    background: #fdfdfd;
+    border-radius: 4px;
+    height: 85vh;
+    width: 85vw;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    
+}
+img.father1{
+    width: 400px;
+    height: 300px;
+    position: absolute;
+    top: 170px;
+    right: 1300px;
+     
+}
+
+.muted {
+    opacity: 0.8;
+}
+
+img.father2{
+    width: 300px;
+    height: 220px;
+    position: absolute;
+    top: 590px;
+    right: 810px;
+}
+
+img.father3{
+    width: 400px;
+    position: absolute;
+    top: 172px;
+    right: 260px;
+}
+
