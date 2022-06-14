@@ -1,0 +1,14 @@
+.button{
+    width:150px;
+    height: 50px;
+    border:2px solid #3333ff;
+    border-radius: 10px;
+    background-color: #e6e6ff;
+}
+
+.button > p{
+    text-align: center;
+    font-family: avenir;
+    font-weight: bold;
+    text-decoration: none;
+}
