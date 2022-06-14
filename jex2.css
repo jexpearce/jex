@@ -12,3 +12,12 @@
     font-weight: bold;
     text-decoration: none;
 }
+
+div:hover{
+    background-color: #8080ff;
+    color: #fff;
+}
+
+#link{
+    text-decoration: none;
+}
