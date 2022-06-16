@@ -79,3 +79,26 @@ h3 { font-size: var(--fs-h3) }
     background: var(--clr-accent);
     font-family: var(-ff-secondary);
 }
+
+nav { display: none}
+
+.intro {
+    position: relative;
+}
+
+@media (min-width: 600px) {
+    .intro {
+        display: grid;
+        width: min-content;
+        margin: 0 auto;
+        grid-column-gap: 1em;
+        grid-template-areas:
+        "img title"
+        "img subtitle";
+        grid-template-columns: min-content max-content;
+    }
+    .intro__image {
+        grid-area: img;
+        min-width: 250px;
+    }
+}
