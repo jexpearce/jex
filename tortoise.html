@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name=""viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Bangers">
+    <title>Testing</title>
+
+</head>
+    
+<style>
+    
+ body {
+      color: white;
+      text-align: center;
+      background: url(forest.jpg);
+      background-size: cover;
+      font-family: 'Bangers';
+ }
+
+</style>
+
+
+
+
+
+
+
+
+
+<body>
+
+
+
+
+
+
+
+
+            <script>
+function race(Aspeed, Bspeed, Alead) {
+   
+   let num = (Alead / (Bspeed - Aspeed));
+   let decimal = num.toFixed(2);
+ 
+   let hours = Math.floor(decimal);
+   
+   let lolminutes = (((decimal * 60) / 1) % 60);
+   let minutes = Math.floor(lolminutes);
+ 
+ let lolseconds = (lolminutes - minutes);
+ let seconds = Math.floor(lolseconds * 60);
+   
+   let arr = [];
+   arr.push(hours);
+   arr.push(minutes);
+   arr.push(seconds);
+   
+   return arr;
+ }
+            </script>
+        
+        
+        
+        </body>
+        </html>
+
+    
