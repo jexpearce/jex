@@ -1,7 +1,7 @@
 
 
 body{
-    background: url(forest.jpg);
+    background-image:url(forest.jpg);
     display: grid;
     place-items: center;
     height: 100vh;
