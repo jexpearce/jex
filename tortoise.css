@@ -1,10 +1,13 @@
 
-body {
-    background-image: url(forest.jpg);
-    background-size: cover;
+
+body{
+    background: url(forest.jpg);
+    display: grid;
+    place-items: center;
+    height: 100vh;
+    margin: 0;
     font-family: 'Bangers';
 }
-
 
 .button{
     width:450px;
