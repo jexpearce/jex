@@ -1,8 +1,6 @@
 
 body {
-    color: white;
-    text-align: center;
-    background: url(forest.jpg);
+    background-image: url(forest.jpg);
     background-size: cover;
     font-family: 'Bangers';
 }
