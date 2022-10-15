@@ -19,25 +19,27 @@ h2,.white{
     color: #fff;
 }
 
+
+
 a{
     color: #7A7C80;
     text-decoration: none;
 }
 /* section 1 */
 .section-1{
-    padding-top: 40vh;
+    padding-top: 20vh;
     text-align: center;
 }
 
 .section-1 p{
     font-size: 1.1rem;
-    padding-bottom: 10px;
+    padding-bottom: 18px;
     margin:0;
 }
 
 .section-1 h2{
-    font-size: 1.7rem;
-    margin-bottom: 10px;
+    font-size: 2.5rem;
+    margin-bottom: 12px;
 }
 
 .section-1 a{
