@@ -18,12 +18,15 @@ body{
 h2,.white{
     color: #fff;
 }
-
+p {
+  line-height: 1.4 ;
+}
 
 
 a{
-    color: #7A7C80;
+    color: #7794cd;
     text-decoration: none;
+    
 }
 /* section 1 */
 .section-1{
@@ -55,6 +58,7 @@ a{
 .section-2 h2{
     font-size: 1.7rem;
     margin-bottom: 10px;
+    
 }
 
 .section-2 p{
@@ -62,16 +66,33 @@ a{
     padding-bottom: 10px;
     margin:0;
 }
+/* section 3 */
+.section-3{
+  padding-top: 0vh;
+  text-align: center;
+}
 
-.section-2 a{
-    display: block;
-    padding: 5px;
-    font-size: 1.8rem;
-    padding-left: 0;
-    width: 100px;
+.section-3 h2{
+  font-size: 2.5rem;
+  margin-bottom: 40px;
+  bottom: vh;
+}
+
+.section-3 p{
+  font-size: 1.1rem;
+  padding-bottom: 10px;
+  margin:0;
+}
+
+.section-3 a{
+    text-align: right !important;
+    padding: 0px;
+    font-size: 1.7rem;
+    padding-left: 100;
+    width: 400px;
 }
 /* animations / utilities */
-.section-2 a:hover{
+.section-3 a:hover{
     font-size: 1.9rem;
     color: #fff;
     cursor: pointer;
@@ -89,24 +110,77 @@ a{
     padding-left: 10px;
 }
 
+.line1 {
+  width: 352px;
+  height: 67px;
+  border-bottom: 21px solid white;
+  top: 10%;
+  right: 86%;
+  -webkit-transform: translateY(20px) translateX(50px) rotate(135deg);
+  position: absolute;
+  /* top: -20px; */
+}
+.line2 {
+  width: 372px;
+  height: 47px;
+  border-bottom: 10px solid white;
+  top: 9%;
+  right: 81%;
+  -webkit-transform: translateY(20px) translateX(50px) rotate(135deg);
+  position: absolute;
+  /* top: -20px; */
+}
+.line3 {
+  width: 492px;
+  height: 47px;
+  border-bottom: 4px solid white;
+  top: 145%;
+  right: 80%;
+  left: -25%;
+  -webkit-transform: translateY(20px) translateX(50px) rotate(45deg);
+  position: absolute;
+  /* top: -20px; */
+}
+.line4 {
+  width: 522px;
+  height: 47px;
+  border-bottom: 9px solid white;
+  top: 145%;
+  right: 80%;
+  left: -24%;
+  -webkit-transform: translateY(20px) translateX(50px) rotate(45deg);
+  position: absolute;
+  /* top: -20px; */
+}
+
 img.gradpic{
     width: 15%;
     position: absolute;
-    top: 30%;
+    top: 35%;
     right: 67.5%;
     border:3px solid #FFFF;
     border-radius: 20px;
+}
+@media (max-width: 768px) {
+  img.gradpic {
+      width: 30%; /* Adjust the width for smaller screens */
+      top: 20%; /* Adjust the top position for smaller screens */
+      right: 5%; /* Adjust the right position for smaller screens */
+  }
 }
 
 * {box-sizing:border-box}
 
 /* Slideshow container */
 .slideshow-container {
-  max-width: 350px;
-  position: relative;
+  width: 650px;
+  height: 550px;
+  position: absolute;
   margin: auto;
-  left: 17%;
-  top: 1vh;
+  display: flex;
+  flex-direction: column; 
+  left: 50%;
+  top: 95vh;
   border:10px solid #FFFF;
     border-radius: 20px;
 }
@@ -114,6 +188,16 @@ img.gradpic{
 /* Hide the images by default */
 .mySlides {
   display: none;
+  
+  text-align: center;
+  
+}
+.mySlides img {
+  max-width: 90%;
+  max-height:100%;
+  object-fit: contain;
+  text-align: center;
+  margin:0 auto;
 }
 
 /* Next & previous buttons */
