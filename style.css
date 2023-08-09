@@ -88,8 +88,8 @@ a{
     text-align: right !important;
     padding: 0px;
     font-size: 1.7rem;
-    padding-left: 100;
-    width: 400px;
+    padding-left: 0;
+    width: 100px;
 }
 /* animations / utilities */
 .section-3 a:hover{
