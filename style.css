@@ -103,6 +103,23 @@ img.gradpic {
   margin: 0;
   color: #7A7C80;
 }
+.section-2 img.durham{
+  max-width: 20%;
+  position: absolute;
+  object-fit: cover;
+  border: 3px solid #FFFF;
+  border-radius: 20px;
+  margin:auto;
+  margin-top: -24%;
+  margin-left: 60%;
+}
+@media (max-width: 768px) {
+.section-2 img.durham {
+    width: 15%; /* Adjust the width for smaller screens */
+    top: 10%; /* Adjust the top position for smaller screens */
+    right: 5%; /* Adjust the right position for smaller screens */
+}
+}
 
 /* Section 3 */
 .section-3 {
@@ -297,4 +314,27 @@ img.gradpic {
         padding-left: 1.5rem;
         padding-top: 2rem;
     }
+}
+
+.section-4 {
+  margin-top: 5%;
+  margin-left: 5%;
+  grid-column-start: 1;
+  grid-column-end: 3;
+}
+
+.section-4 h2 {
+  font-size: 3rem;
+  margin-left: 40%;
+  margin-bottom: 10px;
+  color: #fff;
+  font-family: 'Jolly Lodger', cursive;
+  font-family: 'League Spartan', sans-serif;
+}
+.section-4 h3 {
+  font-size: 1.7rem;
+  margin-bottom: 20px;
+  color: #7A7C80; 
+  font-family: 'Jolly Lodger', cursive;
+  font-family: 'League Spartan', sans-serif;
 }
