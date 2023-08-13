@@ -413,6 +413,14 @@ img.gradpic{
   font-family: 'Jolly Lodger', cursive;
   font-family: 'League Spartan', sans-serif;
 }
+.section-4 p {
+  font-size: 1.5rem;
+  padding-bottom: 18px;
+  margin: 0;
+  color: #7A7C80;
+  font-family: 'Jolly Lodger', cursive;
+  font-family: 'League Spartan', sans-serif;
+}
 @media (max-width: 768px) {
   .section-4 {
     padding: 5vh 0;
@@ -426,4 +434,9 @@ img.gradpic{
   }
   .section-4 h3{
     font-size: 1.5rem;
-  }}
+  }
+  .section-4 p{
+    font-size: 1.1rem;
+  }
+}
+  
