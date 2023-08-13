@@ -16,6 +16,12 @@ body {
   grid-template-columns: 50% 50%;
 }
 
+@media (max-width: 768px) {
+  body {
+  grid-template-columns: 100%;
+}
+}
+
 a {
   color: #7794cd;
   text-decoration: none;
@@ -44,6 +50,7 @@ a {
   color: #fff;
 }
 
+
 .section-1 a {
   display: inline-block;
   font-size: 1.5rem;
@@ -57,6 +64,23 @@ a {
 .section-1 a:hover {
   background-color: #6682b3;
 }
+@media (max-width: 768px) {
+  .section-1 {
+    padding: 5vh 0;
+    margin-top: 10%;
+    margin-left: 5%;
+  }
+
+
+  .section-1 h2 {
+    font-size: 3rem; /* Further reduced font size for smaller screens */
+  }
+  .section-1 p {
+    text-align: center;
+    grid-column-start: 1;
+    grid-column-end: 3;
+  }
+}
 
 img.gradpic{
   max-width: 60%;
@@ -69,11 +93,10 @@ img.gradpic{
   margin-left: 12%;
 }
 @media (max-width: 768px) {
-img.gradpic {
-    width: 30%; /* Adjust the width for smaller screens */
-    top: 20%; /* Adjust the top position for smaller screens */
-    right: 5%; /* Adjust the right position for smaller screens */
-}
+  img.gradpic {
+    width: 80%; /* Adjust the max-width for smaller screens */
+   
+  }
 }
 
 /* Section 2 */
