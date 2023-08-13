@@ -19,6 +19,7 @@ body {
 @media (max-width: 768px) {
   body {
   grid-template-columns: 100%;
+  padding: 0;
 }
 }
 
@@ -73,7 +74,7 @@ a {
 
 
   .section-1 h2 {
-    font-size: 3rem; /* Further reduced font size for smaller screens */
+    font-size: 5rem; /* Further reduced font size for smaller screens */
   }
   .section-1 p {
     text-align: center;
@@ -94,8 +95,10 @@ img.gradpic{
 }
 @media (max-width: 768px) {
   img.gradpic {
-    width: 80%; /* Adjust the max-width for smaller screens */
-   
+    width: 45%; /* Adjust the max-width for smaller screens */
+    margin: auto;
+    display: block;
+    margin-top: 5%;
   }
 }
 
@@ -106,7 +109,6 @@ img.gradpic{
   grid-column-end: 3;
   margin-left: 5%; /* Adjust as needed */
 }
-
 .section-2 h2 {
   font-size: 3rem;
   margin-left: 40%;
@@ -125,22 +127,47 @@ img.gradpic{
   padding-bottom: 10px;
   margin: 0;
   color: #7A7C80;
+  
 }
+
+
+@media (max-width: 768px) {
+  .section-2 {
+    grid-column-end: 2;
+    padding: 5vh 0;
+    margin-top: 10%;
+  }
+  .section-2 h1 {
+    font-size: 3rem; /* Further reduced font size for smaller screens */
+    
+  }
+  .section-2 h2 {
+    font-size: 3rem; /* Further reduced font size for smaller screens */
+    margin: auto;
+  }
+  .section-2 p {
+    text-align: center;
+    grid-column-end: 2;
+    margin-right: 5%;
+  }
+}
+
 .section-2 img.durham{
   max-width: 20%;
-  position: absolute;
   object-fit: cover;
   border: 3px solid #FFFF;
   border-radius: 20px;
   margin:auto;
-  margin-top: -24%;
+  margin-top: -190%;
+  margin-bottom: 13%;
   margin-left: 60%;
 }
 @media (max-width: 768px) {
 .section-2 img.durham {
-    width: 15%; /* Adjust the width for smaller screens */
-    top: 10%; /* Adjust the top position for smaller screens */
-    right: 5%; /* Adjust the right position for smaller screens */
+    width: 80%; /* Adjust the width for smaller screens */
+    margin: auto;
+    margin-top: 10%;
+    margin-left: 33%;
 }
 }
 
@@ -361,3 +388,17 @@ img.gradpic{
   font-family: 'Jolly Lodger', cursive;
   font-family: 'League Spartan', sans-serif;
 }
+@media (max-width: 768px) {
+  .section-4 {
+    padding: 5vh 0;
+    margin-top: 10%;
+    margin-left: 5%;
+    grid-column-end: 2;
+  }
+  .section-4 h2 {
+    font-size: 3rem;
+    margin: auto;
+  }
+  .section-4 h3{
+    font-size: 1.5rem;
+  }}
