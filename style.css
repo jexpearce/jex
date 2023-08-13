@@ -235,6 +235,18 @@ img.gradpic{
   position: absolute;
   /* top: -20px; */
 }
+@media (max-width: 768px) {
+  .line1 {
+    width: 652px;
+    height: 37px;
+    border-bottom: 21px solid white;
+    top: 20%;
+    right: 56%;
+    -webkit-transform: translateY(20px) translateX(50px) rotate(135deg);
+    position: absolute; 
+  }
+}
+
 .line2 {
   width: 372px;
   height: 47px;
@@ -245,6 +257,19 @@ img.gradpic{
   position: absolute;
   /* top: -20px; */
 }
+
+@media (max-width: 768px) {
+  .line2 {
+    width: 652px;
+    height: 37px;
+    border-bottom: 10px solid white;
+    top: 20%;
+    right: 46%;
+    -webkit-transform: translateY(20px) translateX(50px) rotate(135deg);
+    position: absolute; 
+  }
+}
+
 
 
 
