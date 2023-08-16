@@ -284,12 +284,17 @@ img.gradpic{
 /* Slideshow container */
 .slideshow-container {
   margin: auto;
-  margin-top: 10%;
+  margin-top: 25%;
   display: flex;
   position: relative;
   align-items: center;
   border:10px solid #FFFF;
     border-radius: 20px;
+}
+@media (max-width: 768px) {
+  .slideshow-container {
+    margin-top: 10%;
+  }
 }
 
 /* Hide the images by default */
