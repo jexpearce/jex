@@ -80,12 +80,14 @@ a {
 
 
   .section-1 h2 {
-    font-size: 5rem; /* Further reduced font size for smaller screens */
+    font-size: 5rem;
+    text-align: center;
   }
   .section-1 p {
     text-align: center;
     grid-column-start: 1;
     grid-column-end: 3;
+    margin-right: 10%;
   }
 }
 
@@ -150,6 +152,7 @@ img.gradpic{
   .section-2 h2 {
     font-size: 3rem; /* Further reduced font size for smaller screens */
     margin: auto;
+    text-align: center;
   }
   .section-2 p {
     text-align: center;
