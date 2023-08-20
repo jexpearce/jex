@@ -34,7 +34,6 @@ a {
   text-align: center;
   margin-top: 14%;
   margin-left: 5%;
-  margin-right: 5%;
 }
 
 .section-1 p {
@@ -218,7 +217,6 @@ img.gradpic{
 
 /* animations / utilities */
 .section-3 a:hover{
-    font-size: 1.9rem;
     color: #fff;
     cursor: pointer;
     transition: 0.2s;
@@ -406,20 +404,81 @@ img.gradpic{
     }
 }
 
+.section-35 {
+  padding-top: 8vh;
+  text-align: center;
+  grid-column-start: 1;
+  grid-column-end: 3;
+}
+
+.section-35 h2 {
+  font-size: 3rem;
+  margin-bottom: 20px;
+  color: #fff; 
+  font-family: 'Jolly Lodger', cursive;
+  font-family: 'League Spartan', sans-serif;
+}
+
+
+.section-35 p {
+  font-size: 1.1rem;
+  padding-bottom: 10px;
+  margin: 0;
+  color: #7A7C80;
+}
+
+.section-35 a {
+  font-size: 1.7rem;
+  padding: 10px;
+  color: #7794cd;
+  transition: color 0.3s ease;
+}
+
+.section-35 a:hover {
+  color: #6682b3;
+}
+@media (max-width: 768px) {
+  .section-35 {
+    padding: 5vh 0;
+    margin-top: 5%;
+    margin-right: 5%;
+    margin-left: 5%;
+    grid-column-end: 2;
+  }
+  .section-35 h2 {
+    font-size: 3rem;
+    margin: auto;
+    text-align: center;
+  }
+  .section-35 h3{
+    font-size: 1.5rem;
+  }
+  .section-35 p{
+    font-size: 1.1rem;
+  }
+}
+
+
+/* animations / utilities */
+.section-35 a:hover{
+    color: #fff;
+    cursor: pointer;
+    transition: 0.2s;
+}
 .section-4 {
   margin-top: 5%;
-  margin-left: 5%;
   grid-column-start: 1;
   grid-column-end: 3;
 }
 
 .section-4 h2 {
   font-size: 3rem;
-  margin-left: 40%;
   margin-bottom: 10px;
   color: #fff;
   font-family: 'Jolly Lodger', cursive;
   font-family: 'League Spartan', sans-serif;
+  margin: auto;
+  text-align: center;
 }
 .section-4 h3 {
   font-size: 1.7rem;
@@ -439,13 +498,13 @@ img.gradpic{
 @media (max-width: 768px) {
   .section-4 {
     padding: 5vh 0;
-    margin-top: 10%;
-    margin-left: 5%;
     grid-column-end: 2;
+    margin-right: 5%;
   }
   .section-4 h2 {
     font-size: 3rem;
     margin: auto;
+    text-align: center;
   }
   .section-4 h3{
     font-size: 1.5rem;
