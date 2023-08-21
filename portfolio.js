@@ -31,3 +31,18 @@ function showSlides(n) {
   slides[slideIndex - 1].style.display = "block";
   dots[slideIndex - 1].className += " active";
 }
+
+function isMobile() {
+  return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
+    navigator.userAgent
+  );
+}
+
+function disableLinkOnMobile() {
+  var link = document.getElementById("gameLink");
+  if (isMobile()) {
+    link.removeAttribute("href");
+    link.removeAttribute("target");
+    link.style.pointerEvents = "none";
+  }
+}
