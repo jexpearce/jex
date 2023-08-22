@@ -144,6 +144,8 @@ img.gradpic{
     grid-column-end: 2;
     padding: 5vh 0;
     margin-top: 10%;
+    margin-right: 4%;
+
   }
   .section-2 h1 {
     font-size: 3rem; /* Further reduced font size for smaller screens */
@@ -176,7 +178,7 @@ img.gradpic{
     width: 80%; /* Adjust the width for smaller screens */
     margin: auto;
     margin-top: 10%;
-    margin-left: 33%;
+    margin-left: 38%;
 }
 }
 
@@ -231,6 +233,14 @@ img.gradpic{
 .white:hover{
     position: relative;
     padding-left: 10px;
+}
+
+@media (max-width: 768px){
+  .section-3 {
+    margin-right: 3%;
+    margin-left: 3%;
+    margin-top: 5%;
+  }
 }
 
 .line1 {
