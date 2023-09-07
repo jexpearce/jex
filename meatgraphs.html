@@ -20,7 +20,93 @@
       crossorigin="anonymous"
       referrerpolicy="no-referrer"
     />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Jolly+Lodger&family=League+Spartan:wght@500;600&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      body > div {
+        background: #e7473c;
+        border: 2rem #f0f0f0 solid;
+        margin: 0 !important;
+        padding: 0 5rem;
+      }
+
+      .CodeMirror {
+        background: #ffcccb !important;
+      }
+
+      h1 {
+        text-align: center;
+        font-size: 3.2rem !important;
+        margin-top: 2rem;
+        color: #f0f0f0;
+        font-family: "Roboto", sans-serif;
+      }
+
+      h3 {
+        color: #f0f0f0;
+        font-size: 2rem !important;
+        font-family: "Roboto", sans-serif;
+      }
+      h4 {
+        color: #f0f0f0;
+        font-size: 1.3rem !important;
+        font-family: "Roboto", sans-serif;
+      }
+
+      p {
+        color: #f0f0f0;
+        font-family: "Roboto", sans-serif;
+      }
+
+      .toggleButton {
+        background: grey;
+        margin: auto;
+        display: block;
+        border: 1px solid white;
+        margin-top: 1rem;
+        margin-bottom: 1rem;
+        font-family: "Roboto", sans-serif;
+      }
+
+      @media (max-width: 768px) {
+        body > div {
+          border: 0.5rem #e6bbad solid;
+          padding: 0 0.7rem;
+        }
+
+        h1 {
+          font-size: 3rem !important; /* Adjust the font size for smaller screens */
+        }
+        h3 {
+          font-size: 2rem !important; /* Adjust the font size for smaller screens */
+        }
+
+        h4 {
+          font-size: 1.4rem !important;
+        }
+      }
+    </style>
   </head>
+  <script>
+    function toggle(event) {
+      const code = event.currentTarget.nextSibling.nextSibling;
+
+      if (code.style.display == "block") {
+        code.style.display = "none";
+      } else {
+        code.style.display = "block";
+      }
+    }
+
+    window.addEventListener("load", () => {
+      const buttons = document.querySelectorAll(".toggleButton");
+      buttons.forEach((button) => {
+        button.addEventListener("click", toggle);
+      });
+    });
+  </script>
   <body>
     <div style="margin: 30px 30px 0 0">
       <!-- <div style="margin-bottom: 15px">
@@ -29,7 +115,7 @@
       </div> -->
       <div>
         <div style="margin-bottom: 10px">
-          <div style="display: flex; flex-direction: row; align-items: stretch">
+          <div style="flex-direction: row; align-items: stretch">
             <div
               style="
                 color: #303f9f;
@@ -41,15 +127,15 @@
               "
             ></div>
             <div style="width: 100%">
-              <h3 id="nutrient-distributions-and-analysis-of-pork-and-beef">
+              <h1 id="nutrient-distributions-and-analysis-of-pork-and-beef">
                 <span
-                  ><span style="font-size: xx-large"
+                  ><span
                     ><center>
                       Nutrient Distributions and Analysis of Pork and Beef:
                     </center></span
                   ></span
                 >
-              </h3>
+              </h1>
               <p>
                 <span style="text-indent: 0"
                   ><span
@@ -57,11 +143,11 @@
                   ></span
                 >
               </p>
-              <p>
+              <h4>
                 <span style="text-indent: 0"
-                  ><span>Before You Read:</span></span
+                  ><span><strong>Before You Read:</strong></span></span
                 >
-              </p>
+              </h4>
               <ul class="cocalc-slate-tight-list">
                 <li style="text-indent: 0">
                   <p>
@@ -98,8 +184,8 @@
                   <p>
                     <span style="text-indent: 0"
                       ><span
-                        >I have kept the original Jupyter code for your
-                        enjoyment</span
+                        >I have kept the original Jupyter code. You can access
+                        it through the 'Show Code Cell' buttons</span
                       ></span
                     >
                   </p>
@@ -109,8 +195,9 @@
           </div>
           <div></div>
         </div>
-        <div style="margin-bottom: 10px">
-          <div style="display: flex; flex-direction: row; align-items: stretch">
+        <button class="toggleButton">Show Code Cell</button>
+        <div style="display: none; margin-bottom: 10px">
+          <div style="flex-direction: row; align-items: stretch">
             <span style="margin-left: 0" class="hidden-xs"
               ><div
                 style="
@@ -163,7 +250,7 @@
           <div></div>
         </div>
         <div style="margin-bottom: 10px">
-          <div style="display: flex; flex-direction: row; align-items: stretch">
+          <div style="flex-direction: row; align-items: stretch">
             <div
               style="
                 color: #303f9f;
@@ -185,7 +272,7 @@
           <div></div>
         </div>
         <div style="margin-bottom: 10px">
-          <div style="display: flex; flex-direction: row; align-items: stretch">
+          <div style="flex-direction: row; align-items: stretch">
             <div
               style="
                 color: #303f9f;
@@ -209,7 +296,8 @@
           <div></div>
         </div>
         <div style="margin-bottom: 10px">
-          <div style="display: flex; flex-direction: row; align-items: stretch">
+          <button class="toggleButton">Show Code Cell</button>
+          <div style="display: none; flex-direction: row; align-items: stretch">
             <span style="margin-left: 0" class="hidden-xs"
               ><div
                 style="
@@ -264,7 +352,7 @@
             </div>
           </div>
           <div
-            style="display: flex; flex-direction: row; align-items: stretch"
+            style="flex-direction: row; align-items: stretch"
             cocalc-test="cell-output"
           >
             <button
@@ -274,7 +362,7 @@
                 border-color: transparent;
                 font-size: inherit;
                 padding: 0;
-                display: flex;
+
                 flex-direction: column;
                 height: auto;
                 cursor: pointer;
@@ -320,7 +408,7 @@
           </div>
         </div>
         <div style="margin-bottom: 10px">
-          <div style="display: flex; flex-direction: row; align-items: stretch">
+          <div style="flex-direction: row; align-items: stretch">
             <div
               style="
                 color: #303f9f;
@@ -348,7 +436,7 @@
           <div></div>
         </div>
         <div style="margin-bottom: 10px">
-          <div style="display: flex; flex-direction: row; align-items: stretch">
+          <div style="flex-direction: row; align-items: stretch">
             <div
               style="
                 color: #303f9f;
@@ -370,19 +458,20 @@
                   ></span
                 >
               </h4>
-              <h6 id="what-if-we-want-calories-of-70-65-60-etc?">
+              <h3 id="what-if-we-want-calories-of-70-65-60-etc?">
                 <span
                   ><span style="font-size: medium"
                     >What if we want calories of 70%, 65%, 60%, etc?</span
                   ></span
                 >
-              </h6>
+              </h3>
             </div>
           </div>
           <div></div>
         </div>
         <div style="margin-bottom: 10px">
-          <div style="display: flex; flex-direction: row; align-items: stretch">
+          <button class="toggleButton">Show Code Cell</button>
+          <div style="display: none; flex-direction: row; align-items: stretch">
             <span style="margin-left: 0" class="hidden-xs"
               ><div
                 style="
@@ -464,7 +553,7 @@
             </div>
           </div>
           <div
-            style="display: flex; flex-direction: row; align-items: stretch"
+            style="flex-direction: row; align-items: stretch"
             cocalc-test="cell-output"
           >
             <button
@@ -474,7 +563,7 @@
                 border-color: transparent;
                 font-size: inherit;
                 padding: 0;
-                display: flex;
+
                 flex-direction: column;
                 height: auto;
                 cursor: pointer;
@@ -526,7 +615,7 @@
           </div>
         </div>
         <div style="margin-bottom: 10px">
-          <div style="display: flex; flex-direction: row; align-items: stretch">
+          <div style="flex-direction: row; align-items: stretch">
             <div
               style="
                 color: #303f9f;
@@ -553,7 +642,7 @@
           <div></div>
         </div>
         <div style="margin-bottom: 10px">
-          <div style="display: flex; flex-direction: row; align-items: stretch">
+          <div style="flex-direction: row; align-items: stretch">
             <div
               style="
                 color: #303f9f;
@@ -580,7 +669,8 @@
           <div></div>
         </div>
         <div style="margin-bottom: 10px">
-          <div style="display: flex; flex-direction: row; align-items: stretch">
+          <button class="toggleButton">Show Code Cell</button>
+          <div style="display: none; flex-direction: row; align-items: stretch">
             <span style="margin-left: 0" class="hidden-xs"
               ><div
                 style="
@@ -638,7 +728,7 @@
             </div>
           </div>
           <div
-            style="display: flex; flex-direction: row; align-items: stretch"
+            style="flex-direction: row; align-items: stretch"
             cocalc-test="cell-output"
           >
             <button
@@ -648,7 +738,7 @@
                 border-color: transparent;
                 font-size: inherit;
                 padding: 0;
-                display: flex;
+
                 flex-direction: column;
                 height: auto;
                 cursor: pointer;
@@ -694,7 +784,7 @@
           </div>
         </div>
         <div style="margin-bottom: 10px">
-          <div style="display: flex; flex-direction: row; align-items: stretch">
+          <div style="flex-direction: row; align-items: stretch">
             <div
               style="
                 color: #303f9f;
@@ -719,7 +809,7 @@
           <div></div>
         </div>
         <div style="margin-bottom: 10px">
-          <div style="display: flex; flex-direction: row; align-items: stretch">
+          <div style="flex-direction: row; align-items: stretch">
             <div
               style="
                 color: #303f9f;
@@ -743,7 +833,8 @@
           <div></div>
         </div>
         <div style="margin-bottom: 10px">
-          <div style="display: flex; flex-direction: row; align-items: stretch">
+          <button class="toggleButton">Show Code Cell</button>
+          <div style="display: none; flex-direction: row; align-items: stretch">
             <span style="margin-left: 0" class="hidden-xs"
               ><div
                 style="
@@ -798,7 +889,7 @@
             </div>
           </div>
           <div
-            style="display: flex; flex-direction: row; align-items: stretch"
+            style="flex-direction: row; align-items: stretch"
             cocalc-test="cell-output"
           >
             <button
@@ -807,7 +898,7 @@
               style="
                 font-size: inherit;
                 padding: 0;
-                display: flex;
+
                 flex-direction: column;
                 height: auto;
                 cursor: pointer;
@@ -854,7 +945,7 @@
           </div>
         </div>
         <div style="margin-bottom: 10px">
-          <div style="display: flex; flex-direction: row; align-items: stretch">
+          <div style="flex-direction: row; align-items: stretch">
             <div
               style="
                 color: #303f9f;
@@ -882,7 +973,7 @@
           <div></div>
         </div>
         <div style="margin-bottom: 10px">
-          <div style="display: flex; flex-direction: row; align-items: stretch">
+          <div style="flex-direction: row; align-items: stretch">
             <div
               style="
                 color: #303f9f;
@@ -906,7 +997,8 @@
           <div></div>
         </div>
         <div style="margin-bottom: 10px">
-          <div style="display: flex; flex-direction: row; align-items: stretch">
+          <button class="toggleButton">Show Code Cell</button>
+          <div style="display: none; flex-direction: row; align-items: stretch">
             <span style="margin-left: 0" class="hidden-xs"
               ><div
                 style="
@@ -962,7 +1054,7 @@
             </div>
           </div>
           <div
-            style="display: flex; flex-direction: row; align-items: stretch"
+            style="flex-direction: row; align-items: stretch"
             cocalc-test="cell-output"
           >
             <button
@@ -972,7 +1064,7 @@
                 border-color: transparent;
                 font-size: inherit;
                 padding: 0;
-                display: flex;
+
                 flex-direction: column;
                 height: auto;
                 cursor: pointer;
@@ -1029,7 +1121,7 @@
           </div>
         </div>
         <div style="margin-bottom: 10px">
-          <div style="display: flex; flex-direction: row; align-items: stretch">
+          <div style="flex-direction: row; align-items: stretch">
             <div
               style="
                 color: #303f9f;
@@ -1059,7 +1151,7 @@
           <div></div>
         </div>
         <div style="margin-bottom: 10px">
-          <div style="display: flex; flex-direction: row; align-items: stretch">
+          <div style="flex-direction: row; align-items: stretch">
             <div
               style="
                 color: #303f9f;
@@ -1083,7 +1175,8 @@
           <div></div>
         </div>
         <div style="margin-bottom: 10px">
-          <div style="display: flex; flex-direction: row; align-items: stretch">
+          <button class="toggleButton">Show Code Cell</button>
+          <div style="display: none; flex-direction: row; align-items: stretch">
             <span style="margin-left: 0" class="hidden-xs"
               ><div
                 style="
@@ -1139,7 +1232,7 @@
             </div>
           </div>
           <div
-            style="display: flex; flex-direction: row; align-items: stretch"
+            style="flex-direction: row; align-items: stretch"
             cocalc-test="cell-output"
           >
             <button
@@ -1149,7 +1242,7 @@
                 border-color: transparent;
                 font-size: inherit;
                 padding: 0;
-                display: flex;
+
                 flex-direction: column;
                 height: auto;
                 cursor: pointer;
@@ -1195,7 +1288,7 @@
           </div>
         </div>
         <div style="margin-bottom: 10px">
-          <div style="display: flex; flex-direction: row; align-items: stretch">
+          <div style="flex-direction: row; align-items: stretch">
             <div
               style="
                 color: #303f9f;
@@ -1219,7 +1312,7 @@
           <div></div>
         </div>
         <div style="margin-bottom: 10px">
-          <div style="display: flex; flex-direction: row; align-items: stretch">
+          <div style="flex-direction: row; align-items: stretch">
             <div
               style="
                 color: #303f9f;
@@ -1258,7 +1351,8 @@
           <div></div>
         </div>
         <div style="margin-bottom: 10px">
-          <div style="display: flex; flex-direction: row; align-items: stretch">
+          <button class="toggleButton">Show Code Cell</button>
+          <div style="display: none; flex-direction: row; align-items: stretch">
             <span style="margin-left: 0" class="hidden-xs"
               ><div
                 style="
@@ -1311,7 +1405,7 @@
             </div>
           </div>
           <div
-            style="display: flex; flex-direction: row; align-items: stretch"
+            style="flex-direction: row; align-items: stretch"
             cocalc-test="cell-output"
           >
             <button
@@ -1321,7 +1415,7 @@
                 border-color: transparent;
                 font-size: inherit;
                 padding: 0;
-                display: flex;
+
                 flex-direction: column;
                 height: auto;
                 cursor: pointer;
@@ -1367,7 +1461,7 @@
           </div>
         </div>
         <div style="margin-bottom: 10px">
-          <div style="display: flex; flex-direction: row; align-items: stretch">
+          <div style="flex-direction: row; align-items: stretch">
             <div
               style="
                 color: #303f9f;
@@ -1395,7 +1489,7 @@
           <div></div>
         </div>
         <div style="margin-bottom: 10px">
-          <div style="display: flex; flex-direction: row; align-items: stretch">
+          <div style="flex-direction: row; align-items: stretch">
             <div
               style="
                 color: #303f9f;
@@ -1417,7 +1511,7 @@
           <div></div>
         </div>
         <div style="margin-bottom: 10px">
-          <div style="display: flex; flex-direction: row; align-items: stretch">
+          <div style="flex-direction: row; align-items: stretch">
             <div
               style="
                 color: #303f9f;
@@ -1446,7 +1540,7 @@
           <div></div>
         </div>
         <div style="margin-bottom: 10px">
-          <div style="display: flex; flex-direction: row; align-items: stretch">
+          <div style="flex-direction: row; align-items: stretch">
             <div
               style="
                 color: #303f9f;
@@ -1470,7 +1564,8 @@
           <div></div>
         </div>
         <div style="margin-bottom: 10px">
-          <div style="display: flex; flex-direction: row; align-items: stretch">
+          <button class="toggleButton">Show Code Cell</button>
+          <div style="display: none; flex-direction: row; align-items: stretch">
             <span style="margin-left: 0" class="hidden-xs"
               ><div
                 style="
@@ -1524,7 +1619,7 @@
             </div>
           </div>
           <div
-            style="display: flex; flex-direction: row; align-items: stretch"
+            style="flex-direction: row; align-items: stretch"
             cocalc-test="cell-output"
           >
             <button
@@ -1534,7 +1629,7 @@
                 border-color: transparent;
                 font-size: inherit;
                 padding: 0;
-                display: flex;
+
                 flex-direction: column;
                 height: auto;
                 cursor: pointer;
@@ -1580,7 +1675,7 @@
           </div>
         </div>
         <div style="margin-bottom: 10px">
-          <div style="display: flex; flex-direction: row; align-items: stretch">
+          <div style="flex-direction: row; align-items: stretch">
             <div
               style="
                 color: #303f9f;
@@ -1608,7 +1703,7 @@
           <div></div>
         </div>
         <div style="margin-bottom: 10px">
-          <div style="display: flex; flex-direction: row; align-items: stretch">
+          <div style="flex-direction: row; align-items: stretch">
             <div
               style="
                 color: #303f9f;
@@ -1632,7 +1727,8 @@
           <div></div>
         </div>
         <div style="margin-bottom: 10px">
-          <div style="display: flex; flex-direction: row; align-items: stretch">
+          <button class="toggleButton">Show Code Cell</button>
+          <div style="display: none; flex-direction: row; align-items: stretch">
             <span style="margin-left: 0" class="hidden-xs"
               ><div
                 style="
@@ -1686,7 +1782,7 @@
             </div>
           </div>
           <div
-            style="display: flex; flex-direction: row; align-items: stretch"
+            style="flex-direction: row; align-items: stretch"
             cocalc-test="cell-output"
           >
             <button
@@ -1696,7 +1792,7 @@
                 border-color: transparent;
                 font-size: inherit;
                 padding: 0;
-                display: flex;
+
                 flex-direction: column;
                 height: auto;
                 cursor: pointer;
@@ -1742,7 +1838,7 @@
           </div>
         </div>
         <div style="margin-bottom: 10px">
-          <div style="display: flex; flex-direction: row; align-items: stretch">
+          <div style="flex-direction: row; align-items: stretch">
             <div
               style="
                 color: #303f9f;
@@ -1767,7 +1863,7 @@
           <div></div>
         </div>
         <div style="margin-bottom: 10px">
-          <div style="display: flex; flex-direction: row; align-items: stretch">
+          <div style="flex-direction: row; align-items: stretch">
             <div
               style="
                 color: #303f9f;
@@ -1791,7 +1887,8 @@
           <div></div>
         </div>
         <div style="margin-bottom: 10px">
-          <div style="display: flex; flex-direction: row; align-items: stretch">
+          <button class="toggleButton">Show Code Cell</button>
+          <div style="display: none; flex-direction: row; align-items: stretch">
             <span style="margin-left: 0" class="hidden-xs"
               ><div
                 style="
@@ -1845,7 +1942,7 @@
             </div>
           </div>
           <div
-            style="display: flex; flex-direction: row; align-items: stretch"
+            style="flex-direction: row; align-items: stretch"
             cocalc-test="cell-output"
           >
             <button
@@ -1855,7 +1952,7 @@
                 border-color: transparent;
                 font-size: inherit;
                 padding: 0;
-                display: flex;
+
                 flex-direction: column;
                 height: auto;
                 cursor: pointer;
@@ -1901,7 +1998,7 @@
           </div>
         </div>
         <div style="margin-bottom: 10px">
-          <div style="display: flex; flex-direction: row; align-items: stretch">
+          <div style="flex-direction: row; align-items: stretch">
             <div
               style="
                 color: #303f9f;
@@ -1926,7 +2023,7 @@
           <div></div>
         </div>
         <div style="margin-bottom: 10px">
-          <div style="display: flex; flex-direction: row; align-items: stretch">
+          <div style="flex-direction: row; align-items: stretch">
             <div
               style="
                 color: #303f9f;
@@ -1950,7 +2047,8 @@
           <div></div>
         </div>
         <div style="margin-bottom: 10px">
-          <div style="display: flex; flex-direction: row; align-items: stretch">
+          <button class="toggleButton">Show Code Cell</button>
+          <div style="display: none; flex-direction: row; align-items: stretch">
             <span style="margin-left: 0" class="hidden-xs"
               ><div
                 style="
@@ -2003,7 +2101,7 @@
             </div>
           </div>
           <div
-            style="display: flex; flex-direction: row; align-items: stretch"
+            style="flex-direction: row; align-items: stretch"
             cocalc-test="cell-output"
           >
             <button
@@ -2013,7 +2111,7 @@
                 border-color: transparent;
                 font-size: inherit;
                 padding: 0;
-                display: flex;
+
                 flex-direction: column;
                 height: auto;
                 cursor: pointer;
@@ -2059,7 +2157,7 @@
           </div>
         </div>
         <div style="margin-bottom: 10px">
-          <div style="display: flex; flex-direction: row; align-items: stretch">
+          <div style="flex-direction: row; align-items: stretch">
             <div
               style="
                 color: #303f9f;
@@ -2087,7 +2185,7 @@
           <div></div>
         </div>
         <div style="margin-bottom: 10px">
-          <div style="display: flex; flex-direction: row; align-items: stretch">
+          <div style="flex-direction: row; align-items: stretch">
             <div
               style="
                 color: #303f9f;
@@ -2140,7 +2238,7 @@
           <div></div>
         </div>
         <div style="margin-bottom: 10px">
-          <div style="display: flex; flex-direction: row; align-items: stretch">
+          <div style="flex-direction: row; align-items: stretch">
             <div
               style="
                 color: #303f9f;
@@ -2182,7 +2280,7 @@
           <div></div>
         </div>
         <div style="margin-bottom: 10px">
-          <div style="display: flex; flex-direction: row; align-items: stretch">
+          <div style="flex-direction: row; align-items: stretch">
             <div
               style="
                 color: #303f9f;
@@ -2200,7 +2298,7 @@
           <div></div>
         </div>
         <div style="margin-bottom: 10px">
-          <div style="display: flex; flex-direction: row; align-items: stretch">
+          <div style="flex-direction: row; align-items: stretch">
             <div
               style="
                 color: #303f9f;
@@ -2212,13 +2310,13 @@
               "
             ></div>
             <div style="width: 100%">
-              <h5 id="average-protein"><span>Average Protein:</span></h5>
+              <h4 id="average-protein"><span>Average Protein:</span></h4>
             </div>
           </div>
           <div></div>
         </div>
         <div style="margin-bottom: 10px">
-          <div style="display: flex; flex-direction: row; align-items: stretch">
+          <div style="flex-direction: row; align-items: stretch">
             <span style="margin-left: 0" class="hidden-xs"
               ><div
                 style="
@@ -2265,7 +2363,7 @@
             </div>
           </div>
           <div
-            style="display: flex; flex-direction: row; align-items: stretch"
+            style="flex-direction: row; align-items: stretch"
             cocalc-test="cell-output"
           >
             <button
@@ -2275,7 +2373,7 @@
                 border-color: transparent;
                 font-size: inherit;
                 padding: 0;
-                display: flex;
+
                 flex-direction: column;
                 height: auto;
                 cursor: pointer;
@@ -2325,7 +2423,7 @@
           </div>
         </div>
         <div style="margin-bottom: 10px">
-          <div style="display: flex; flex-direction: row; align-items: stretch">
+          <div style="flex-direction: row; align-items: stretch">
             <div
               style="
                 color: #303f9f;
@@ -2337,13 +2435,15 @@
               "
             ></div>
             <div style="width: 100%">
-              <h5 id="lowest-calorie"><span>Lowest Calorie:</span></h5>
+              <h4 id="lowest-calorie"><span>Lowest Calorie:</span></h4>
             </div>
           </div>
           <div></div>
         </div>
+
         <div style="margin-bottom: 10px">
-          <div style="display: flex; flex-direction: row; align-items: stretch">
+          <button class="toggleButton">Show Code Cell</button>
+          <div style="display: none; flex-direction: row; align-items: stretch">
             <span style="margin-left: 0" class="hidden-xs"
               ><div
                 style="
@@ -2392,7 +2492,7 @@
             </div>
           </div>
           <div
-            style="display: flex; flex-direction: row; align-items: stretch"
+            style="flex-direction: row; align-items: stretch"
             cocalc-test="cell-output"
           >
             <button
@@ -2402,7 +2502,7 @@
                 border-color: transparent;
                 font-size: inherit;
                 padding: 0;
-                display: flex;
+
                 flex-direction: column;
                 height: auto;
                 cursor: pointer;
@@ -2455,7 +2555,7 @@
           </div>
         </div>
         <div style="margin-bottom: 10px">
-          <div style="display: flex; flex-direction: row; align-items: stretch">
+          <div style="flex-direction: row; align-items: stretch">
             <div
               style="
                 color: #303f9f;
@@ -2480,7 +2580,7 @@
           <div></div>
         </div>
         <div style="margin-bottom: 10px">
-          <div style="display: flex; flex-direction: row; align-items: stretch">
+          <div style="flex-direction: row; align-items: stretch">
             <div
               style="
                 color: #303f9f;
@@ -2492,7 +2592,7 @@
               "
             ></div>
             <div style="width: 100%">
-              <h5 id="sources"><span>Sources:</span></h5>
+              <h4 id="sources"><span>Sources:</span></h4>
               <p>
                 <span style="text-indent: 0"
                   ><span></span
@@ -2506,9 +2606,7 @@
                       margin: -1px;
                       border-radius: 2px;
                     "
-                    ><span
-                      >https://fdc.nal.usda.gov/fdc-app.html#/food-details/174036/nutrients</span
-                    ></a
+                    ><span>Kaggle</span></a
                   ><span></span
                 ></span>
               </p>
