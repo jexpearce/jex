@@ -9,6 +9,12 @@
       crossorigin="anonymous"
       referrerpolicy="no-referrer"
     />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Jolly+Lodger&family=League+Spartan:wght@500;600&family=Roboto:wght@400&family=VT323&display=swap"
+      rel="stylesheet"
+    />
     <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
     <link
       rel="stylesheet"
@@ -26,21 +32,64 @@
       crossorigin="anonymous"
       referrerpolicy="no-referrer"
     />
+
     <style>
-      body {
-        background: red;
+      body > div {
+        background: #add8e6;
+        border: 2rem #e6bbad solid;
+        margin: 0 !important;
+        padding: 0 5rem;
       }
+
       .CodeMirror {
-        background: lightblue !important;
+        background: paleturquoise !important;
       }
 
       h1 {
         text-align: center;
-        font-size: 8vh !important;
-        margin-top: 2.5%;
+        font-size: 4rem !important;
+        margin-top: 2rem;
         color: #fff;
-        font-family: "Jolly Lodger", cursive;
-        font-family: "League Spartan", sans-serif;
+        font-family: "Roboto", sans-serif;
+      }
+
+      h3 {
+        color: #fff;
+        font-size: 2rem !important;
+        font-family: "Roboto", sans-serif;
+      }
+      h4 {
+        color: #fff;
+        font-size: 1.3rem !important;
+        font-family: "Roboto", sans-serif;
+      }
+
+      .toggleButton {
+        background: #ade6bb;
+        margin: auto;
+        display: block;
+        border: 1px solid white;
+        margin-top: 1rem;
+        margin-bottom: 1rem;
+        font-family: "Roboto", sans-serif;
+      }
+
+      @media (max-width: 768px) {
+        body > div {
+          border: 0.5rem #e6bbad solid;
+          padding: 0 0.7rem;
+        }
+
+        h1 {
+          font-size: 3rem !important; /* Adjust the font size for smaller screens */
+        }
+        h3 {
+          font-size: 2rem !important; /* Adjust the font size for smaller screens */
+        }
+
+        h4 {
+          font-size: 1.4rem !important;
+        }
       }
     </style>
   </head>
@@ -68,7 +117,7 @@
     <div style="margin: 30px 30px 0 0">
       <div>
         <div style="margin-bottom: 10px">
-          <div style="display: flex; flex-direction: row; align-items: stretch">
+          <div style="flex-direction: row; align-items: stretch">
             <div
               style="
                 color: #303f9f;
@@ -90,7 +139,9 @@
           <div></div>
         </div>
         <div style="margin-bottom: 10px">
-          <div style="display: flex; flex-direction: row; align-items: stretch">
+          <div
+            style="display: block; flex-direction: row; align-items: stretch"
+          >
             <div
               style="
                 color: #303f9f;
@@ -103,18 +154,20 @@
             ></div>
             <div style="width: 100%">
               <h3 id="introduction">
-                <span><span style="font-size: large">Introduction:</span></span>
+                <span><span>Introduction:</span></span>
               </h3>
               <p>
                 <span style="text-indent: 0"
-                  ><span
-                    >Silicon Valley has always been notorious for its housing
+                  ><span></span>
+                  &nbsp; &nbsp; Silicon Valley has always been notorious for its housing
                     prices. From Kaggle, I downloaded a massive data set
                     consisting of houses with their price, area, bedrooms,
                     bathrooms, and more. My challenge is to create a machine
                     learning algorithm that can determine the price of a new
                     house given its area, bedrooms, bathrooms, etc, by analysis
-                    the prior houses given in the data.</span
+                    the prior houses given in the data. But first, some analysis
+                    of the current data is required. (Below is import
+                    code)</span
                   ></span
                 >
               </p>
@@ -122,9 +175,11 @@
           </div>
           <div></div>
         </div>
-        <button class="toggleButton">Toggle Code Cell</button>
+        <button class="toggleButton">Show Code Cell</button>
         <div style="display: none; margin-bottom: 11px">
-          <div style="display: flex; flex-direction: row; align-items: stretch">
+          <div
+            style="display: block; flex-direction: row; align-items: stretch"
+          >
             <span style="margin-left: 0" class="hidden-xs"
               ><div
                 style="
@@ -184,7 +239,9 @@
           <div></div>
         </div>
         <div style="margin-bottom: 10px">
-          <div style="display: flex; flex-direction: row; align-items: stretch">
+          <div
+            style="display: block; flex-direction: row; align-items: stretch"
+          >
             <div
               style="
                 color: #303f9f;
@@ -197,7 +254,7 @@
             ></div>
             <div style="width: 100%">
               <h3 id="the-plan">
-                <span><span style="font-size: large">The Plan:</span></span>
+                <span><span>The Plan:</span></span>
               </h3>
               <ol class="cocalc-slate-tight-list">
                 <li style="text-indent: 0">
@@ -236,7 +293,9 @@
           <div></div>
         </div>
         <div style="margin-bottom: 10px">
-          <div style="display: flex; flex-direction: row; align-items: stretch">
+          <div
+            style="display: block; flex-direction: row; align-items: stretch"
+          >
             <div
               style="
                 color: #303f9f;
@@ -256,7 +315,9 @@
           <div></div>
         </div>
         <div style="margin-bottom: 10px">
-          <div style="display: flex; flex-direction: row; align-items: stretch">
+          <div
+            style="display: block; flex-direction: row; align-items: stretch"
+          >
             <span style="margin-left: 0" class="hidden-xs"
               ><div
                 style="
@@ -303,7 +364,7 @@
             </div>
           </div>
           <div
-            style="display: flex; flex-direction: row; align-items: stretch"
+            style="display: block; flex-direction: row; align-items: stretch"
             cocalc-test="cell-output"
           >
             <button
@@ -473,7 +534,9 @@
           </div>
         </div>
         <div style="margin-bottom: 10px">
-          <div style="display: flex; flex-direction: row; align-items: stretch">
+          <div
+            style="display: block; flex-direction: row; align-items: stretch"
+          >
             <div
               style="
                 color: #303f9f;
@@ -488,18 +551,23 @@
               <p>
                 <span style="text-indent: 0"
                   ><span
-                    >The problem here is that it is hard to integrate
-                    &#x27;yes&#x27; and &#x27;no&#x27; on a graph.</span
-                  ></span
+                    >The problem here is that there are a mix of numerical
+                    values and classification values ('Yes' and 'No'). See
+                    encoding below, as all of the categorical feature values
+                    need to be numerical in order for the Machine Learning model
+                    to work:
+                  </span></span
                 >
               </p>
             </div>
           </div>
           <div></div>
         </div>
-        <button class="toggleButton">Toggle Code Cell</button>
+        <button class="toggleButton">Show Code Cell</button>
         <div style="display: none; margin-bottom: 11px">
-          <div style="display: flex; flex-direction: row; align-items: stretch">
+          <div
+            style="display: block; flex-direction: row; align-items: stretch"
+          >
             <span style="margin-left: 0" class="hidden-xs"
               ><div
                 style="
@@ -555,7 +623,9 @@
           <div></div>
         </div>
         <div style="margin-bottom: 10px">
-          <div style="display: flex; flex-direction: row; align-items: stretch">
+          <div
+            style="display: block; flex-direction: row; align-items: stretch"
+          >
             <div
               style="
                 color: #303f9f;
@@ -575,7 +645,9 @@
           <div></div>
         </div>
         <div style="margin-bottom: 10px">
-          <div style="display: flex; flex-direction: row; align-items: stretch">
+          <div
+            style="display: block; flex-direction: row; align-items: stretch"
+          >
             <span style="margin-left: 0" class="hidden-xs"
               ><div
                 style="
@@ -622,7 +694,7 @@
             </div>
           </div>
           <div
-            style="display: flex; flex-direction: row; align-items: stretch"
+            style="display: block; flex-direction: row; align-items: stretch"
             cocalc-test="cell-output"
           >
             <button
@@ -792,7 +864,9 @@
           </div>
         </div>
         <div style="margin-bottom: 10px">
-          <div style="display: flex; flex-direction: row; align-items: stretch">
+          <div
+            style="display: block; flex-direction: row; align-items: stretch"
+          >
             <div
               style="
                 color: #303f9f;
@@ -805,18 +879,15 @@
             ></div>
             <div style="width: 100%">
               <h3 id="general-graphs-and-data">
-                <span
-                  ><span style="font-size: x-large"
-                    >General Graphs and Data:</span
-                  ></span
-                >
+                <span><span>General Graphs and Data:</span></span>
               </h3>
             </div>
           </div>
           <div></div>
         </div>
         <div style="margin-bottom: 10px">
-          <div style="display: flex; flex-direction: row; align-items: stretch">
+          <button class="toggleButton">Show Code Cell</button>
+          <div style="display: none; flex-direction: row; align-items: stretch">
             <span style="margin-left: 0" class="hidden-xs"
               ><div
                 style="
@@ -879,7 +950,7 @@
             </div>
           </div>
           <div
-            style="display: flex; flex-direction: row; align-items: stretch"
+            style="display: block; flex-direction: row; align-items: stretch"
             cocalc-test="cell-output"
           >
             <button
@@ -935,7 +1006,8 @@
           </div>
         </div>
         <div style="margin-bottom: 10px">
-          <div style="display: flex; flex-direction: row; align-items: stretch">
+          <button class="toggleButton">Show Code Cell</button>
+          <div style="display: none; flex-direction: row; align-items: stretch">
             <span style="margin-left: 0" class="hidden-xs"
               ><div
                 style="
@@ -998,7 +1070,7 @@
             </div>
           </div>
           <div
-            style="display: flex; flex-direction: row; align-items: stretch"
+            style="display: block; flex-direction: row; align-items: stretch"
             cocalc-test="cell-output"
           >
             <button
@@ -1054,7 +1126,8 @@
           </div>
         </div>
         <div style="margin-bottom: 10px">
-          <div style="display: flex; flex-direction: row; align-items: stretch">
+          <button class="toggleButton">Show Code Cell</button>
+          <div style="display: none; flex-direction: row; align-items: stretch">
             <span style="margin-left: 0" class="hidden-xs"
               ><div
                 style="
@@ -1114,7 +1187,7 @@
             </div>
           </div>
           <div
-            style="display: flex; flex-direction: row; align-items: stretch"
+            style="display: block; flex-direction: row; align-items: stretch"
             cocalc-test="cell-output"
           >
             <button
@@ -1170,7 +1243,8 @@
           </div>
         </div>
         <div style="margin-bottom: 10px">
-          <div style="display: flex; flex-direction: row; align-items: stretch">
+          <button class="toggleButton">Show Code Cell</button>
+          <div style="display: none; flex-direction: row; align-items: stretch">
             <span style="margin-left: 0" class="hidden-xs"
               ><div
                 style="
@@ -1230,7 +1304,7 @@
             </div>
           </div>
           <div
-            style="display: flex; flex-direction: row; align-items: stretch"
+            style="display: block; flex-direction: row; align-items: stretch"
             cocalc-test="cell-output"
           >
             <button
@@ -1286,7 +1360,8 @@
           </div>
         </div>
         <div style="margin-bottom: 10px">
-          <div style="display: flex; flex-direction: row; align-items: stretch">
+          <button class="toggleButton">Show Code Cell</button>
+          <div style="display: none; flex-direction: row; align-items: stretch">
             <span style="margin-left: 0" class="hidden-xs"
               ><div
                 style="
@@ -1339,7 +1414,7 @@
             </div>
           </div>
           <div
-            style="display: flex; flex-direction: row; align-items: stretch"
+            style="display: block; flex-direction: row; align-items: stretch"
             cocalc-test="cell-output"
           >
             <button
@@ -1395,7 +1470,9 @@
           </div>
         </div>
         <div style="margin-bottom: 10px">
-          <div style="display: flex; flex-direction: row; align-items: stretch">
+          <div
+            style="display: block; flex-direction: row; align-items: stretch"
+          >
             <div
               style="
                 color: #303f9f;
@@ -1420,7 +1497,8 @@
           <div></div>
         </div>
         <div style="margin-bottom: 10px">
-          <div style="display: flex; flex-direction: row; align-items: stretch">
+          <button class="toggleButton">Show Code Cell</button>
+          <div style="display: none; flex-direction: row; align-items: stretch">
             <span style="margin-left: 0" class="hidden-xs"
               ><div
                 style="
@@ -1472,7 +1550,7 @@
             </div>
           </div>
           <div
-            style="display: flex; flex-direction: row; align-items: stretch"
+            style="display: block; flex-direction: row; align-items: stretch"
             cocalc-test="cell-output"
           >
             <button
@@ -1528,7 +1606,9 @@
           </div>
         </div>
         <div style="margin-bottom: 10px">
-          <div style="display: flex; flex-direction: row; align-items: stretch">
+          <div
+            style="display: block; flex-direction: row; align-items: stretch"
+          >
             <div
               style="
                 color: #303f9f;
@@ -1541,18 +1621,16 @@
             ></div>
             <div style="width: 100%">
               <h3 id="machine-learning-random-forest">
-                <span
-                  ><span style="font-size: x-large"
-                    >Machine Learning: Random Forest</span
-                  ></span
-                >
+                <span><span>Machine Learning: Random Forest</span></span>
               </h3>
             </div>
           </div>
           <div></div>
         </div>
         <div style="margin-bottom: 10px">
-          <div style="display: flex; flex-direction: row; align-items: stretch">
+          <div
+            style="display: block; flex-direction: row; align-items: stretch"
+          >
             <div
               style="
                 color: #303f9f;
@@ -1564,15 +1642,7 @@
               "
             ></div>
             <div style="width: 100%">
-              <p>
-                <span style="text-indent: 0"
-                  ><span
-                    ><span style="font-size: x-large"
-                      >What is Random Forest?</span
-                    ></span
-                  ></span
-                >
-              </p>
+              <h3>What is Random Forest?</h3>
               <p>
                 <span style="text-indent: 0"
                   ><span
@@ -1601,28 +1671,27 @@
                   ></span
                 >
               </p>
-              <ul class="cocalc-slate-tight-list">
-                <li style="text-indent: 0">
-                  <p>
-                    <span style="text-indent: 0"
-                      ><span
-                        ><span style="font-size: medium"
-                          >So here, basically, the &#x27;friends&#x27; in this
-                          dataset are &#x27;area&#x27;, &#x27;bedrooms&#x27;,
-                          &#x27;bathrooms&#x27;, &#x27;airconditioning&#x27;,
-                          etc.</span
-                        ></span
-                      ></span
-                    >
-                  </p>
-                </li>
-              </ul>
+
+              <p>
+                <span style="text-indent: 0"
+                  ><span
+                    ><span style="font-size: medium"
+                      >So here, basically, the &#x27;friends&#x27; in this
+                      dataset are &#x27;area&#x27;, &#x27;bedrooms&#x27;,
+                      &#x27;bathrooms&#x27;, &#x27;airconditioning&#x27;,
+                      etc.</span
+                    ></span
+                  ></span
+                >
+              </p>
             </div>
           </div>
           <div></div>
         </div>
         <div style="margin-bottom: 10px">
-          <div style="display: flex; flex-direction: row; align-items: stretch">
+          <div
+            style="display: block; flex-direction: row; align-items: stretch"
+          >
             <div
               style="
                 color: #303f9f;
@@ -1634,15 +1703,13 @@
               "
             ></div>
             <div style="width: 100%">
-              <p>
+              <h4>
                 <span style="text-indent: 0"
                   ><span
-                    ><span style="font-size: large"
-                      >My Steps for Creating a Random Forest</span
-                    ></span
+                    ><span>My Steps for Creating a Random Forest</span></span
                   ></span
                 >
-              </p>
+              </h4>
               <p>
                 <span style="text-indent: 0"
                   ><span
@@ -1656,7 +1723,7 @@
                 <span style="text-indent: 0"
                   ><span
                     ><span style="font-size: medium"
-                      >Data Preparation: Ensuring your data is ready for
+                      >1) Data Preparation: Ensuring your data is ready for
                       training, handling missing values, categorical features,
                       etc. This I have already done.</span
                     ></span
@@ -1667,9 +1734,9 @@
                 <span style="text-indent: 0"
                   ><span
                     ><span style="font-size: medium"
-                      >Split the Data into Training and Testing Sets: I will be
-                      allocating 20% of the data for testing, and the remaining
-                      80% for training.</span
+                      >2) Split the Data into Training and Testing Sets: I will
+                      be allocating 20% of the data for testing, and the
+                      remaining 80% for training.</span
                     ></span
                   ></span
                 >
@@ -1678,7 +1745,7 @@
                 <span style="text-indent: 0"
                   ><span
                     ><span style="font-size: medium"
-                      >Creating and Training the model: Creating the actual
+                      >3) Creating and Training the model: Creating the actual
                       Random Forest Regression model.
                     </span></span
                   ></span
@@ -1688,8 +1755,8 @@
                 <span style="text-indent: 0"
                   ><span
                     ><span style="font-size: medium"
-                      >Model Evaluation: Evaluate the performance of the Random
-                      Forest model</span
+                      >4) Model Evaluation: Evaluate the performance of the
+                      Random Forest model</span
                     ></span
                   ></span
                 >
@@ -1698,7 +1765,7 @@
                 <span style="text-indent: 0"
                   ><span
                     ><span style="font-size: medium"
-                      >Predictions: Using the trained Random Forest model to
+                      >5) Predictions: Using the trained Random Forest model to
                       make predictions on new data.</span
                     ></span
                   ></span
@@ -1709,7 +1776,9 @@
           <div></div>
         </div>
         <div style="margin-bottom: 10px">
-          <div style="display: flex; flex-direction: row; align-items: stretch">
+          <div
+            style="display: block; flex-direction: row; align-items: stretch"
+          >
             <div
               style="
                 color: #303f9f;
@@ -1726,8 +1795,11 @@
           </div>
           <div></div>
         </div>
+
         <div style="margin-bottom: 10px">
-          <div style="display: flex; flex-direction: row; align-items: stretch">
+          <div
+            style="display: block; flex-direction: row; align-items: stretch"
+          >
             <span style="margin-left: 0" class="hidden-xs"
               ><div
                 style="
@@ -1778,8 +1850,11 @@
           </div>
           <div></div>
         </div>
+
         <div style="margin-bottom: 10px">
-          <div style="display: flex; flex-direction: row; align-items: stretch">
+          <div
+            style="display: block; flex-direction: row; align-items: stretch"
+          >
             <div
               style="
                 color: #303f9f;
@@ -1810,8 +1885,11 @@
           </div>
           <div></div>
         </div>
+
         <div style="margin-bottom: 10px">
-          <div style="display: flex; flex-direction: row; align-items: stretch">
+          <div
+            style="display: block; flex-direction: row; align-items: stretch"
+          >
             <div
               style="
                 color: #303f9f;
@@ -1828,8 +1906,11 @@
           </div>
           <div></div>
         </div>
+
         <div style="margin-bottom: 10px">
-          <div style="display: flex; flex-direction: row; align-items: stretch">
+          <div
+            style="display: block; flex-direction: row; align-items: stretch"
+          >
             <span style="margin-left: 0" class="hidden-xs"
               ><div
                 style="
@@ -1882,7 +1963,7 @@
             </div>
           </div>
           <div
-            style="display: flex; flex-direction: row; align-items: stretch"
+            style="display: block; flex-direction: row; align-items: stretch"
             cocalc-test="cell-output"
           >
             <button
@@ -1942,7 +2023,9 @@
           </div>
         </div>
         <div style="margin-bottom: 10px">
-          <div style="display: flex; flex-direction: row; align-items: stretch">
+          <div
+            style="display: block; flex-direction: row; align-items: stretch"
+          >
             <div
               style="
                 color: #303f9f;
@@ -1964,7 +2047,9 @@
           <div></div>
         </div>
         <div style="margin-bottom: 10px">
-          <div style="display: flex; flex-direction: row; align-items: stretch">
+          <div
+            style="display: block; flex-direction: row; align-items: stretch"
+          >
             <div
               style="
                 color: #303f9f;
@@ -1982,7 +2067,9 @@
           <div></div>
         </div>
         <div style="margin-bottom: 10px">
-          <div style="display: flex; flex-direction: row; align-items: stretch">
+          <div
+            style="display: block; flex-direction: row; align-items: stretch"
+          >
             <span style="margin-left: 0" class="hidden-xs"
               ><div
                 style="
@@ -2034,7 +2121,7 @@
             </div>
           </div>
           <div
-            style="display: flex; flex-direction: row; align-items: stretch"
+            style="display: block; flex-direction: row; align-items: stretch"
             cocalc-test="cell-output"
           >
             <button
@@ -2094,7 +2181,9 @@
           </div>
         </div>
         <div style="margin-bottom: 10px">
-          <div style="display: flex; flex-direction: row; align-items: stretch">
+          <div
+            style="display: block; flex-direction: row; align-items: stretch"
+          >
             <div
               style="
                 color: #303f9f;
@@ -2119,7 +2208,8 @@
           <div></div>
         </div>
         <div style="margin-bottom: 10px">
-          <div style="display: flex; flex-direction: row; align-items: stretch">
+          <button class="toggleButton">Show Code Cell</button>
+          <div style="display: none; flex-direction: row; align-items: stretch">
             <span style="margin-left: 0" class="hidden-xs"
               ><div
                 style="
@@ -2174,7 +2264,7 @@
             </div>
           </div>
           <div
-            style="display: flex; flex-direction: row; align-items: stretch"
+            style="display: block; flex-direction: row; align-items: stretch"
             cocalc-test="cell-output"
           >
             <button
@@ -2230,7 +2320,9 @@
           </div>
         </div>
         <div style="margin-bottom: 10px">
-          <div style="display: flex; flex-direction: row; align-items: stretch">
+          <div
+            style="display: block; flex-direction: row; align-items: stretch"
+          >
             <div
               style="
                 color: #303f9f;
@@ -2248,7 +2340,9 @@
           <div></div>
         </div>
         <div style="margin-bottom: 10px">
-          <div style="display: flex; flex-direction: row; align-items: stretch">
+          <div
+            style="display: block; flex-direction: row; align-items: stretch"
+          >
             <div
               style="
                 color: #303f9f;
@@ -2273,7 +2367,9 @@
           <div></div>
         </div>
         <div style="margin-bottom: 10px">
-          <div style="display: flex; flex-direction: row; align-items: stretch">
+          <div
+            style="display: block; flex-direction: row; align-items: stretch"
+          >
             <span style="margin-left: 0" class="hidden-xs"
               ><div
                 style="
@@ -2341,7 +2437,7 @@
             </div>
           </div>
           <div
-            style="display: flex; flex-direction: row; align-items: stretch"
+            style="display: block; flex-direction: row; align-items: stretch"
             cocalc-test="cell-output"
           >
             <button
@@ -2401,7 +2497,9 @@
           </div>
         </div>
         <div style="margin-bottom: 10px">
-          <div style="display: flex; flex-direction: row; align-items: stretch">
+          <div
+            style="display: block; flex-direction: row; align-items: stretch"
+          >
             <div
               style="
                 color: #303f9f;
@@ -2423,7 +2521,9 @@
           <div></div>
         </div>
         <div style="margin-bottom: 10px">
-          <div style="display: flex; flex-direction: row; align-items: stretch">
+          <div
+            style="display: block; flex-direction: row; align-items: stretch"
+          >
             <span style="margin-left: 0" class="hidden-xs"
               ><div
                 style="
@@ -2491,7 +2591,7 @@
             </div>
           </div>
           <div
-            style="display: flex; flex-direction: row; align-items: stretch"
+            style="display: block; flex-direction: row; align-items: stretch"
             cocalc-test="cell-output"
           >
             <button
@@ -2551,7 +2651,9 @@
           </div>
         </div>
         <div style="margin-bottom: 10px">
-          <div style="display: flex; flex-direction: row; align-items: stretch">
+          <div
+            style="display: block; flex-direction: row; align-items: stretch"
+          >
             <div
               style="
                 color: #303f9f;
@@ -2563,10 +2665,10 @@
               "
             ></div>
             <div style="width: 100%">
-              <h4 id="success"><span>Success!</span></h4>
+              <h3 id="success"><span>Success!</span></h3>
               <p>
                 <span style="text-indent: 0"
-                  ><span>Source: </span
+                  ><span>A Jex Pearce Production. Source: </span
                   ><a
                     href="https://www.kaggle.com/datasets/yasserh/housing-prices-dataset"
                     target="_blank"
@@ -2577,9 +2679,7 @@
                       margin: -1px;
                       border-radius: 2px;
                     "
-                    ><span
-                      >https://www.kaggle.com/datasets/yasserh/housing-prices-dataset</span
-                    ></a
+                    ><span>Kaggle</span></a
                   ><span> </span
                 ></span>
               </p>
