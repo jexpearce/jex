@@ -161,13 +161,13 @@
                   ><span></span>
                   &nbsp; &nbsp; Silicon Valley has always been notorious for its housing
                     prices. From Kaggle, I downloaded a massive data set
-                    consisting of houses with their price, area, bedrooms,
+                    consisting of houses with their price, areas, bedrooms,
                     bathrooms, and more. My challenge is to create a machine
                     learning algorithm that can determine the price of a new
-                    house given its area, bedrooms, bathrooms, etc, by analysis
+                    house given its area, bedrooms, bathrooms, etc., by analyzing
                     the prior houses given in the data. But first, some analysis
-                    of the current data is required. (Below is import
-                    code)</span
+                    of the current data is required. (Below is the import
+                    code).</span
                   ></span
                 >
               </p>
@@ -272,7 +272,7 @@
                     <span style="text-indent: 0"
                       ><span
                         >Analysis by different charts for different column
-                        variables (ex. price, area, bedrooms, etc.)</span
+                        variables (e.g. price, area, bedrooms, etc.)</span
                       ></span
                     >
                   </p>
@@ -282,7 +282,7 @@
                     <span style="text-indent: 0"
                       ><span
                         >The Big Project: Predicting the price of a new house
-                        using Random Forest Machine Learning</span
+                        using Machine Learning, specifically Random Forest Regression</span
                       ></span
                     >
                   </p>
@@ -551,10 +551,10 @@
               <p>
                 <span style="text-indent: 0"
                   ><span
-                    >The problem here is that there are a mix of numerical
+                    >The problem here is that there is a mix of numerical
                     values and classification values ('Yes' and 'No'). See
-                    encoding below, as all of the categorical feature values
-                    need to be numerical in order for the Machine Learning model
+                    the encoding below, as all of the categorical feature values
+                    need to be numerical for the Machine Learning model
                     to work:
                   </span></span
                 >
@@ -1676,7 +1676,7 @@
                 <span style="text-indent: 0"
                   ><span
                     ><span style="font-size: medium"
-                      >So here, basically, the &#x27;friends&#x27; in this
+                      >So here, the &#x27;friends&#x27; in this
                       dataset are &#x27;area&#x27;, &#x27;bedrooms&#x27;,
                       &#x27;bathrooms&#x27;, &#x27;airconditioning&#x27;,
                       etc.</span
@@ -1870,14 +1870,7 @@
                 <span style="text-indent: 0"
                   ><span
                     >Above, I organized the features as X by removing the
-                    &#x27;price&#x27; column from the housedata. The target
-                    variable y is taken directly from the &#x27;price&#x27;
-                    column of housedata. Then, we divide the data into training
-                    and testing parts: X_train and X_test for features, and
-                    y_train and y_test for the target. This split ensures that
-                    20% of the data is reserved for testing, with a fixed random
-                    pattern to make the results consistent
-                    (random_state=42).</span
+                    &#x27;price&#x27; column from the house data. Next, the training set is used to train the machine learning model while the testing set is used to evaluate its performance. It’s crucial to have a separate testing set to assess how the model adapts to unseen data and it also prevents overfitting. I had a 20% testing set and 80% for training. <br>The "random_state=42" ensures that the training set and testing set remain consistent across future iterations.</span
                   ></span
                 >
               </p>
@@ -2039,7 +2032,7 @@
             <div style="width: 100%">
               <p>
                 <span style="text-indent: 0"
-                  ><span>R-squared is the &#x27;accuracy&#x27;</span></span
+                  ><span>The R-squared value is a measure of how well the regression model explains the variance. An r-squared value of 0.95 means that approximately 95% of the variance is explained by the model. Higher r-squared values, closer to 1.0 indicate that the predictions are closer to the actual values, while a lower score indicates that the model does not include a lot of the variance. So my score of 0.95 is <strong>very</strong> good!</span></span
                 >
               </p>
             </div>
@@ -2198,8 +2191,7 @@
               <p>
                 <span style="text-indent: 0"
                   ><span
-                    >Mean squared error is how far it can be off, but squared.
-                    Here it can be 1.3 million off.</span
+                    >The MSE is a measure of the average square difference between predicted values and the actual values. Lower values indicate a better performance. Squaring is necessary to penalize larger, 'outlier type' values more. The RMSE helps provide the typical error magnitude in the same units as the original data.</span
                   ></span
                 >
               </p>
