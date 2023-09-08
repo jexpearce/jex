@@ -30,10 +30,9 @@ a {
 
 /* Section 1 */
 .section-1 {
-  padding: 8vh 0;
-  text-align: center;
-  margin-top: 14%;
-  margin-left: 5%;
+  padding: 8rem 0;
+  text-align: right;
+  margin: 6rem 1rem 0;
 }
 
 .section-1 p {
@@ -75,19 +74,18 @@ a {
 @media (max-width: 768px) {
   .section-1 {
     padding: 5vh 0;
-    margin-top: 10%;
+    margin-top: 15%;
   }
 
 
   .section-1 h2 {
-    font-size: 5rem;
+    font-size: 4.5rem;
     text-align: center;
   }
   .section-1 p {
     text-align: center;
     grid-column-start: 1;
     grid-column-end: 3;
-    margin-right: 8%;
   }
 }
 
@@ -112,10 +110,9 @@ img.gradpic{
 
 /* Section 2 */
 .section-2 {
-  margin-top: 5%;
   grid-column-start: 1;
   grid-column-end: 3;
-  margin-left: 5%; /* Adjust as needed */
+  margin: 4rem 1rem;
 }
 .section-2 h2 {
   font-size: 3rem;
@@ -144,7 +141,7 @@ img.gradpic{
     grid-column-end: 2;
     padding: 5vh 0;
     margin-top: 10%;
-    margin-right: 4%;
+
 
   }
   .section-2 h1 {
@@ -159,7 +156,6 @@ img.gradpic{
   .section-2 p {
     text-align: center;
     grid-column-end: 2;
-    margin-right: 5%;
   }
 }
 
@@ -184,23 +180,32 @@ img.gradpic{
 
 /* Section 3 */
 .section-3 {
-  margin-top: 10%;
-  padding-top: 8vh;
   text-align: center;
+  margin-top: 10%;
 }
+@media (max-width: 768px) {
+  .section-3 {
+      margin-top: 1%;
+  }
+  }
 
 .section-3 h2 {
   font-size: 3rem;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
   color: #fff; 
   font-family: 'Jolly Lodger', cursive;
   font-family: 'League Spartan', sans-serif;
 }
 
+@media (max-width: 768px) {
+  .section-3 h2 {
+      margin-bottom: 1px;
+  }
+  }
+
 
 .section-3 p {
   font-size: 1.1rem;
-  padding-bottom: 10px;
   margin: 0;
   color: #7A7C80;
 }
@@ -239,7 +244,7 @@ img.gradpic{
   .section-3 {
     margin-right: 3%;
     margin-left: 3%;
-    margin-top: 5%;
+    margin-top: 0%;
   }
 }
 
@@ -335,20 +340,21 @@ img.gradpic{
   color: white;
   font-weight: bold;
   font-size: 18px;
-  transition: 0.6s ease;
-  border-radius: 0 3px 3px 0;
+  background-color: black;
+  transition: 0.6s ease; 
+  border-radius: 4px 0 0 4px;
   user-select: none;
 }
 
 /* Position the "next button" to the right */
 .next {
   right: 0;
-  border-radius: 3px 0 0 3px;
+  border-radius: 4px 0 0 4px;
 }
 
 /* On hover, add a black background color with a little bit see-through */
 .prev:hover, .next:hover {
-  background-color: rgba(0,0,0,0.8);
+  background-color: grey;
 }
 
 /* Caption text */
@@ -369,6 +375,8 @@ img.gradpic{
   padding: 8px 12px;
   position: absolute;
   top: 0;
+  background-color: gray; /* Add a gray background color */
+  border-radius: 4px; 
 }
 
 /* The dots/bullets/indicators */
@@ -404,12 +412,12 @@ img.gradpic{
         grid-template-columns: 1fr;
     }
     .section-1{
+  text-align: center;
         padding:0;
-        padding-top: 5rem;
+        padding-top: 3rem;
     }
     .section-2{
         padding: 0;
-        padding-left: 1.5rem;
         padding-top: 2rem;
     }
 }
