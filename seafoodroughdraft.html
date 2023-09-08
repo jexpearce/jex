@@ -62,7 +62,8 @@
         font-family: "Roboto", sans-serif;
       }
 
-      p {
+      p,
+      li {
         color: #fffff7;
         font-family: "Roboto", sans-serif;
         font-size: 1rem;
@@ -165,6 +166,15 @@
                       ><span
                         >Luckily, all of these entries in this seafood database
                         have the exact same weight of 85 grams.</span
+                      ></span
+                    >
+                  </p>
+                </li>
+                <li style="text-indent: 0">
+                  <p>
+                    <span style="text-indent: 0"
+                      ><span
+                        >Import code and seafood subset creation below:</span
                       ></span
                     >
                   </p>
@@ -285,7 +295,7 @@
                 margin-top: 2.5px;
               "
             ></div>
-            <div style="width: 100%">
+            <div style="width: 100%; text-align: center">
               <h4 id="calorie-distribution-in-seafood">
                 <span>Calorie Distribution in Seafood:</span>
               </h4>
@@ -428,7 +438,7 @@
                 margin-top: 2.5px;
               "
             ></div>
-            <div style="width: 100%">
+            <div style="width: 100%; text-align: center">
               <h4 id="rdi-of-iron-in-seafood">
                 <span>%RDI of Iron in Seafood:</span>
               </h4>
@@ -568,10 +578,10 @@
               <p>
                 <span style="text-indent: 0"
                   ><span
-                    >In fact, eating too many oysters can actually be bad for
-                    you as it can lead to negative health effects, such as
-                    reduced levels of the minerals copper and iron, which
-                    compete with iron and zinc for absorption.</span
+                    >Fun Fact: Iron competes with zinc for mineral absorption.
+                    Eating too many oysters can be harmful for your health due
+                    to reduced levels of zinc, a <strong>very</strong> important
+                    mineral!</span
                   ></span
                 >
               </p>
@@ -591,7 +601,7 @@
                 margin-top: 2.5px;
               "
             ></div>
-            <div style="width: 100%">
+            <div style="width: 100%; text-align: center">
               <h4 id="fat-distribution-in-seafood">
                 <span>Fat Distribution in Seafood:</span>
               </h4>
@@ -727,7 +737,7 @@
                 margin-top: 2.5px;
               "
             ></div>
-            <div style="width: 100%">
+            <div style="width: 100%; text-align: center">
               <h4 id="protein-distribution-in-seafood">
                 <span>Protein Distribution in Seafood:</span>
               </h4>
@@ -863,10 +873,11 @@
                 margin-top: 2.5px;
               "
             ></div>
-            <div style="width: 100%">
+            <div style="width: 100%; text-align: center">
               <h4 id="sodium-distribution-in-seafood">
                 <span>Sodium Distribution in Seafood:</span>
               </h4>
+              <p>A typo below: It should be in milligrams (mg) not grams (g)</p>
             </div>
           </div>
           <div></div>
@@ -916,9 +927,9 @@
 </span><span>
 </span><span class="cm-variable">sorted_sodium</span><span> </span><span>=</span><span> </span><span class="cm-variable">sodium</span><span>.</span><span class="cm-variable">sort_values</span><span>(</span><span class="cm-variable">by</span><span>=</span><span class="cm-string">&#x27;Sodium g&#x27;</span><span>,</span><span> </span><span class="cm-variable">ascending</span><span> </span><span>=</span><span> </span><span class="cm-keyword">True</span><span>)</span><span> </span><span>
 </span><span>
-</span><span class="cm-variable">ax</span><span> </span><span>=</span><span> </span><span class="cm-variable">sorted_sodium</span><span>.</span><span class="cm-variable">plot</span><span>.</span><span class="cm-variable">barh</span><span>(</span><span class="cm-number">0</span><span>,</span><span class="cm-number">1</span><span>,</span><span> </span><span class="cm-variable">color</span><span> </span><span>=</span><span> </span><span class="cm-string">&quot;powderblue&quot;</span><span>,</span><span> </span><span class="cm-variable">title</span><span> </span><span>=</span><span> </span><span class="cm-string">&quot;Sodium (g) in Seafood&quot;</span><span>)</span><span>
+</span><span class="cm-variable">ax</span><span> </span><span>=</span><span> </span><span class="cm-variable">sorted_sodium</span><span>.</span><span class="cm-variable">plot</span><span>.</span><span class="cm-variable">barh</span><span>(</span><span class="cm-number">0</span><span>,</span><span class="cm-number">1</span><span>,</span><span> </span><span class="cm-variable">color</span><span> </span><span>=</span><span> </span><span class="cm-string">&quot;powderblue&quot;</span><span>,</span><span> </span><span class="cm-variable">title</span><span> </span><span>=</span><span> </span><span class="cm-string">&quot;Sodium (mg) in Seafood&quot;</span><span>)</span><span>
 </span><span>
-</span><span class="cm-variable">ax</span><span>.</span><span class="cm-variable">set_xlabel</span><span>(</span><span class="cm-string">&quot;Sodium (g)&quot;</span><span>)</span><span>
+</span><span class="cm-variable">ax</span><span>.</span><span class="cm-variable">set_xlabel</span><span>(</span><span class="cm-string">&quot;Sodium (mg)&quot;</span><span>)</span><span>
 </span><span class="cm-variable">ax</span><span>.</span><span class="cm-variable">set_ylabel</span><span>(</span><span class="cm-string">&quot;Seafood&quot;</span><span>)</span><span>
 </span><span class="cm-variable">plt</span><span>.</span><span class="cm-variable">text</span><span>(</span><span class="cm-number">148</span><span>,</span><span> </span><span class="cm-number">0</span><span>,</span><span> </span><span class="cm-string">&#x27;(All of these fish are the standard seafood weight of 85g)&#x27;</span><span>,</span><span> </span><span class="cm-variable">fontsize</span><span> </span><span>=</span><span> </span><span class="cm-number">10</span><span>)</span><span>
 </span></div></pre>
@@ -987,6 +998,36 @@
             </div>
           </div>
         </div>
+        <div style="width: 100%; text-align: center">
+          <h3 id="other-data">
+            <span
+              ><strong><br />Analysis:</strong><br
+            /></span>
+          </h3>
+        </div>
+        <p>
+          <span style="text-indent: 0"
+            ><span
+              >&nbsp; In conclusion, we can see that Scallops is the go-to
+              seafood if you are trying to slim down on calories and up the
+              protein. A cheaper, more popular option that yielded similar
+              results is the Tuna. <br /><br />
+              The Salmon is a fantastic choice for those who want to bulk up.
+              Not only does the high fat content solely consist of heart healthy
+              Omega 3s, but it's high in protein and naturally low in sodium!
+              <br /><br />
+              A good option for those watching their sodium levels is the
+              Tilapia with 28mg of sodium per 85g.<br /><br />
+              For those with an iron deficiency, Oysters followed second by
+              clams would be great choices! <br /><br />
+              If I had to pick the worst one here, through analyzing not only
+              the data, but the absent variable of mercury levels, I would
+              choose the Swordfish. It came near the bottom for protein and
+              iron, with high calories and sodium, but it also contains a high
+              level of mercury. (Dataset did not include mercury)
+            </span></span
+          >
+        </p>
         <div style="margin-bottom: 10px">
           <div style="flex-direction: row; align-items: stretch">
             <div
