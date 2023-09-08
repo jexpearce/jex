@@ -15,6 +15,9 @@
       href="https://fonts.googleapis.com/css2?family=Jolly+Lodger&family=League+Spartan:wght@500;600&family=Roboto:wght@400&family=VT323&display=swap"
       rel="stylesheet"
     />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
     <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
     <link
       rel="stylesheet"
@@ -46,18 +49,18 @@
         font-size: 4rem !important;
         margin-top: 2rem;
         color: #fff;
-        font-family: sans-serif;
+        font-family: 'Roboto', sans-serif !important;
       }
 
       h3 {
         color: #fff;
         font-size: 2rem !important;
-        font-family: sans-serif;
+        font-family: 'Roboto', sans-serif;
       }
       h4 {
         color: #fff;
-        font-size: 1.3rem !important;
-        font-family: sans-serif;
+        font-size: 1.4rem !important;
+        font-family: 'Roboto', sans-serif;
       }
 
       .toggleButton {
@@ -67,7 +70,12 @@
         border: 1px solid white;
         margin-top: 1rem;
         margin-bottom: 1rem;
-        font-family: sans-serif;
+        font-family: 'Roboto', sans-serif;
+      }
+
+      p {
+        font-size: 1rem;
+        font-family: 'Roboto', sans-serif;
       }
 
       @media (max-width: 768px) {
@@ -84,7 +92,7 @@
         }
 
         h4 {
-          font-size: 1.4rem !important;
+          font-size: 1.5rem !important;
         }
       }
     </style>
@@ -146,7 +154,7 @@
                 margin-top: 2.5px;
               "
             ></div>
-            <div style="width: 100%">
+            <div style="width: 100%; text-align: center">
               <h3 id="introduction">
                 <span><span>Introduction:</span></span>
               </h3>
@@ -154,14 +162,14 @@
                 <span style="text-indent: 0"
                   ><span></span>
                   &nbsp; &nbsp; Silicon Valley has always been notorious for its housing
-                    prices. From Kaggle, I downloaded a massive data set
-                    consisting of houses with their price, areas, bedrooms,
-                    bathrooms, and more. My challenge is to create a machine
+                    prices. Out of my own initiative, I decided to download a massive data set
+                    consisting of sold houses with their price, areas,
+                    bedrooms, bathrooms, and more. My challenge is to create a machine
                     learning algorithm that can determine the price of a new
-                    house given its area, bedrooms, bathrooms, etc., by analyzing
+                    house given those aforementioned features, by analyzing
                     the prior houses given in the data. But first, some analysis
-                    of the current data is required. (Below is the import
-                    code).</span
+                    of the current data is required. (Import
+                    code below).</span
                   ></span
                 >
               </p>
@@ -185,7 +193,6 @@
                   margin-top: 2.5px;
                 "
               >
-                In [<!-- -->85<!-- -->]:
               </div></span
             >
             <div style="overflow: hidden; flex: 1">
@@ -247,7 +254,7 @@
               "
             ></div>
             <div style="width: 100%">
-              <h3 id="the-plan">
+              <h3 id="the-plan" style="text-align: center">
                 <span><span>The Plan:</span></span>
               </h3>
               <ol class="cocalc-slate-tight-list">
@@ -255,8 +262,7 @@
                   <p>
                     <span style="text-indent: 0"
                       ><span
-                        >Remove Yes/No from the data frame. (You will see why I
-                        needed to do this later)</span
+                        >Replace categorical values with numerical ones via encoding</span
                       ></span
                     >
                   </p>
@@ -300,7 +306,7 @@
                 margin-top: 2.5px;
               "
             ></div>
-            <div style="width: 100%">
+            <div style="width: 100%; text-align: center">
               <h3 id="example-of-the-current-dataset">
                 <span>Example of the Current Dataset:</span>
               </h3>
@@ -323,7 +329,6 @@
                   margin-top: 2.5px;
                 "
               >
-                In [<!-- -->86<!-- -->]:
               </div></span
             >
             <div style="overflow: hidden; flex: 1">
@@ -385,7 +390,6 @@
                     padding-bottom: 2px;
                   "
                 >
-                  Out[<!-- -->86<!-- -->]:
                 </div></span
               >
               <div style="flex: 1"></div>
@@ -545,9 +549,9 @@
               <p>
                 <span style="text-indent: 0"
                   ><span
-                    >The problem here is that there is a mix of numerical
-                    values and classification values ('Yes' and 'No'). See
-                    the encoding below, as all of the categorical feature values
+                    >&nbsp; Problem here is that there is a mix of numerical
+                     and classification values ('Yes' and 'No'). See
+                    feature engineering below, as all of the categorical feature values
                     need to be numerical for the Machine Learning model
                     to work:
                   </span></span
@@ -573,7 +577,6 @@
                   margin-top: 2.5px;
                 "
               >
-                In [<!-- -->87<!-- -->]:
               </div></span
             >
             <div style="overflow: hidden; flex: 1">
@@ -653,7 +656,6 @@
                   margin-top: 2.5px;
                 "
               >
-                In [<!-- -->88<!-- -->]:
               </div></span
             >
             <div style="overflow: hidden; flex: 1">
@@ -715,7 +717,6 @@
                     padding-bottom: 2px;
                   "
                 >
-                  Out[<!-- -->88<!-- -->]:
                 </div></span
               >
               <div style="flex: 1"></div>
@@ -871,7 +872,7 @@
                 margin-top: 2.5px;
               "
             ></div>
-            <div style="width: 100%">
+            <div style="width: 100%; text-align: center">
               <h3 id="general-graphs-and-data">
                 <span><span>General Graphs and Data:</span></span>
               </h3>
@@ -893,7 +894,6 @@
                   margin-top: 2.5px;
                 "
               >
-                In [<!-- -->89<!-- -->]:
               </div></span
             >
             <div style="overflow: hidden; flex: 1">
@@ -971,7 +971,6 @@
                     padding-bottom: 2px;
                   "
                 >
-                  Out[<!-- -->89<!-- -->]:
                 </div></span
               >
               <div style="flex: 1"></div>
@@ -1013,7 +1012,6 @@
                   margin-top: 2.5px;
                 "
               >
-                In [<!-- -->90<!-- -->]:
               </div></span
             >
             <div style="overflow: hidden; flex: 1">
@@ -1091,7 +1089,6 @@
                     padding-bottom: 2px;
                   "
                 >
-                  Out[<!-- -->90<!-- -->]:
                 </div></span
               >
               <div style="flex: 1"></div>
@@ -1133,7 +1130,6 @@
                   margin-top: 2.5px;
                 "
               >
-                In [<!-- -->91<!-- -->]:
               </div></span
             >
             <div style="overflow: hidden; flex: 1">
@@ -1208,7 +1204,6 @@
                     padding-bottom: 2px;
                   "
                 >
-                  Out[<!-- -->91<!-- -->]:
                 </div></span
               >
               <div style="flex: 1"></div>
@@ -1250,7 +1245,6 @@
                   margin-top: 2.5px;
                 "
               >
-                In [<!-- -->92<!-- -->]:
               </div></span
             >
             <div style="overflow: hidden; flex: 1">
@@ -1325,7 +1319,6 @@
                     padding-bottom: 2px;
                   "
                 >
-                  Out[<!-- -->92<!-- -->]:
                 </div></span
               >
               <div style="flex: 1"></div>
@@ -1367,7 +1360,6 @@
                   margin-top: 2.5px;
                 "
               >
-                In [<!-- -->93<!-- -->]:
               </div></span
             >
             <div style="overflow: hidden; flex: 1">
@@ -1435,7 +1427,6 @@
                     padding-bottom: 2px;
                   "
                 >
-                  Out[<!-- -->93<!-- -->]:
                 </div></span
               >
               <div style="flex: 1"></div>
@@ -1477,12 +1468,12 @@
                 margin-top: 2.5px;
               "
             ></div>
-            <div style="width: 100%">
+            <div style="width: 100%; text-align: center">
               <p>
                 <span style="text-indent: 0"
                   ><span
-                    >Here, 0 is unfurnished, 1 is slightly furnished, and 2 is
-                    fully furnished</span
+                    >Here, '0' is unfurnished, '1' is slightly furnished, and '2' is
+                    fully furnished.</span
                   ></span
                 >
               </p>
@@ -1504,7 +1495,6 @@
                   margin-top: 2.5px;
                 "
               >
-                In [<!-- -->106<!-- -->]:
               </div></span
             >
             <div style="overflow: hidden; flex: 1">
@@ -1571,7 +1561,6 @@
                     padding-bottom: 2px;
                   "
                 >
-                  Out[<!-- -->106<!-- -->]:
                 </div></span
               >
               <div style="flex: 1"></div>
@@ -1613,7 +1602,7 @@
                 margin-top: 2.5px;
               "
             ></div>
-            <div style="width: 100%">
+            <div style="width: 100%; text-align: center">
               <h3 id="machine-learning-random-forest">
                 <span><span>Machine Learning: Random Forest</span></span>
               </h3>
@@ -1635,13 +1624,13 @@
                 margin-top: 2.5px;
               "
             ></div>
-            <div style="width: 100%">
-              <h3>What is Random Forest?</h3>
+            <div style="width: 100%; text-align: center">
+              <h4>What is Random Forest?</h4>
               <p>
                 <span style="text-indent: 0"
                   ><span
                     ><span style="font-size: medium"
-                      >If I was asked to explain this Machine Learning algorithm
+                      >&nbsp; If I was asked to explain this Machine Learning algorithm
                       to my 8-year-old cousin I would say:
                     </span></span
                   ></span
@@ -1696,11 +1685,11 @@
                 margin-top: 2.5px;
               "
             ></div>
-            <div style="width: 100%">
+            <div style="width: 100%; text-align: center">
               <h4>
                 <span style="text-indent: 0"
                   ><span
-                    ><span>My Steps for Creating a Random Forest</span></span
+                    ><span>My Steps for Creating a Random Forest:</span></span
                   ></span
                 >
               </h4>
@@ -1783,8 +1772,8 @@
                 margin-top: 2.5px;
               "
             ></div>
-            <div style="width: 100%">
-              <h3 id="splitting-the-data"><span>Splitting the Data:</span></h3>
+            <div style="width: 100%; text-align: center">
+              <h4 id="splitting-the-data"><span>Splitting the Data:</span></h4>
             </div>
           </div>
           <div></div>
@@ -1805,7 +1794,6 @@
                   margin-top: 2.5px;
                 "
               >
-                In [<!-- -->95<!-- -->]:
               </div></span
             >
             <div style="overflow: hidden; flex: 1">
@@ -1863,8 +1851,8 @@
               <p>
                 <span style="text-indent: 0"
                   ><span
-                    >Above, I organized the features as X by removing the
-                    &#x27;price&#x27; column from the house data. Next, the training set is used to train the machine learning model while the testing set is used to evaluate its performance. It’s crucial to have a separate testing set to assess how the model adapts to unseen data and it also prevents overfitting. I had a 20% testing set and 80% for training. <br>The "random_state=42" ensures that the training set and testing set remain consistent across future iterations.</span
+                    >&nbsp; Above, I organized the features as X by removing the
+                    &#x27;price&#x27; column from the house data. Next, the training set is used to train the machine learning model while the testing set is used to evaluate its performance. It’s crucial to have a separate testing set to assess how the model adapts to unseen data and it also prevents overfitting. I had a 20% testing set and 80% for training. <br><br>&nbsp; The "random_state=42" ensures that the training set and testing set remain consistent across future iterations.</span
                   ></span
                 >
               </p>
@@ -1887,8 +1875,8 @@
                 margin-top: 2.5px;
               "
             ></div>
-            <div style="width: 100%">
-              <h3 id="creating-the-model"><span>Creating the Model:</span></h3>
+            <div style="width: 100%; text-align: center">
+              <h4 id="creating-the-model"><span>Creating the Model:</span></h4>
             </div>
           </div>
           <div></div>
@@ -1909,7 +1897,6 @@
                   margin-top: 2.5px;
                 "
               >
-                In [<!-- -->96<!-- -->]:
               </div></span
             >
             <div style="overflow: hidden; flex: 1">
@@ -1977,7 +1964,6 @@
                     padding-bottom: 2px;
                   "
                 >
-                  Out[<!-- -->96<!-- -->]:
                 </div></span
               >
               <div style="flex: 1"></div>
@@ -2026,7 +2012,7 @@
             <div style="width: 100%">
               <p>
                 <span style="text-indent: 0"
-                  ><span>The R-squared value is a measure of how well the regression model explains the variance. An r-squared value of 0.95 means that approximately 95% of the variance is explained by the model. Higher r-squared values, closer to 1.0 indicate that the predictions are closer to the actual values, while a lower score indicates that the model does not include a lot of the variance. So my score of 0.95 is <strong>very</strong> good!</span></span
+                  ><span>&nbsp; The R-squared value is a measure of how well the regression model explains the variance. An r-squared value of 0.95 means that approximately 95% of the variance is explained by the model. Higher r-squared values, closer to 1.0 indicate that the predictions are closer to the actual values, while a lower score indicates that the model does not include a lot of the variance. So my score of 0.95 is <strong>very</strong> good!</span></span
                 >
               </p>
             </div>
@@ -2047,8 +2033,8 @@
                 margin-top: 2.5px;
               "
             ></div>
-            <div style="width: 100%">
-              <h3 id="model-evaluation"><span>Model Evaluation:</span></h3>
+            <div style="width: 100%; text-align: center">
+              <h4 id="model-evaluation"><span>Model Evaluation:</span></h4>
             </div>
           </div>
           <div></div>
@@ -2068,7 +2054,6 @@
                   margin-top: 2.5px;
                 "
               >
-                In [<!-- -->97<!-- -->]:
               </div></span
             >
             <div style="overflow: hidden; flex: 1">
@@ -2135,7 +2120,6 @@
                     padding-bottom: 2px;
                   "
                 >
-                  Out[<!-- -->97<!-- -->]:
                 </div></span
               >
               <div style="flex: 1"></div>
@@ -2185,7 +2169,7 @@
               <p>
                 <span style="text-indent: 0"
                   ><span
-                    >The MSE is a measure of the average square difference between predicted values and the actual values. Lower values indicate a better performance. Squaring is necessary to penalize larger, 'outlier type' values more. The RMSE helps provide the typical error magnitude in the same units as the original data.</span
+                    >&nbsp; The MSE is a measure of the average square difference between predicted values and the actual values. Lower values indicate a better performance. Squaring is necessary to penalize larger, 'outlier type' values more. </span
                   ></span
                 >
               </p>
@@ -2207,7 +2191,6 @@
                   margin-top: 2.5px;
                 "
               >
-                In [<!-- -->98<!-- -->]:
               </div></span
             >
             <div style="overflow: hidden; flex: 1">
@@ -2277,7 +2260,6 @@
                     padding-bottom: 2px;
                   "
                 >
-                  Out[<!-- -->98<!-- -->]:
                 </div></span
               >
               <div style="flex: 1"></div>
@@ -2319,8 +2301,8 @@
                 margin-top: 2.5px;
               "
             ></div>
-            <div style="width: 100%">
-              <h3 id="final-prediction"><span>Final Prediction:</span></h3>
+            <div style="width: 100%; text-align: center">
+              <h4 id="final-prediction"><span>Final Prediction:</span></h4>
             </div>
           </div>
           <div></div>
@@ -2343,7 +2325,7 @@
               <p>
                 <span style="text-indent: 0"
                   ><span
-                    >Below are the values I have chosen. This is one of the
+                    >&nbsp; Below are the values I have chosen. This is one of the
                     houses in the data set.
                   </span></span
                 >
@@ -2367,7 +2349,6 @@
                   margin-top: 2.5px;
                 "
               >
-                In [<!-- -->99<!-- -->]:
               </div></span
             >
             <div style="overflow: hidden; flex: 1">
@@ -2450,7 +2431,6 @@
                     padding-bottom: 2px;
                   "
                 >
-                  Out[<!-- -->99<!-- -->]:
                 </div></span
               >
               <div style="flex: 1"></div>
@@ -2521,7 +2501,6 @@
                   margin-top: 2.5px;
                 "
               >
-                In [<!-- -->107<!-- -->]:
               </div></span
             >
             <div style="overflow: hidden; flex: 1">
@@ -2604,7 +2583,6 @@
                     padding-bottom: 2px;
                   "
                 >
-                  Out[<!-- -->107<!-- -->]:
                 </div></span
               >
               <div style="flex: 1"></div>
