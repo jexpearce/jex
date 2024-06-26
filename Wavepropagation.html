@@ -17,6 +17,12 @@
         margin: 0 !important;
         padding: 0 5rem;
       }
+      @media (max-width: 768px) {
+        body {
+          border-width: 0.67rem; /* One-third of 2rem */
+          padding: 0 2rem; /* Adjust padding as needed for mobile */
+        }
+      }
 
       .CodeMirror {
         background: #b29758 !important;
@@ -9548,14 +9554,10 @@ all of MD as it is not optimized for dense, information rich UIs.
             </div>
           </div>
         </div>
-        <video
-                id="myVideo"
-                controls
-                style="display: block; margin: 0 auto"
-              >
-                <source src="2Movingboxes.mp4" type="video/mp4" />
-                Your browser does not support the video tag.
-              </video>
+        <video id="myVideo" controls style="display: block; margin: 0 auto">
+          <source src="2Movingboxes.mp4" type="video/mp4" />
+          Your browser does not support the video tag.
+        </video>
         <div class="jp-Cell-outputWrapper">
           <div
             class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser"
