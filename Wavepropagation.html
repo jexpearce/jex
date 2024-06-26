@@ -8115,10 +8115,7 @@ all of MD as it is not optimized for dense, information rich UIs.
                 data-mime-type="text/plain"
                 tabindex="0"
               >
-                <pre>
-done
-</pre
-                >
+                <pre></pre>
               </div>
             </div>
           </div>
@@ -8142,18 +8139,7 @@ done
                 <source src="1D_Default.mp4" type="video/mp4" />
                 Your browser does not support the video tag.
               </video>
-              <button onclick="playVideo()">Play Video</button>
 
-              <script>
-                function playVideo() {
-                  var video = document.getElementById("myVideo");
-                  if (video.paused) {
-                    video.play();
-                  } else {
-                    video.pause();
-                  }
-                }
-              </script>
               <p>
                 Fun fact, if we increase the r-value above 1, the curve 'goes to
                 infinity' or more formally, diverges. This is because, for the
@@ -8380,7 +8366,7 @@ done
             <span class="n">surface</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span><span class="o">.</span><span class="n">pos</span><span class="o">.</span><span class="n">z</span> <span class="o">=</span> <span class="n">fnow</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span>  <span class="c1"># Updating the z position of the surface points</span>
     
     <span class="n">t</span> <span class="o">+=</span> <span class="n">dt</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">"done!"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">""</span><span class="p">)</span>
 </pre>
                 </div>
               </div>
@@ -8454,6 +8440,10 @@ done!
               class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput"
               data-mime-type="text/markdown"
             >
+              <video id="myVideo" controls>
+                <source src="2D_Dynamic.mp4" type="video/mp4" />
+                Your browser does not support the video tag.
+              </video>
               <h3
                 id="Creating-a-Dynamic-Wave-with-a-Permanent-Disrupting-Object:"
               >
