@@ -8417,10 +8417,7 @@ all of MD as it is not optimized for dense, information rich UIs.
                 data-mime-type="text/plain"
                 tabindex="0"
               >
-                <pre>
-done!
-</pre
-                >
+                <pre></pre>
               </div>
             </div>
           </div>
@@ -8440,7 +8437,14 @@ done!
               class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput"
               data-mime-type="text/markdown"
             >
-              <video id="myVideo" controls>
+              <style>
+                .small-video {
+                  width: 75%; /* Adjust to make the video 25% smaller */
+                  /* You can also adjust height proportionally if needed */
+                }
+              </style>
+
+              <video id="myVideo" controls class="small-video">
                 <source src="2D_Dynamic.mp4" type="video/mp4" />
                 Your browser does not support the video tag.
               </video>
@@ -8735,7 +8739,7 @@ done!
             <span class="n">surface</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span><span class="o">.</span><span class="n">pos</span><span class="o">.</span><span class="n">z</span> <span class="o">=</span> <span class="n">fnow</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span>  <span class="c1"># Update the z position of the surface points  </span>
     <span class="n">t</span> <span class="o">+=</span> <span class="n">dt</span>
 
-<span class="nb">print</span><span class="p">(</span><span class="s1">'done'</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">'</span><span class="p">)</span>
 </pre>
                 </div>
               </div>
