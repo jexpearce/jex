@@ -10,6 +10,17 @@
       pre {
         line-height: 125%;
       }
+
+      body {
+        background: #404472;
+        border: 2rem #3624a6 solid;
+        margin: 0 !important;
+        padding: 0 5rem;
+      }
+
+      .CodeMirror {
+        background: #b29758 !important;
+      }
       td.linenos .normal {
         color: inherit;
         background-color: transparent;
@@ -7622,7 +7633,10 @@ all of MD as it is not optimized for dense, information rich UIs.
               class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput"
               data-mime-type="text/markdown"
             >
-              <h3 id="Wave-Propagation">
+              <h3
+                id="Wave-Propagation"
+                style="text-align: center; font-size: 400%"
+              >
                 Wave Propagation<a class="anchor-link" href="#Wave-Propagation"
                   >¶</a
                 >
@@ -7710,8 +7724,11 @@ all of MD as it is not optimized for dense, information rich UIs.
               class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput"
               data-mime-type="text/markdown"
             >
-              <h2 id="Wave-Propagation-in-1-Dimension">
-                Wave Propagation in 1 Dimension<a
+              <h2
+                id="Wave-Propagation-in-1-Dimension"
+                style="text-align: center"
+              >
+                The Wave Equation in 1 Dimension<a
                   class="anchor-link"
                   href="#Wave-Propagation-in-1-Dimension"
                   >¶</a
@@ -7737,18 +7754,18 @@ all of MD as it is not optimized for dense, information rich UIs.
             >
               <p>Starting simple, the 1D wave equation is given by:</p>
               <p>
-                $$\frac{\partial^2 u}{\partial t^2} = c^2 \frac{\partial^2
-                u}{\partial x^2}$$
+                $$\frac{\partial^2 f}{\partial t^2} = c^2 \frac{\partial^2
+                f}{\partial x^2}$$
               </p>
               <p>Later, I will be using the 2D wave equation given by:</p>
               <p>
-                $$\frac{\partial^2 u}{\partial t^2} = c^2 \left(
-                \frac{\partial^2 u}{\partial x^2} + \frac{\partial^2 u}{\partial
+                $$\frac{\partial^2 f}{\partial t^2} = c^2 \left(
+                \frac{\partial^2 f}{\partial x^2} + \frac{\partial^2 f}{\partial
                 y^2} \right)$$
               </p>
               <p>
-                Here, $u$ is the wave amplitude, $c$ is the wave speed, $x$ and
-                $y$ are spatial coordinates, $t$ is time.
+                Here, $c$ is the wave speed, $x$ and $y$ are spatial
+                coordinates, $t$ is time.
               </p>
             </div>
           </div>
@@ -7815,7 +7832,7 @@ all of MD as it is not optimized for dense, information rich UIs.
               </p>
               <p>
                 For 2D, representing wave amplitude at the grid point $ (i,j) $
-                at time step $n$ , we have: $ u^{n}_{i,j} $ and $ x_i = i \cdot
+                at time step $n$ , we have: $ f^{n}_{i,j} $ and $ x_i = i \cdot
                 dx $ for $ i = 0, 1, \ldots, N_x - 1 $ and $ y_j = j \cdot dy $
                 for $ j = 0, 1, \ldots, N_y - 1 $
               </p>
@@ -7909,18 +7926,18 @@ all of MD as it is not optimized for dense, information rich UIs.
                 derivative of time:
               </p>
               <p>
-                $$\frac{\partial^2 u}{\partial t^2} \approx \frac{f(x, t + h) -
+                $$\frac{\partial^2 f}{\partial t^2} \approx \frac{f(x, t + h) -
                 2f(x, t) + f(x, t - h)}{h^2}$$
               </p>
               <p>
                 In 1D, with only $x$, the spacial second derivative of $x$ is
-                $$\frac{\partial^2 u}{\partial x^2} \approx \frac{f(x + h, t) -
+                $$\frac{\partial^2 f}{\partial x^2} \approx \frac{f(x + h, t) -
                 2f(x, t) + f(x - h, t)}{h^2}$$
               </p>
               <p>
                 We want to find $f(x+h,t)$, the 'new' point. Using the 1D Wave
                 Equation and plugging in the values into: $$\frac{\partial^2
-                u}{\partial t^2} = c^2 \frac{\partial^2 u}{\partial x^2}$$
+                f}{\partial t^2} = c^2 \frac{\partial^2 f}{\partial x^2}$$
               </p>
               <p>
                 We get $$f(x+h,t) = 2f(x,t) - f(x-h,t) + c^2 \frac{h^2}{\Delta
