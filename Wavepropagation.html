@@ -7725,8 +7725,8 @@ all of MD as it is not optimized for dense, information rich UIs.
               data-mime-type="text/markdown"
             >
               <h2
-                id="Wave-Propagation-in-1-Dimension"
-                style="text-align: center"
+                id="Wave-Propagation-in-1-Dimension:"
+                style="text-align: center; font-size: 200%"
               >
                 The Wave Equation in 1 Dimension<a
                   class="anchor-link"
@@ -7785,8 +7785,8 @@ all of MD as it is not optimized for dense, information rich UIs.
               class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput"
               data-mime-type="text/markdown"
             >
-              <h2 id="Discretization">
-                Discretization<a class="anchor-link" href="#Discretization"
+              <h2 id="Discretization" style="text-align: center">
+                Discretization:<a class="anchor-link" href="#Discretization"
                   >¶</a
                 >
               </h2>
@@ -7867,8 +7867,8 @@ all of MD as it is not optimized for dense, information rich UIs.
               class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput"
               data-mime-type="text/markdown"
             >
-              <h3 id="Central-Differences:">
-                Central Differences:<a
+              <h3 id="Central-Differences:" style="text-align: center">
+                Central Differences:<br /><a
                   class="anchor-link"
                   href="#Central-Differences:"
                   >¶</a
@@ -8152,17 +8152,23 @@ all of MD as it is not optimized for dense, information rich UIs.
               class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput"
               data-mime-type="text/markdown"
             >
-              <video id="myVideo" controls>
+              <video
+                id="myVideo"
+                controls
+                style="display: block; margin: 0 auto; width: 75%"
+              >
                 <source src="1D_Default.mp4" type="video/mp4" />
                 Your browser does not support the video tag.
               </video>
 
+              <br />
               <p>
-                Fun fact, if we increase the r-value above 1, the curve 'goes to
-                infinity' or more formally, diverges. This is because, for the
-                1D wave equation, the constant must satisfy
-                Courant-Friedrichs-Lewy condition of $r \leq
-                \frac{1}{\sqrt{2}}$. You can try this for yourself!
+                <br /><br />Click on the wave to play the video above. Fun fact,
+                if we increase the r-value above 1, the curve 'goes to infinity'
+                or more formally, diverges. This is because, for the 1D wave
+                equation, the constant must satisfy Courant-Friedrichs-Lewy
+                condition of $r \leq \frac{1}{\sqrt{2}}$. You can try this for
+                yourself in the VPython folder linked above!
               </p>
             </div>
           </div>
@@ -8182,8 +8188,12 @@ all of MD as it is not optimized for dense, information rich UIs.
               class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput"
               data-mime-type="text/markdown"
             >
-              <h3 id="Central-Differences,-in-2-Dimensions:">
-                Central Differences, in 2 Dimensions:<a
+              <h3
+                id="Central-Differences,-in-2-Dimensions:"
+                style="text-align: center; font-size: 200%"
+              >
+                Central Differences, in 2 Dimensions:
+                <a
                   class="anchor-link"
                   href="#Central-Differences,-in-2-Dimensions:"
                   >¶</a
@@ -8456,17 +8466,26 @@ all of MD as it is not optimized for dense, information rich UIs.
             >
               <style>
                 .small-video {
-                  width: 75%; /* Adjust to make the video 25% smaller */
-                  /* You can also adjust height proportionally if needed */
+                  width: 75%;
                 }
               </style>
-
-              <video id="myVideo" controls class="small-video">
+              <video
+                id="myVideo"
+                controls
+                style="
+                  display: block;
+                  margin: 0 auto;
+                  width: 75%;
+                  object-fit: cover;
+                  transform: translateY(-15%);
+                "
+              >
                 <source src="2D_Dynamic.mp4" type="video/mp4" />
                 Your browser does not support the video tag.
               </video>
               <h3
                 id="Creating-a-Dynamic-Wave-with-a-Permanent-Disrupting-Object:"
+                style="text-align: center; font-size: 200%"
               >
                 Creating a Dynamic Wave with a Permanent Disrupting Object:<a
                   class="anchor-link"
@@ -8552,7 +8571,7 @@ all of MD as it is not optimized for dense, information rich UIs.
               class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput"
               data-mime-type="text/markdown"
             >
-              <h5 id="Visual-Representation:">
+              <h5 id="Visual-Representation:" style="font-size: 150%">
                 Visual Representation:<a
                   class="anchor-link"
                   href="#Visual-Representation:"
@@ -8778,11 +8797,18 @@ all of MD as it is not optimized for dense, information rich UIs.
               class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput"
               data-mime-type="text/markdown"
             >
-              <video id="myVideo" controls class="small-video">
+              <video
+                id="myVideo"
+                controls
+                style="display: block; margin: 0 auto; width: 75%"
+              >
                 <source src="2D_Dynamic_Box.mp4" type="video/mp4" />
                 Your browser does not support the video tag.
               </video>
-              <h4 id="What-if-we-made-the-Box-move?">
+              <h4
+                id="What-if-we-made-the-Box-move?"
+                style="text-align: center; font-size: 250%"
+              >
                 What if we made the Box move?<a
                   class="anchor-link"
                   href="#What-if-we-made-the-Box-move?"
@@ -8790,7 +8816,7 @@ all of MD as it is not optimized for dense, information rich UIs.
                 >
               </h4>
               <p>
-                Can adjust the time loop to include an updating box position
+                We can adjust the time loop to include an updating box position
                 tied to the time, and ensure when the starting edge of the box
                 hits the end, the time loop stops. Changes to the time loop
                 would include:
@@ -8857,7 +8883,10 @@ all of MD as it is not optimized for dense, information rich UIs.
               class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput"
               data-mime-type="text/markdown"
             >
-              <h3 id="Dynamic-2D-wave-with-Moving-Box:">
+              <h3
+                id="Dynamic-2D-wave-with-Moving-Box:"
+                style="text-align: center; font-size: 170%"
+              >
                 Dynamic 2D wave with Moving Box:<a
                   class="anchor-link"
                   href="#Dynamic-2D-wave-with-Moving-Box:"
@@ -8986,14 +9015,18 @@ all of MD as it is not optimized for dense, information rich UIs.
               class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput"
               data-mime-type="text/markdown"
             >
-              <video id="myVideo" controls class="small-video">
+              <video
+                id="myVideo"
+                controls
+                style="display: block; margin: 0 auto; width: 75%"
+              >
                 <source src="2D_Dynamic_Movingbox.mp4" type="video/mp4" />
                 Your browser does not support the video tag.
               </video>
-              <h5 id="Next-Section:">
+              <h5 id="Next-Section:" style="font-size: 155%">
                 Next Section:<a class="anchor-link" href="#Next-Section:">¶</a>
               </h5>
-              <h2 id="Still-Waves:">
+              <h2 id="Still-Waves:" style="text-align: center; font-size: 250%">
                 Still Waves:<a class="anchor-link" href="#Still-Waves:">¶</a>
               </h2>
             </div>
@@ -9090,7 +9123,10 @@ all of MD as it is not optimized for dense, information rich UIs.
               class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput"
               data-mime-type="text/markdown"
             >
-              <h3 id="Still-Wave-with-a-Disturbance:">
+              <h3
+                id="Still-Wave-with-a-Disturbance:"
+                style="text-align: center; font-size: 200%"
+              >
                 Still Wave with a Disturbance:<a
                   class="anchor-link"
                   href="#Still-Wave-with-a-Disturbance:"
@@ -9191,11 +9227,18 @@ all of MD as it is not optimized for dense, information rich UIs.
               class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput"
               data-mime-type="text/markdown"
             >
-              <video id="myVideo" controls class="small-video">
+              <video
+                id="myVideo"
+                controls
+                style="display: block; margin: 0 auto"
+              >
                 <source src="Still_Disturbance.mp4" type="video/mp4" />
                 Your browser does not support the video tag.
               </video>
-              <h4 id="What-about-a-moving-object-on-a-still-surface?">
+              <h4
+                id="What-about-a-moving-object-on-a-still-surface?"
+                style="text-align: center; font-size: 200%"
+              >
                 What about a moving object on a still surface?<a
                   class="anchor-link"
                   href="#What-about-a-moving-object-on-a-still-surface?"
@@ -9203,7 +9246,7 @@ all of MD as it is not optimized for dense, information rich UIs.
                 >
               </h4>
               <p>
-                Same as before, but I'll only incorporate the x-spacial
+                The same as before, but I'll only incorporate the x-spacial
                 coordinates, to convey how a wave is generated when an object
                 moves towards the y-axis. Another difference here, is that the
                 time loop will still continue even as the box has reached the
@@ -9336,11 +9379,18 @@ all of MD as it is not optimized for dense, information rich UIs.
               class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput"
               data-mime-type="text/markdown"
             >
-              <video id="myVideo" controls class="small-video">
+              <video
+                id="myVideo"
+                controls
+                style="display: block; margin: 0 auto"
+              >
                 <source src="Still_Movingbox.mp4" type="video/mp4" />
                 Your browser does not support the video tag.
               </video>
-              <h4 id="What-about-2-moving-rectangles-intersecting-the-wave?">
+              <h4
+                id="What-about-2-moving-rectangles-intersecting-the-wave?"
+                style="text-align: center; font-size: 200%"
+              >
                 What about 2 moving rectangles intersecting the wave?<a
                   class="anchor-link"
                   href="#What-about-2-moving-rectangles-intersecting-the-wave?"
@@ -9498,10 +9548,14 @@ all of MD as it is not optimized for dense, information rich UIs.
             </div>
           </div>
         </div>
-        <video id="myVideo" controls class="small-video">
-          <source src="2Movingboxes.mp4" type="video/mp4" />
-          Your browser does not support the video tag.
-        </video>
+        <video
+                id="myVideo"
+                controls
+                style="display: block; margin: 0 auto"
+              >
+                <source src="2Movingboxes.mp4" type="video/mp4" />
+                Your browser does not support the video tag.
+              </video>
         <div class="jp-Cell-outputWrapper">
           <div
             class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser"
