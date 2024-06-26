@@ -561,7 +561,7 @@
         z-index: 10000;
         position: absolute;
         white-space: nowrap;
-        overflow-x: hidden;
+        overflow-x: scroll;
         overflow-y: auto;
         outline: none;
         -webkit-user-select: none;
@@ -2770,7 +2770,7 @@ better solution to this problem.
         min-height: var(--jp-toolbar-micro-height);
         padding: 2px;
         z-index: 8;
-        overflow-x: hidden;
+        overflow-x: scroll; /*prev hidden*/
       }
 
       /* Toolbar items */
@@ -5581,7 +5581,7 @@ better solution to this problem.
         border: none;
         margin: 0;
         padding: 0;
-        overflow-x: auto;
+        overflow-x: scroll; /*prev auto*/
         overflow-y: auto;
         word-break: break-all;
         word-wrap: break-word;
@@ -5834,7 +5834,7 @@ better solution to this problem.
         padding: 4px 0;
         white-space: nowrap;
         text-overflow: ellipsis;
-        overflow-x: hidden;
+        overflow-x: scroll;
       }
 
       .jp-tocItem-collapser {
