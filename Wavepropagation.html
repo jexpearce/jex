@@ -116,6 +116,33 @@
           padding: 0 2rem; /* Adjust padding as needed for mobile */
         }
       }
+        .code-container {
+            position: relative;
+            max-width: 100%;
+            margin: 1em 0;
+        }
+        .toggle-button {
+            position: absolute;
+            top: 0.5em;
+            right: 0.5em;
+            background-color: rgba(0, 0, 0, 0.5);
+            color: white;
+            border: none;
+            padding: 0.5em 1em;
+            cursor: pointer;
+            opacity: 0.8;
+            font-size: 1em;
+        }
+        .toggle-button:hover {
+            opacity: 1;
+        }
+        pre {
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+        .hidden {
+            display: none;
+        }
 
       .CodeMirror {
         background: #b29758 !important;
@@ -8442,6 +8469,8 @@ all of MD as it is not optimized for dense, information rich UIs.
             >
               <div class="cm-editor cm-s-jupyter">
                 <div class="highlight hl-ipython3">
+                  <button class="toggle-button" onclick="toggleCode(this)">Hide Code</button>
+    <pre class="code-block">
                   <pre><span></span><span class="n">dx</span><span class="p">,</span> <span class="n">dy</span> <span class="o">=</span> <span class="mf">0.05</span><span class="p">,</span> <span class="mf">0.05</span>
 <span class="n">Lx</span><span class="p">,</span> <span class="n">Ly</span> <span class="o">=</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span>
 <span class="n">dt</span> <span class="o">=</span> <span class="mf">0.01</span> 
@@ -9739,5 +9768,17 @@ all of MD as it is not optimized for dense, information rich UIs.
         </div>
       </div>
     </main>
+    <script>
+      function toggleCode(button) {
+          var codeBlock = button.nextElementSibling;
+          if (codeBlock.classList.contains("hidden")) {
+              codeBlock.classList.remove("hidden");
+              button.innerHTML = "Hide Code";
+          } else {
+              codeBlock.classList.add("hidden");
+              button.innerHTML = "Show Code";
+          }
+      }
+  </script>
   </body>
 </html>
