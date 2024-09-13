@@ -1,0 +1,139 @@
+Country/Territory,Rating,Outlook,Date,RatingNumber
+" Abu Dhabi, UAE",AA,Stable ,30 May 2023,24
+ Albania,BB-,Positive ,23 March 2024,14
+ Andorra,BBB+,Positive ,12 May 2023,19
+ Angola,B-,Stable ,4 February 2022,11
+ Argentina,CCC,Stable ,15 March 2024,9
+ Armenia,BB-,Stable ,25 August 2023,14
+ Aruba,BBB,Stable ,15 March 2021,18
+ Australia,AAA,Stable ,6 June 2021,27
+ Austria,AA+,Stable ,26 August 2022,25
+ Azerbaijan,BB+,Stable ,22 January 2021,16
+ Bahamas,B+,Stable ,12 November 2021,13
+ Bahrain,B+,Stable ,24 November 2023,13
+ Bangladesh,BB-,Negative ,24 July 2023,14
+ Barbados,B-,Positive ,26 October 2023,11
+ Belgium,AA,Stable ,28 February 2014,24
+ Belize,B-,Stable ,9 November 2021,11
+ Benin,B+,Positive ,20 October 2023,13
+ Bermuda,A+,Stable ,28 April 2015,22
+ Bolivia,CCC+,Negative ,22 November 2023,10
+ Bosnia and Herzegovina,B+,Stable ,4 August 2023,13
+ Botswana,BBB+,Stable ,17 September 2021,19
+ Brazil,BB,Positive ,3 July 2024,15
+ Bulgaria,BBB,Positive ,24 November 2023,18
+ Burkina Faso,CCC+,Stable ,26 January 2022,10
+ Cape Verde,B-,Stable ,19 February 2021,11
+ Cameroon,CCC+,Stable ,10 August 2023,10
+ Canada,AAA,Stable ,29 July 2002,27
+ Chile,A,Negative ,19 October 2023,21
+ China,A+,Stable ,21 September 2017,22
+ Colombia,BB+,Negative ,19 May 2021,16
+ Cook Islands,B+,Stable ,11 November 2020,13
+ Costa Rica,BB-,Stable ,27 October 2023,14
+ Ivory Coast,BB-,Stable ,6 July 2021,14
+ Croatia,BBB+,Positive ,15 September 2023,19
+ Curaçao,BBB-,Stable ,24 February 2022,17
+ Cyprus,BBB,Positive ,1 September 2023,18
+ Czech Republic,AA-,Stable ,24 August 2011,23
+ DR Congo,B-,Stable ,28 January 2022,11
+ Denmark,AAA,Stable ,27 February 2001,27
+ Dominican Republic,BB,Stable ,19 December 2022,15
+ Ecuador,B-,Negative ,1 September 2020,11
+ Egypt,B-,Stable ,20 October 2023,11
+ El Salvador,B-,Stable ,7 November 2023,11
+ Estonia,AA-,Negative ,6 December 2022,23
+ Ethiopia,SD,,15 December 2023,1
+ Falkland Islands,A+,Stable ,22 September 2021,22
+ Fiji,B+,Stable ,22 September 2021,13
+ Finland,AA+,Stable ,16 September 2016,25
+ France,AA-,Stable ,31 May 2024,23
+ Georgia,BB,Stable ,25 February 2022,15
+ Germany,AAA,Stable ,13 January 2012,27
+ Ghana,SD,,20 December 2022,1
+ Greece,BBB-,Positive ,19 April 2024,17
+ Guatemala,BB,Stable ,11 April 2023,15
+ Guernsey,A+,Stable ,14 January 2023,22
+ Honduras,BB-,Stable ,29 September 2023,14
+ Hong Kong,AA+,Stable ,21 September 2017,25
+ Hungary,BBB-,Stable ,27 January 2023,17
+ Iceland,A+,Stable ,10 November 2023,22
+ India,BBB-,Positive ,29 May 2024,17
+ Indonesia,BBB,Stable ,27 April 2022,18
+ Iraq,B-,Stable ,17 February 2023,11
+ Ireland,AA,Stable ,19 May 2023,24
+ Israel,A,Negative ,12 August 2024,21
+ Italy,BBB,Stable ,26 July 2022,18
+ Jamaica,BB-,Stable ,13 September 2023,14
+ Japan,A+,Stable ,9 June 2020,22
+ Jersey,AA-,Stable ,16 January 2021,23
+ Jordan,B+,Stable ,20 October 2017,13
+ Kazakhstan,BBB-,Stable ,3 March 2023,17
+ Kenya,B-,Stable ,2 August 2024,11
+ Kuwait,A+,Stable ,15 July 2022,22
+ Latvia,A+,Negative ,6 December 2022,22
+ Lebanon,SD,,11 March 2020,1
+ Liechtenstein,AAA,Stable ,26 February 2016,27
+ Lithuania,A+,Negative ,2 December 2022,22
+ Luxembourg,AAA,Stable ,14 January 2013,27
+ Madagascar,B-,Stable ,9 October 2023,11
+ Malaysia,A-,Stable ,27 June 2022,20
+ Malta,A-,Stable ,13 March 2020,20
+ Mauritius,BBB-,Stable ,21 July 2023,17
+ Mexico,BBB,Stable ,6 July 2022,18
+ Mongolia,B,Stable ,9 November 2018,12
+ Montenegro,B,Stable ,5 March 2021,12
+ Montserrat,BBB-,Stable ,2 September 2011,17
+ Morocco,BB+,Stable ,2 April 2021,16
+ Mozambique,CCC+,Stable ,22 November 2019,10
+ Netherlands,AAA,Stable ,20 November 2015,27
+ New Zealand,AA+,Stable ,21 February 2021,25
+ Nicaragua,B,Stable ,25 October 2022,12
+ Nigeria,B-,Stable ,4 August 2023,11
+ North Macedonia,BB-,Stable ,24 May 2013,14
+ Norway,AAA,Stable ,8 November 1990,27
+ Oman,BB+,Stable ,29 September 2023,16
+ Pakistan,CCC+,Stable ,22 December 2022,10
+ Panama,BB+,Negative ,7 November 2023,16
+ Papua New Guinea,B-,Stable ,3 June 2021,11
+ Paraguay,BB,Stable ,15 June 2016,15
+ Peru,BBB,Negative ,12 December 2022,18
+ Philippines,BBB+,Stable ,30 April 2019,19
+ Poland,A-,Stable ,12 October 2018,20
+ Portugal,A-,Positive ,1 March 2024,20
+ Qatar,AA,Stable ,4 November 2022,24
+" Ras Al Khaimah, UAE",A-,Positive ,16 October 2023,20
+ Congo,B-,Stable ,28 July 2023,11
+ Romania,BBB-,Stable ,16 April 2021,17
+ Rwanda,B+,Stable ,27 January 2023,13
+ Saint Helena,BBB-,Stable ,31 March 2023,17
+ Saudi Arabia,A,Stable ,17 March 2023,21
+ Senegal,B+,Stable ,6 December 2019,13
+ Serbia,BB+,Positive ,9 August 2024,16
+" Sharjah, UAE",BBB-,Stable ,17 November 2023,17
+ Singapore,AAA,Stable ,6 March 1995,27
+ Slovakia,A+,Stable ,19 May 2023,22
+ Slovenia,AA-,Stable ,14 June 2019,23
+ South Africa,BB-,Stable ,8 March 2023,14
+ South Korea,AA,Stable ,7 August 2016,24
+ Spain,A,Stable ,18 March 2022,21
+ Sri Lanka,SD,,25 April 2022,1
+ Suriname,CCC+,Stable ,6 December 2023,10
+ Sweden,AAA,Stable ,16 February 2004,27
+ Switzerland,AAA,Stable ,26 June 1989,27
+ Taiwan,AA+,Stable ,29 April 2022,25
+ Tajikistan,B-,Stable ,17 February 2023,11
+ Thailand,BBB+,Stable ,13 April 2020,19
+ Togo,B,Stable ,17 March 2023,12
+ Trinidad and Tobago,BBB-,Stable ,21 July 2022,17
+ Turkey,B+,Positive ,3 May 2024,13
+ Turkmenistan,BB-,Stable ,2 August 2024,14
+ Turks and Caicos Islands,BBB+,Stable ,29 March 2022,19
+ Uganda,B-,Stable ,9 December 2022,11
+ Ukraine,SD,,2 August 2024,1
+ United Kingdom,AA,Stable ,21 April 2023,24
+ United States,AA+,Stable ,10 June 2013,25
+ Uruguay,BBB+,Stable ,26 April 2023,19
+ Uzbekistan,BB-,Stable ,4 June 2021,14
+ Vietnam,BB+,Stable ,27 May 2022,16
+ Zambia,SD,,21 October 2020,1
