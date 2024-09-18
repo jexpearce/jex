@@ -40,7 +40,7 @@ a {
   font-size: 1.5rem;
   padding-bottom: 18px;
   margin: 0;
-  color: #7A7C80;
+  color: #cbd1de;
 }
 
 .section-1 h2 {
@@ -132,7 +132,7 @@ img.gradpic{
   font-size: 1.25rem;
   padding-bottom: 10px;
   margin: 0;
-  color: #7A7C80;
+  color: #cbd1de;
   
 }
 
@@ -179,6 +179,68 @@ img.gradpic{
 }
 }
 
+.section-25 {
+  text-align: center;
+  grid-column-start: 1;
+  grid-column-end: 3;
+}
+.section-25 p {
+  font-size: 1.25rem;
+  padding-bottom: 10px;
+  margin: 0;
+  color: #cbd1de;
+  
+}
+
+.section-25 h2 {
+  font-size: 3rem;
+  margin-bottom: 1px;
+  font-family: 'Jolly Lodger', cursive;
+  font-family: 'League Spartan', sans-serif;
+}
+.section-25 a:hover{
+  color: #fff;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.white:hover{
+  position: relative;
+  padding-left: 10px;
+}
+
+.section-25 img {
+  width: 30%;
+  margin: 1rem;
+  border: 2px solid white;
+  border-radius: 10px; 
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
+}
+
+
+.section-26 img.durham{
+  max-width: 20%;
+  object-fit: cover;
+  border: 3px solid #FFFF;
+  border-radius: 20px;
+  margin:auto;
+  margin-top: -190%;
+  margin-bottom: 13%;
+  margin-left: 60%;
+}
+@media (max-width: 768px) {
+.section-2 img.durham {
+    width: 80%; /* Adjust the width for smaller screens */
+    margin: auto;
+    margin-top: 10%;
+    margin-left: 38%;
+}
+}
+
+
+
+
+
 /* Section 3 */
 .section-3 {
   text-align: center;
@@ -209,7 +271,7 @@ img.gradpic{
 .section-3 p {
   font-size: 1.1rem;
   margin: 0;
-  color: #7A7C80;
+  color: #cbd1de;
 }
 
 .section-3 a {
@@ -444,7 +506,7 @@ img.gradpic{
   font-size: 1.1rem;
   padding-bottom: 10px;
   margin: 0;
-  color: #7A7C80;
+  color: #cbd1de;
 }
 
 .section-35 a {
@@ -503,7 +565,7 @@ img.gradpic{
 .section-4 h3 {
   font-size: 1.7rem;
   margin-bottom: 20px;
-  color: #7A7C80; 
+  color: #cbd1de; 
   font-family: 'Jolly Lodger', cursive;
   font-family: 'League Spartan', sans-serif;
 }
@@ -511,7 +573,7 @@ img.gradpic{
   font-size: 1.5rem;
   padding-bottom: 18px;
   margin: 0;
-  color: #7A7C80;
+  color: #cbd1de;
   font-family: 'Jolly Lodger', cursive;
   font-family: 'League Spartan', sans-serif;
 }
