@@ -1,19 +1,16 @@
-/* Apply a reset to remove default margins and paddings */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
-/* Set the body to occupy the full height */
 html, body {
     height: 100%;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-/* Background image styling */
 body {
-    background: url('world_study/world_jpg.jpg') no-repeat center center fixed;
+    background: url('world_study/world.jpg') no-repeat center center fixed;
     background-size: cover;
     position: relative;
 }
