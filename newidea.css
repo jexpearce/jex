@@ -1,0 +1,84 @@
+/* Apply a reset to remove default margins and paddings */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Set the body to occupy the full height */
+html, body {
+    height: 100%;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Background image styling */
+body {
+    background: url('world_study/world_jpg.jpg') no-repeat center center fixed;
+    background-size: cover;
+    position: relative;
+}
+
+/* Overlay to darken the background image */
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+}
+
+/* Center content vertically and horizontally */
+.content {
+    position: relative;
+    z-index: 1;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    color: #ffffff;
+}
+
+/* Title styling */
+.content h1 {
+    font-size: 4em;
+    margin-bottom: 20px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+/* Search box container */
+.search-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 300px;
+}
+
+/* Input field styling */
+.search-box input[type="text"] {
+    width: 100%;
+    padding: 15px;
+    font-size: 1em;
+    border: none;
+    border-radius: 5px;
+    margin-bottom: 10px;
+}
+
+/* Button styling */
+.search-box button {
+    width: 100%;
+    padding: 15px;
+    font-size: 1em;
+    background-color: #ff6347; /* Tomato color */
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.search-box button:hover {
+    background-color: #ff4500; /* OrangeRed color */
+}
