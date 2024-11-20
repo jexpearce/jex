@@ -29,53 +29,69 @@ document.addEventListener("DOMContentLoaded", () => {
         const postList = document.getElementById("post-list");
 
         posts.forEach((post) => {
-          const title = post.title.replace(/\[.*?\]/g, "").trim(); // Remove [tags]
+          const title = post.title;
           const postUrl = `https://reddit.com${post.permalink}`;
           const upvotes = post.ups;
-
-          // Check for post description
-          const hasPostText = post.selftext && post.selftext.trim().length > 0;
-          const postText =
-            hasPostText && post.selftext.length > 300
-              ? `${post.selftext.slice(0, 300)}... [click on post to see more]`
-              : post.selftext;
-
+          const postText = post.selftext || "";
           const comments = (post.top_comments || []).filter(
             (comment) =>
-              comment && comment.trim() !== "[deleted]" && comment.length <= 500
+              comment &&
+              comment.trim() !== "[deleted]" &&
+              comment.trim() !== "[removed]"
           );
 
           const postItem = document.createElement("li");
           postItem.innerHTML = `
-              <a href="${postUrl}" target="_blank">${title}</a>
-              <span>(${upvotes} upvotes)</span>
+              <a href="${postUrl}" target="_blank" style="font-size: 1.2em; font-weight: bold; text-decoration: none; color: #333;">
+                ${title}
+              </a> (${upvotes} upvotes)
             `;
 
-          // Show Post Button (only if there is text)
-          if (hasPostText) {
-            const postBtn = document.createElement("button");
-            postBtn.textContent = "Show Post";
-            postBtn.className = "show-post-btn";
+          // Add "Show Post" button
+          if (postText) {
+            const showPostBtn = document.createElement("button");
+            showPostBtn.textContent = "Show Post";
+            showPostBtn.className = "show-post-btn";
 
-            const postDiv = document.createElement("div");
-            postDiv.style.display = "none";
-            postDiv.innerHTML = `<p>${postText}</p>`;
+            const postTextDiv = document.createElement("div");
+            postTextDiv.style.display = "none";
 
-            postBtn.addEventListener("click", () => {
-              if (postDiv.style.display === "none") {
-                postDiv.style.display = "block";
-                postBtn.textContent = "Hide Post";
+            const truncatedPostText =
+              postText.length > 500
+                ? `${postText.slice(
+                    0,
+                    500
+                  )}<span style="color: blue; cursor: pointer;" class="show-more-post">... [show more]</span>`
+                : postText;
+
+            postTextDiv.innerHTML = truncatedPostText;
+
+            // Toggle post text visibility
+            showPostBtn.addEventListener("click", () => {
+              if (postTextDiv.style.display === "none") {
+                postTextDiv.style.display = "block";
+                showPostBtn.textContent = "Hide Post";
               } else {
-                postDiv.style.display = "none";
-                postBtn.textContent = "Show Post";
+                postTextDiv.style.display = "none";
+                showPostBtn.textContent = "Show Post";
               }
             });
 
-            postItem.appendChild(postBtn);
-            postItem.appendChild(postDiv);
+            // Add "Show More" and "Show Less" functionality
+            postTextDiv.addEventListener("click", (event) => {
+              const target = event.target;
+              if (target.classList.contains("show-more-post")) {
+                postTextDiv.innerHTML = `${postText} <span style="color: blue; cursor: pointer;" class="show-less-post">[show less]</span>`;
+              } else if (target.classList.contains("show-less-post")) {
+                postTextDiv.innerHTML = truncatedPostText;
+              }
+            });
+
+            postItem.appendChild(showPostBtn);
+            postItem.appendChild(postTextDiv);
           }
 
-          // Show Comments Button (only if there are comments)
+          // Add "Show Comments" button and truncated comments
           if (comments.length > 0) {
             const commentsBtn = document.createElement("button");
             commentsBtn.textContent = "Show Comments";
@@ -84,9 +100,32 @@ document.addEventListener("DOMContentLoaded", () => {
             const commentsDiv = document.createElement("div");
             commentsDiv.style.display = "none";
             commentsDiv.innerHTML = comments
-              .map((comment) => `<p>${comment}</p>`)
-              .join("<br />");
+              .map((comment, index) =>
+                comment.length > 500
+                  ? `<p>${comment.slice(
+                      0,
+                      500
+                    )}<span style="color: blue; cursor: pointer;" class="show-more-comment" data-index="${index}">... [show more]</span></p>`
+                  : `<p>${comment}</p>`
+              )
+              .join("");
 
+            // Expand/collapse comment text
+            commentsDiv.addEventListener("click", (event) => {
+              const target = event.target;
+              if (target.classList.contains("show-more-comment")) {
+                const index = target.dataset.index;
+                target.parentNode.innerHTML = `${comments[index]} <span style="color: blue; cursor: pointer;" class="show-less-comment" data-index="${index}">[show less]</span>`;
+              } else if (target.classList.contains("show-less-comment")) {
+                const index = target.dataset.index;
+                target.parentNode.innerHTML = `${comments[index].slice(
+                  0,
+                  500
+                )}<span style="color: blue; cursor: pointer;" class="show-more-comment" data-index="${index}">... [show more]</span>`;
+              }
+            });
+
+            // Toggle comments visibility
             commentsBtn.addEventListener("click", () => {
               if (commentsDiv.style.display === "none") {
                 commentsDiv.style.display = "block";

@@ -80,7 +80,7 @@ def search():
                     comment.get("kind") == "t1"
                     and comment["data"].get("body")
                     and "[deleted]" not in comment["data"]["body"]
-                    and len(comment["data"]["body"]) <= 300
+                    and "[removed]" not in comment["data"]["body"]
                 )
             ]
 

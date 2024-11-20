@@ -15,7 +15,7 @@ html, body {
 
 /* Center content */
 .content {
-    max-width: 800px;
+    max-width: 900px; /* Wider content container */
     margin: 0 auto;
     padding: 20px;
     text-align: center;
@@ -69,78 +69,59 @@ html, body {
     margin: 15px 0;
     padding: 15px;
     border: 1px solid #ccc;
-    border-radius: 10px;
+    border-radius: 5px;
     background: #fff;
-    display: flex;
-    flex-direction: column;
-    align-items: center; /* Center content horizontally */
-    word-wrap: break-word; /* Ensure long text doesn't overflow */
-    font-size: 1.2em; /* Larger text size for better readability */
 }
 
-/* Styling for the post title link */
+/* Main post links */
 #results li a {
-    text-decoration: none; /* Remove the blue underline */
-    color: #333; /* Neutral color for the link */
+    text-decoration: none; /* Remove underline */
+    color: #333;
+    font-size: 1.2em; /* Larger text */
     font-weight: bold;
-    text-align: center; /* Center-align the text */
-    display: block;
-    margin-bottom: 10px;
+    display: block; /* Make it a block element for better centering */
+    margin-bottom: 10px; /* Add space between link and buttons */
+    text-align: center;
     transition: color 0.3s ease;
 }
 
 #results li a:hover {
-    color: #ff6347; /* Tomato hover color */
-}
-
-/* Upvotes styling */
-#results li span {
-    margin-bottom: 10px;
-    font-size: 0.9em;
-    color: #666;
+    color: #007bff; /* Blue color on hover */
 }
 
 /* Show comments button */
-.show-comments-btn {
+.show-comments-btn, .show-post-btn {
     margin-top: 10px;
-    margin-right: 10px;
-    padding: 5px 15px;
-    font-size: 0.9em;
-    background-color: #007bff; /* Blue */
+    background-color: #007bff;
     color: white;
     border: none;
+    padding: 5px 10px;
     border-radius: 5px;
     cursor: pointer;
     transition: background-color 0.3s ease;
 }
 
 .show-comments-btn:hover {
-    background-color: #0056b3; /* Darker blue */
+    background-color: #0056b3;
 }
 
-/* Show post button */
 .show-post-btn {
-    margin-top: 10px;
-    margin-right: 10px;
-    padding: 5px 15px;
-    font-size: 0.9em;
-    background-color: #32cd32; /* LimeGreen */
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
+    background-color: #28a745; /* Green color for Show Post */
 }
 
 .show-post-btn:hover {
-    background-color: #228b22; /* ForestGreen */
+    background-color: #218838;
 }
 
-/* Comments and post text container */
-#results li div {
+/* Comment styling */
+.comment {
+    font-size: 0.9em; /* Smaller font size */
     margin-top: 10px;
-    padding: 10px;
-    border: 1px solid #e0e0e0;
-    border-radius: 5px;
-    background-color: #f9f9f9;
+    padding: 10px 0;
+    border-top: 1px solid #333; /* Horizontal black line */
+}
+
+/* First comment doesn't need a top border */
+.comment:first-child {
+    border-top: none;
 }
