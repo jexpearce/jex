@@ -13,48 +13,47 @@ document.addEventListener("DOMContentLoaded", () => {
     resultsDiv.innerHTML = "<p>Loading...</p>";
 
     try {
-      // CORS Proxy URL
-      const proxy = "https://cors-anywhere.herokuapp.com/";
-      const url = `${proxy}https://www.reddit.com/r/travel/search.json?q=${location}&restrict_sr=1`;
+      // Send request to Flask backend
+      const response = await fetch(
+        `http://127.0.0.1:5000/search?q=${location}&subreddit=travel`
+      );
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
 
-      const response = await fetch(url);
       const data = await response.json();
-
       const posts = data.data.children;
 
       if (posts.length === 0) {
         resultsDiv.innerHTML = "<p>No results found.</p>";
       } else {
-        // Define the keywords to match (case-insensitive)
+        // Define keywords for filtering
         const keywords = ["itinerary", "guide", "things to do", "tips"];
         const keywordRegex = new RegExp(keywords.join("|"), "i");
 
-        // Filter and sort posts
         const filteredPosts = posts
           .map((post) => post.data)
-          .filter((post) => keywordRegex.test(post.title)) // Include only posts with matching keywords
+          .filter((post) => keywordRegex.test(post.title)) // Match keywords
           .sort((a, b) => b.ups - a.ups) // Sort by upvotes
-          .slice(0, 10); // Take the top 10
+          .slice(0, 10); // Top 10
 
-        // Display results
         if (filteredPosts.length === 0) {
           resultsDiv.innerHTML = "<p>No posts matched your keywords.</p>";
         } else {
           resultsDiv.innerHTML = "<h2>Top Posts:</h2><ul>";
           filteredPosts.forEach((post) => {
             const title = post.title;
-            const url = `https://reddit.com${post.permalink}`;
+            const postUrl = `https://reddit.com${post.permalink}`;
             const upvotes = post.ups;
 
-            resultsDiv.innerHTML += `<li><a href="${url}" target="_blank">${title}</a> (${upvotes} upvotes)</li>`;
+            resultsDiv.innerHTML += `<li><a href="${postUrl}" target="_blank">${title}</a> (${upvotes} upvotes)</li>`;
           });
           resultsDiv.innerHTML += "</ul>";
         }
       }
     } catch (error) {
       console.error(error);
-      resultsDiv.innerHTML =
-        "<p>Failed to fetch data. Please try again later.</p>";
+      resultsDiv.innerHTML = `<p>Failed to fetch data: ${error.message}</p>`;
     }
   });
 });
