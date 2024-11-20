@@ -5,68 +5,47 @@
 }
 
 html, body {
-    height: 100%;
+    height: auto;
+    min-height: 100%;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: #f5f5f5; /* Set a plain background color */
+    color: #333; /* Adjust text color for better readability */
+    overflow-y: auto; /* Enable scrolling */
 }
 
-body {
-    background: url('world_study/world.jpg') no-repeat center center fixed;
-    background-size: cover;
-    position: relative;
-}
-
-/* Overlay to darken the background image */
-.overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: rgba(0, 0, 0, 0.5);
-}
-
-/* Center content vertically and horizontally */
+/* Center content */
 .content {
-    position: relative;
-    z-index: 1;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
     text-align: center;
-    color: #ffffff;
 }
 
 /* Title styling */
 .content h1 {
-    font-size: 4em;
+    font-size: 2.5em;
     margin-bottom: 20px;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
 }
 
 /* Search box container */
 .search-box {
     display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 300px;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 20px;
 }
 
 /* Input field styling */
 .search-box input[type="text"] {
-    width: 100%;
-    padding: 15px;
+    padding: 10px;
     font-size: 1em;
-    border: none;
+    border: 1px solid #ccc;
     border-radius: 5px;
-    margin-bottom: 10px;
 }
 
 /* Button styling */
 .search-box button {
-    width: 100%;
-    padding: 15px;
+    padding: 10px 20px;
     font-size: 1em;
     background-color: #ff6347; /* Tomato color */
     color: #fff;
@@ -78,4 +57,90 @@ body {
 
 .search-box button:hover {
     background-color: #ff4500; /* OrangeRed color */
+}
+
+/* Results container */
+#results ul {
+    list-style: none;
+    padding: 0;
+}
+
+#results li {
+    margin: 15px 0;
+    padding: 15px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    background: #fff;
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Center content horizontally */
+    word-wrap: break-word; /* Ensure long text doesn't overflow */
+    font-size: 1.2em; /* Larger text size for better readability */
+}
+
+/* Styling for the post title link */
+#results li a {
+    text-decoration: none; /* Remove the blue underline */
+    color: #333; /* Neutral color for the link */
+    font-weight: bold;
+    text-align: center; /* Center-align the text */
+    display: block;
+    margin-bottom: 10px;
+    transition: color 0.3s ease;
+}
+
+#results li a:hover {
+    color: #ff6347; /* Tomato hover color */
+}
+
+/* Upvotes styling */
+#results li span {
+    margin-bottom: 10px;
+    font-size: 0.9em;
+    color: #666;
+}
+
+/* Show comments button */
+.show-comments-btn {
+    margin-top: 10px;
+    margin-right: 10px;
+    padding: 5px 15px;
+    font-size: 0.9em;
+    background-color: #007bff; /* Blue */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.show-comments-btn:hover {
+    background-color: #0056b3; /* Darker blue */
+}
+
+/* Show post button */
+.show-post-btn {
+    margin-top: 10px;
+    margin-right: 10px;
+    padding: 5px 15px;
+    font-size: 0.9em;
+    background-color: #32cd32; /* LimeGreen */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.show-post-btn:hover {
+    background-color: #228b22; /* ForestGreen */
+}
+
+/* Comments and post text container */
+#results li div {
+    margin-top: 10px;
+    padding: 10px;
+    border: 1px solid #e0e0e0;
+    border-radius: 5px;
+    background-color: #f9f9f9;
 }
