@@ -15,7 +15,7 @@ html, body {
 
 /* Center content */
 .content {
-    max-width: 900px; /* Wider content container */
+    max-width: 1000px; /* Increased max-width for wider layout */
     margin: 0 auto;
     padding: 20px;
     text-align: center;
@@ -41,6 +41,7 @@ html, body {
     font-size: 1em;
     border: 1px solid #ccc;
     border-radius: 5px;
+    width: 300px;
 }
 
 /* Button styling */
@@ -67,38 +68,50 @@ html, body {
 
 #results li {
     margin: 15px 0;
-    padding: 15px;
+    padding: 20px;
     border: 1px solid #ccc;
     border-radius: 5px;
     background: #fff;
 }
 
-/* Main post links */
+/* Main post title link */
 #results li a {
-    text-decoration: none; /* Remove underline */
+    text-decoration: none;
     color: #333;
-    font-size: 1.2em; /* Larger text */
+    font-size: 1.25em;
     font-weight: bold;
-    display: block; /* Make it a block element for better centering */
-    margin-bottom: 10px; /* Add space between link and buttons */
+    display: block;
+    margin-bottom: 5px;
     text-align: center;
     transition: color 0.3s ease;
 }
 
 #results li a:hover {
-    color: #007bff; /* Blue color on hover */
+    color: #007bff; /* Light up blue on hover */
 }
 
-/* Show comments button */
+/* Upvotes styling */
+#results li p {
+    margin-bottom: 10px;
+    font-size: 1em;
+    text-align: center;
+    color: #555;
+}
+
+/* Show buttons styling */
 .show-comments-btn, .show-post-btn {
-    margin-top: 10px;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    padding: 5px 10px;
+    margin: 10px 5px;
+    padding: 5px 15px;
     border-radius: 5px;
+    border: none;
+    font-size: 1em;
     cursor: pointer;
     transition: background-color 0.3s ease;
+}
+
+.show-comments-btn {
+    background-color: #007bff;
+    color: white;
 }
 
 .show-comments-btn:hover {
@@ -106,22 +119,24 @@ html, body {
 }
 
 .show-post-btn {
-    background-color: #28a745; /* Green color for Show Post */
+    background-color: #28a745;
+    color: white;
 }
 
 .show-post-btn:hover {
-    background-color: #218838;
+    background-color: #1c7c33;
 }
 
-/* Comment styling */
+/* Comments section */
 .comment {
-    font-size: 0.9em; /* Smaller font size */
-    margin-top: 10px;
+    font-size: 0.9em; /* Smaller font for comments */
+    color: #333;
+    margin-bottom: 15px; /* Space between comments */
     padding: 10px 0;
-    border-top: 1px solid #333; /* Horizontal black line */
+    border-top: 1px solid #ccc; /* Horizontal line between comments */
 }
 
-/* First comment doesn't need a top border */
+/* Remove the top border for the first comment */
 .comment:first-child {
     border-top: none;
 }
