@@ -86,5 +86,8 @@ def search():
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 
+import os
+
 if __name__ == "__main__":
-    app.run(port=5001)
+    port = int(os.environ.get("PORT", 5001))  # Use the PORT environment variable or default to 5001
+    app.run(host="0.0.0.0", port=port)  # Bind to all interfaces
