@@ -3,6 +3,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const locationInput = document.getElementById("location-input");
   const resultsDiv = document.getElementById("results");
   const body = document.getElementById("body");
+
   searchButton.addEventListener("click", async () => {
     const location = locationInput.value.trim();
     if (!location) {
@@ -14,9 +15,11 @@ document.addEventListener("DOMContentLoaded", () => {
     body.classList.add("results-shown");
 
     try {
+      // Updated to use a relative URL instead of hardcoding the localhost or Render URL
       const response = await fetch(
-        `http://127.0.0.1:5001/search?q=${encodeURIComponent(location)}`
+        `/search?q=${encodeURIComponent(location)}` // Use relative path
       );
+
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
