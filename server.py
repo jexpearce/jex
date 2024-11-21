@@ -9,7 +9,7 @@ CORS(app)  # Enable CORS for all routes
 
 @app.route("/")
 def serve_frontend():
-    return send_from_directory("static", "newidea.html")
+    return send_from_directory("template", "newidea.html")
 
 @app.route("/search", methods=["GET"])
 def search():
