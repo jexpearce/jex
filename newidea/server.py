@@ -2,6 +2,7 @@ import requests
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 import re
+import time
 
 app = Flask(__name__)
 CORS(app)  # Enable CORS for all routes
@@ -20,11 +21,11 @@ def search():
         response.raise_for_status()
         data = response.json()
 
-        # Check if data structure is as expected
+        # a recommended check i was told to do
         if "data" not in data or "children" not in data["data"]:
             return jsonify({"error": "Unexpected Reddit API response structure."}), 500
 
-        # Keywords for filtering posts
+        # keywords
         keywords = [
             "itinerary",
             "guide",
@@ -42,37 +43,37 @@ def search():
             "excursions",
         ]
 
-        # Create a regex pattern for keywords
         keyword_pattern = re.compile('|'.join(re.escape(kw) for kw in keywords))
-
-        # Filter posts based on title containing keywords
+        current_time = time.time()
+        eight_years_in_seconds = 8 * 365 * 24 * 60 * 60  # Approx for 8 years
         filtered_posts = [
             post["data"]
             for post in data["data"]["children"]
             if keyword_pattern.search(post["data"]["title"].lower())
-            and post["data"].get("post_hint") != "image"  # Exclude image posts
-            and not post["data"].get("is_video", False)  # Exclude video posts
-            and "media_metadata" not in post["data"]  # Exclude gallery posts
-        ]
+            and post["data"].get("post_hint") != "image"  
+            and not post["data"].get("is_video", False)  
+            and "media_metadata" not in post["data"]  
+            and current_time - post["data"]["created_utc"] <= eight_years_in_seconds #nothign more than 8 yrs ago
+]
 
-        # Limit to the top 5 posts
-        top_posts = filtered_posts[:5]
+        # top 8 posts only
+        top_posts = filtered_posts[:8]
 
-        # For each post, fetch top 5 comments inline
+        # For each post, fetch top 5 comments
         for post in top_posts:
             post_id = post["id"]
-            post_subreddit = post["subreddit"]  # Specific subreddit for this post
+            post_subreddit = post["subreddit"]  #specific subreddit
             comments_url = f"https://www.reddit.com/r/{post_subreddit}/comments/{post_id}.json?depth=1&limit=5"
             comments_response = requests.get(comments_url, headers=headers)
             comments_response.raise_for_status()
             comments_data = comments_response.json()
 
-            # Validate comments_data structure
+            # was recommended to validate
             if len(comments_data) < 2 or "data" not in comments_data[1] or "children" not in comments_data[1]["data"]:
                 post["top_comments"] = []
                 continue
 
-            # Extract comments, excluding [deleted] or large comments
+            # extracting the top comments
             post["top_comments"] = [
                 comment["data"]["body"]
                 for comment in comments_data[1]["data"]["children"]

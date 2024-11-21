@@ -2,7 +2,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const searchButton = document.getElementById("search-button");
   const locationInput = document.getElementById("location-input");
   const resultsDiv = document.getElementById("results");
-
+  const body = document.getElementById("body");
   searchButton.addEventListener("click", async () => {
     const location = locationInput.value.trim();
     if (!location) {
@@ -11,6 +11,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     resultsDiv.innerHTML = "<p>Loading...</p>";
+    body.classList.add("results-shown");
 
     try {
       const response = await fetch(
