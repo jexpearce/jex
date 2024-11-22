@@ -7,70 +7,112 @@
 html, body {
     height: 100%;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background: #f5f5f5; /* Set a plain background color */
-    color: #333; /* Adjust text color for better readability */
-    overflow-y: auto; /* Enable scrolling */
+    background: #f5f5f5;
+    color: #333;
+    overflow-y: auto;
 }
 
-/* Center content on the screen initially */
 .content {
     max-width: 1000px; /* Increased max-width for wider layout */
     margin: 0 auto;
     padding: 20px;
     text-align: center;
-    height: 100%; /* Full height of the viewport */
     display: flex;
     flex-direction: column;
     justify-content: center; /* Vertically center the content */
     align-items: center; /* Horizontally center the content */
+    min-height: 100vh; /* Use min-height instead of height */
 }
 
-/* Once results are displayed, adjust layout */
 .results-shown .content {
-    height: auto;
+    height: auto; /* Allow the height to expand with content */
     justify-content: flex-start; /* Reset alignment to the top */
+    align-items: stretch; /* Adjust to stretch full width if needed */
 }
 
 /* Title styling */
 .content h1 {
-    font-size: 2.5em;
+    font-size: 3.5em; /* Larger title */
     margin-bottom: 20px;
+    color: #444;
+}
+
+.subheading {
+    font-size: 1.25em; /* Subheading font size */
+    color: #666;
+    margin-bottom: 30px;
 }
 
 /* Search box container */
 .search-box {
     display: flex;
-    justify-content: center;
-    gap: 10px;
-    margin-bottom: 20px;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
 }
 
 /* Input field styling */
 .search-box input[type="text"] {
-    padding: 10px;
-    font-size: 1em;
+    padding: 15px;
+    font-size: 1.25em;
     border: 1px solid #ccc;
-    border-radius: 5px;
-    width: 300px;
+    border-radius: 10px;
+    width: 100%;
+    max-width: 500px;
+    margin-bottom: 25px; /* Space between input and buttons */
+}
+
+/* Buttons container styling */
+.buttons-container {
+    display: flex;
+    justify-content: center;
+    gap: 15px; /* Space between buttons */
 }
 
 /* Button styling */
 .search-box button {
-    padding: 10px 20px;
-    font-size: 1em;
-    background-color: #ff6347; /* Tomato color */
+    padding: 15px 25px;
+    font-size: 1.25em; /* Larger button text */
     color: #fff;
     border: none;
-    border-radius: 5px;
+    border-radius: 10px;
     cursor: pointer;
-    transition: background-color 0.3s ease;
+    transition: background-color 0.3s ease, transform 0.2s;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-.search-box button:hover {
-    background-color: #ff4500; /* OrangeRed color */
+#search-button {
+    background-color: #ff6347;
+}
+
+#search-button:hover {
+    background-color: #ff4500;
+    transform: scale(1.05); /* Slight zoom effect */
+}
+
+#food-button {
+    background-color: #28a745;
+}
+
+#food-button:hover {
+    background-color: #1c7c33;
+    transform: scale(1.05);
+}
+
+#budget-button {
+    background-color: #007bff;
+}
+
+#budget-button:hover {
+    background-color: #0056b3;
+    transform: scale(1.05);
 }
 
 /* Results container */
+#results {
+    margin-top: 30px; /* Space between results and search box */
+}
+
 #results ul {
     list-style: none;
     padding: 0;
@@ -80,8 +122,9 @@ html, body {
     margin: 15px 0;
     padding: 20px;
     border: 1px solid #ccc;
-    border-radius: 5px;
+    border-radius: 10px;
     background: #fff;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 /* Main post title link */
@@ -97,7 +140,7 @@ html, body {
 }
 
 #results li a:hover {
-    color: #007bff; /* Light up blue on hover */
+    color: #007bff;
 }
 
 /* Upvotes styling */
@@ -111,7 +154,7 @@ html, body {
 /* Show buttons styling */
 .show-comments-btn, .show-post-btn {
     margin: 10px 5px;
-    padding: 5px 15px;
+    padding: 8px 20px;
     border-radius: 5px;
     border: none;
     font-size: 1em;
@@ -139,11 +182,11 @@ html, body {
 
 /* Comments section */
 .comment {
-    font-size: 0.9em; /* Smaller font for comments */
+    font-size: 0.9em;
     color: #333;
-    margin-bottom: 15px; /* Space between comments */
+    margin-bottom: 15px;
     padding: 10px 0;
-    border-top: 1px solid #ccc; /* Horizontal line between comments */
+    border-top: 1px solid #ccc;
 }
 
 /* Remove the top border for the first comment */

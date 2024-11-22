@@ -1,15 +1,24 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Authentic Travel</title>
     <link rel="stylesheet" href="/static/newidea.css" />
   </head>
   <body id="body">
     <div class="content">
       <h1>Authentic Travel</h1>
+      <p class="subheading">
+        Explore tips, nightlife, food, and budget ideas tailored for your
+        destination!
+      </p>
       <div class="search-box">
         <input type="text" placeholder="Enter location" id="location-input" />
-        <button id="search-button">Find Travel Tips</button>
+        <div class="buttons-container">
+          <button id="search-button">Find Travel Tips</button>
+          <button id="food-button">Find Food/Nightlife Tips</button>
+          <button id="budget-button">Find Budget Tips</button>
+        </div>
       </div>
       <div id="results"></div>
     </div>

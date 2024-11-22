@@ -1,11 +1,12 @@
 document.addEventListener("DOMContentLoaded", () => {
   const searchButton = document.getElementById("search-button");
+  const foodButton = document.getElementById("food-button");
+  const budgetButton = document.getElementById("budget-button");
   const locationInput = document.getElementById("location-input");
   const resultsDiv = document.getElementById("results");
   const body = document.getElementById("body");
 
-  searchButton.addEventListener("click", async () => {
-    const location = locationInput.value.trim();
+  const performSearch = async (location, type) => {
     if (!location) {
       resultsDiv.innerHTML = "<p>Please enter a location.</p>";
       return;
@@ -15,10 +16,13 @@ document.addEventListener("DOMContentLoaded", () => {
     body.classList.add("results-shown");
 
     try {
-      // Updated to use a relative URL instead of hardcoding the localhost or Render URL
-      const response = await fetch(
-        `/search?q=${encodeURIComponent(location)}` // Use relative path
-      );
+      const endpoint =
+        type === "food"
+          ? `/search?type=food&q=${encodeURIComponent(location)}`
+          : type === "budget"
+          ? `/search?type=budget&q=${encodeURIComponent(location)}`
+          : `/search?q=${encodeURIComponent(location)}`;
+      const response = await fetch(endpoint);
 
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
@@ -51,7 +55,6 @@ document.addEventListener("DOMContentLoaded", () => {
               </a> (${upvotes} upvotes)
             `;
 
-          // Add "Show Post" button
           if (postText) {
             const showPostBtn = document.createElement("button");
             showPostBtn.textContent = "Show Post";
@@ -59,7 +62,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
             const postTextDiv = document.createElement("div");
             postTextDiv.style.display = "none";
-
             const truncatedPostText =
               postText.length > 500
                 ? `${postText.slice(
@@ -70,7 +72,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
             postTextDiv.innerHTML = truncatedPostText;
 
-            // Toggle post text visibility
             showPostBtn.addEventListener("click", () => {
               if (postTextDiv.style.display === "none") {
                 postTextDiv.style.display = "block";
@@ -81,21 +82,10 @@ document.addEventListener("DOMContentLoaded", () => {
               }
             });
 
-            // Add "Show More" and "Show Less" functionality
-            postTextDiv.addEventListener("click", (event) => {
-              const target = event.target;
-              if (target.classList.contains("show-more-post")) {
-                postTextDiv.innerHTML = `${postText} <span style="color: blue; cursor: pointer;" class="show-less-post">[show less]</span>`;
-              } else if (target.classList.contains("show-less-post")) {
-                postTextDiv.innerHTML = truncatedPostText;
-              }
-            });
-
             postItem.appendChild(showPostBtn);
             postItem.appendChild(postTextDiv);
           }
 
-          // Add "Show Comments" button and truncated comments
           if (comments.length > 0) {
             const commentsBtn = document.createElement("button");
             commentsBtn.textContent = "Show Comments";
@@ -104,32 +94,9 @@ document.addEventListener("DOMContentLoaded", () => {
             const commentsDiv = document.createElement("div");
             commentsDiv.style.display = "none";
             commentsDiv.innerHTML = comments
-              .map((comment, index) =>
-                comment.length > 500
-                  ? `<p>${comment.slice(
-                      0,
-                      500
-                    )}<span style="color: blue; cursor: pointer;" class="show-more-comment" data-index="${index}">... [show more]</span></p>`
-                  : `<p>${comment}</p>`
-              )
+              .map((comment) => `<p>${comment}</p>`)
               .join("");
 
-            // Expand/collapse comment text
-            commentsDiv.addEventListener("click", (event) => {
-              const target = event.target;
-              if (target.classList.contains("show-more-comment")) {
-                const index = target.dataset.index;
-                target.parentNode.innerHTML = `${comments[index]} <span style="color: blue; cursor: pointer;" class="show-less-comment" data-index="${index}">[show less]</span>`;
-              } else if (target.classList.contains("show-less-comment")) {
-                const index = target.dataset.index;
-                target.parentNode.innerHTML = `${comments[index].slice(
-                  0,
-                  500
-                )}<span style="color: blue; cursor: pointer;" class="show-more-comment" data-index="${index}">... [show more]</span>`;
-              }
-            });
-
-            // Toggle comments visibility
             commentsBtn.addEventListener("click", () => {
               if (commentsDiv.style.display === "none") {
                 commentsDiv.style.display = "block";
@@ -151,5 +118,20 @@ document.addEventListener("DOMContentLoaded", () => {
       console.error(error);
       resultsDiv.innerHTML = `<p>Failed to fetch data: ${error.message}</p>`;
     }
+  };
+
+  searchButton.addEventListener("click", () => {
+    const location = locationInput.value.trim();
+    performSearch(location, "travel");
+  });
+
+  foodButton.addEventListener("click", () => {
+    const location = locationInput.value.trim();
+    performSearch(location, "food");
+  });
+
+  budgetButton.addEventListener("click", () => {
+    const location = locationInput.value.trim();
+    performSearch(location, "budget");
   });
 });
