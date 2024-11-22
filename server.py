@@ -12,7 +12,6 @@ import random
 app = Flask(__name__, static_folder="static")
 CORS(app, resources={r"/search": {"origins": "*"}})
 
-# Initialize Flask-Limiter
 limiter = Limiter(key_func=get_remote_address)
 limiter.init_app(app)
 
@@ -31,7 +30,7 @@ def search():
 
         headers = {"User-Agent": "AuthenticTravelApp/0.1"}
 
-        # Check if r/[location] exists
+        # checks if the r/[location] even exists
         encoded_query = quote(query)
         specific_subreddit_url = f"https://www.reddit.com/r/{encoded_query}/about.json"
         specific_subreddit_exists = False
@@ -43,7 +42,7 @@ def search():
         except requests.exceptions.RequestException:
             specific_subreddit_exists = False
 
-        # Define keywords based on search type
+        # keywords
         if search_type == "food":
             keywords = [
                 "food", "culture", "restaurants", "nightlife", "clubs", "bars",
@@ -52,7 +51,7 @@ def search():
             ]
         elif search_type == "budget":
             keywords = ["budget", "cheap", "affordable", "low-cost", "money-saving"]
-        else:  # Default to "travel"
+        else:  #means it will default to the "find travel tips"
             keywords = [
                 "itinerary", "guide", "things to do", "trip",
                 "recommendations", "must-see",
@@ -69,22 +68,19 @@ def search():
             return [
                 post
                 for post in posts
-                if keyword_pattern.search(post.get("title", ""))  # Match keywords in the title
-                and not exclude_pattern.search(post.get("title", ""))  # Exclude posts with certain words
+                if keyword_pattern.search(post.get("title", ""))  
+                and not exclude_pattern.search(post.get("title", ""))  
                 and post.get("post_hint") != "image"
                 and not post.get("is_video", False)
                 and "media_metadata" not in post
                 and current_time - post.get("created_utc", current_time) <= eight_years_in_seconds
             ]
 
-        # Fetch posts from r/[location]
+  
         location_posts = []
-        if specific_subreddit_exists:
-            # Build the keywords query
+        if specific_subreddit_exists: 
             keywords_query = ' OR '.join(f'"{kw}"' for kw in keywords)
-            # Properly encode the query
             encoded_keywords_query = quote(keywords_query)
-            # Include restrict_sr=1 to restrict the search to the subreddit
             location_search_url = f"https://www.reddit.com/r/{encoded_query}/search.json?q={encoded_keywords_query}&restrict_sr=1&limit=100&sort=top"
             try:
                 location_response = requests.get(location_search_url, headers=headers)
@@ -92,9 +88,9 @@ def search():
                 location_data = location_response.json()
                 location_posts = [post["data"] for post in location_data.get("data", {}).get("children", [])]
             except requests.exceptions.RequestException:
-                pass  # Gracefully handle if r/[location] search fails
+                pass  
 
-        # Fetch posts from general subreddits (same for both "travel" and "food")
+       
         general_subreddits = "travel+travelnopics+solotravel"
         keywords_query = ' OR '.join(f'"{kw}"' for kw in keywords)
         general_search_query = f'title:"{query}" ({keywords_query})'
@@ -107,9 +103,9 @@ def search():
             general_data = general_response.json()
             general_posts = [post["data"] for post in general_data.get("data", {}).get("children", [])]
         except requests.exceptions.RequestException:
-            pass  # Gracefully handle if general subreddit search fails
+            pass  
 
-        # Apply filters to both sets of posts
+    
         filtered_location_posts = filter_posts(location_posts)
         filtered_general_posts = filter_posts(general_posts)
 
@@ -117,7 +113,7 @@ def search():
         random.shuffle(top_posts)  
 
 
-        # For each post, fetch top 5 comments
+
         for post in top_posts:
             post_id = post.get("id")
             post_subreddit = post.get("subreddit")

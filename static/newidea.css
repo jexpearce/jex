@@ -13,37 +13,35 @@ html, body {
 }
 
 .content {
-    max-width: 1000px; /* Increased max-width for wider layout */
+    max-width: 1000px;
     margin: 0 auto;
     padding: 20px;
     text-align: center;
     display: flex;
     flex-direction: column;
-    justify-content: center; /* Vertically center the content */
-    align-items: center; /* Horizontally center the content */
-    min-height: 100vh; /* Use min-height instead of height */
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
 }
 
 .results-shown .content {
-    height: auto; /* Allow the height to expand with content */
-    justify-content: flex-start; /* Reset alignment to the top */
-    align-items: stretch; /* Adjust to stretch full width if needed */
+    height: auto;
+    justify-content: flex-start;
+    align-items: stretch;
 }
 
-/* Title styling */
 .content h1 {
-    font-size: 3.5em; /* Larger title */
+    font-size: 3.5em;
     margin-bottom: 20px;
     color: #444;
 }
 
 .subheading {
-    font-size: 1.25em; /* Subheading font size */
+    font-size: 1.25em;
     color: #666;
     margin-bottom: 30px;
 }
 
-/* Search box container */
 .search-box {
     display: flex;
     flex-direction: column;
@@ -51,7 +49,6 @@ html, body {
     width: 100%;
 }
 
-/* Input field styling */
 .search-box input[type="text"] {
     padding: 15px;
     font-size: 1.25em;
@@ -59,20 +56,18 @@ html, body {
     border-radius: 10px;
     width: 100%;
     max-width: 500px;
-    margin-bottom: 25px; /* Space between input and buttons */
+    margin-bottom: 25px;
 }
 
-/* Buttons container styling */
 .buttons-container {
     display: flex;
     justify-content: center;
-    gap: 15px; /* Space between buttons */
+    gap: 15px;
 }
 
-/* Button styling */
 .search-box button {
     padding: 15px 25px;
-    font-size: 1.25em; /* Larger button text */
+    font-size: 1.25em;
     color: #fff;
     border: none;
     border-radius: 10px;
@@ -87,7 +82,7 @@ html, body {
 
 #search-button:hover {
     background-color: #ff4500;
-    transform: scale(1.05); /* Slight zoom effect */
+    transform: scale(1.05);
 }
 
 #food-button {
@@ -108,9 +103,8 @@ html, body {
     transform: scale(1.05);
 }
 
-/* Results container */
 #results {
-    margin-top: 30px; /* Space between results and search box */
+    margin-top: 30px;
 }
 
 #results ul {
@@ -127,7 +121,6 @@ html, body {
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-/* Main post title link */
 #results li a {
     text-decoration: none;
     color: #333;
@@ -143,7 +136,6 @@ html, body {
     color: #007bff;
 }
 
-/* Upvotes styling */
 #results li p {
     margin-bottom: 10px;
     font-size: 1em;
@@ -151,7 +143,6 @@ html, body {
     color: #555;
 }
 
-/* Show buttons styling */
 .show-comments-btn, .show-post-btn {
     margin: 10px 5px;
     padding: 8px 20px;
@@ -180,7 +171,6 @@ html, body {
     background-color: #1c7c33;
 }
 
-/* Comments section */
 .comment {
     font-size: 0.9em;
     color: #333;
@@ -189,7 +179,6 @@ html, body {
     border-top: 1px solid #ccc;
 }
 
-/* Remove the top border for the first comment */
 .comment:first-child {
     border-top: none;
 }
