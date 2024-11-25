@@ -6,8 +6,17 @@ from flask_limiter.util import get_remote_address
 from urllib.parse import quote
 import re
 import time
-import os
 import random
+import openai
+import os
+from openai import OpenAI
+
+# Create OpenAI client instance
+client = OpenAI(
+    project='proj_Ae4DRM4LfOvsBwmuXUvqZwPr',
+    api_key = os.environ.get("OPENAI_API_KEY"),
+)
+
 
 app = Flask(__name__, static_folder="static")
 CORS(app, resources={r"/search": {"origins": "*"}})
@@ -19,101 +28,165 @@ limiter.init_app(app)
 def serve_frontend():
     return send_from_directory("templates", "newidea.html")
 
+@app.route("/summarize", methods=["POST"])
+def summarize():
+    try:
+        data = request.get_json()
+        posts = data.get("posts", [])
+        search_type = data.get("type", "travel").strip().lower()  # Expect "travel", "food", or "budget"
+
+        if not posts:
+            return jsonify({"error": "No posts provided for summarization."}), 400
+
+        content = ""
+        for post in posts:
+            title = post.get("title", "")
+            comments = post.get("top_comments", [])
+            post_text = post.get("selftext", "")
+
+            content += f"Title: {title}\n"
+            if post_text:
+                content += f"Post: {post_text}\n"
+            if comments:
+                content += "Comments:\n" + "\n".join(f"- {comment}" for comment in comments) + "\n"
+            content += "\n"
+
+        if search_type == "travel":
+            instruction = (
+                "Analyze the posts and comments provided and create a list of the top things to do in the area. "
+                "Base your response on the posts' data where available and supplement with general knowledge if necessary. MAX 5 sentences, and ONLY talk about the location given."
+            )
+        elif search_type == "food":
+            instruction = (
+                "Analyze the posts and comments provided and create a summary of the best places to eat or nightlife "
+                "in the area, as well as the best dishes or food in the region or country. Use post data if available; "
+                "otherwise, supplement with general knowledge."
+            )
+        elif search_type == "budget":
+            instruction = (
+                "Analyze the posts and comments provided and list the cheapest accommodations, such as hostels, "
+                "along with general money-saving tips for the area. Use post data if available; otherwise, "
+                "supplement with general knowledge."
+            )
+        else:
+            return jsonify({"error": "Invalid search type provided."}), 400
+
+        response = client.chat.completions.create(
+            model="gpt-4o-mini",  # Replace with the desired model
+            messages=[
+                {"role": "system", "content": "You are an expert travel assistant."},
+                {"role": "user", "content": f"{instruction}\n\n{content}"},
+            ],
+            temperature=0.5,
+        )
+
+        summary = response.choices[0].message.content.strip()
+        return jsonify({"summary": summary})
+
+    except Exception as e:
+        print("Error in /summarize:", str(e))
+        return jsonify({"error": str(e)}), 500
+    
+from geopy.geocoders import Nominatim
+
+# Initialize geopy's Nominatim geolocator
+geolocator = Nominatim(user_agent="AuthenticAdventuresapp")
+current_time = time.time()
+eight_years_in_seconds = 8 * 365 * 24 * 60 * 60
+
+google_headers = {"User-Agent": "AuthenticTravelApp/0.1"}
 @app.route("/search", methods=["GET"])
 @limiter.limit("8 per minute")
 def search():
     try:
         query = request.args.get("q", "").strip()
-        search_type = request.args.get("type", "travel").strip().lower()  # "travel" or "food"
         if not query:
             return jsonify({"error": "Query parameter is required."}), 400
 
+        # Headers for API requests
         headers = {"User-Agent": "AuthenticTravelApp/0.1"}
 
-        # checks if the r/[location] even exists
-        encoded_query = quote(query)
-        specific_subreddit_url = f"https://www.reddit.com/r/{encoded_query}/about.json"
-        specific_subreddit_exists = False
+        # Initialize geopy for country detection
+        from geopy.geocoders import Nominatim
+        geolocator = Nominatim(user_agent="AuthenticAdventuresApp")
+        location = geolocator.geocode(query, addressdetails=True, language='en')
+        country_name = location.raw.get("address", {}).get("country", "").lower() if location else None
 
-        try:
-            subreddit_response = requests.get(specific_subreddit_url, headers=headers)
-            if subreddit_response.status_code == 200:
-                specific_subreddit_exists = True
-        except requests.exceptions.RequestException:
-            specific_subreddit_exists = False
-
-        # keywords
-        if search_type == "food":
-            keywords = [
-                "food", "culture", "restaurants", "nightlife", "clubs", "bars",
-                "pubs", "cocktails", "night market", "places to eat", "local food",
-                "must-try dishes", "street food", "cuisine",
-            ]
-        elif search_type == "budget":
-            keywords = ["budget", "cheap", "affordable", "low-cost", "money-saving"]
-        else:  #means it will default to the "find travel tips"
-            keywords = [
-                "itinerary", "guide", "things to do", "trip",
-                "recommendations", "must-see",
-                "must-visit", "hidden gems", "attractions","excursions",
-            ]
+        # Keywords for filtering
+        keywords = [
+            "itinerary", "guide", "things to do", "trip",
+            "recommendations", "must-see", "must-visit", "hidden gems",
+            "attractions", "excursions"
+        ]
         keyword_pattern = re.compile('|'.join(re.escape(kw) for kw in keywords), re.IGNORECASE)
-        exclude_words = ["pic", "picture", "pictures", "video", "vid", "photo"]
+        exclude_words = ["pic", "picture", "video", "photo"]
         exclude_pattern = re.compile('|'.join(re.escape(word) for word in exclude_words), re.IGNORECASE)
 
         current_time = time.time()
         eight_years_in_seconds = 8 * 365 * 24 * 60 * 60
 
+        # Function to filter posts
         def filter_posts(posts):
             return [
                 post
                 for post in posts
-                if keyword_pattern.search(post.get("title", ""))  
-                and not exclude_pattern.search(post.get("title", ""))  
+                if keyword_pattern.search(post.get("title", ""))
+                and not exclude_pattern.search(post.get("title", ""))
                 and post.get("post_hint") != "image"
                 and not post.get("is_video", False)
                 and "media_metadata" not in post
                 and current_time - post.get("created_utc", current_time) <= eight_years_in_seconds
             ]
 
-  
+        # Check if r/[location] exists
+        specific_subreddit_exists = False
+        specific_subreddit_url = f"https://www.reddit.com/r/{quote(query)}/about.json"
+        try:
+            response = requests.get(specific_subreddit_url, headers=headers)
+            if response.status_code == 200:
+                specific_subreddit_exists = True
+        except requests.exceptions.RequestException:
+            pass
+
+        # Fetch posts from r/[location]
         location_posts = []
-        if specific_subreddit_exists: 
+        if specific_subreddit_exists:
             keywords_query = ' OR '.join(f'"{kw}"' for kw in keywords)
-            encoded_keywords_query = quote(keywords_query)
-            location_search_url = f"https://www.reddit.com/r/{encoded_query}/search.json?q={encoded_keywords_query}&restrict_sr=1&limit=100&sort=top"
+            location_search_url = f"https://www.reddit.com/r/{quote(query)}/search.json?q={quote(keywords_query)}&restrict_sr=1&limit=100&sort=top"
             try:
-                location_response = requests.get(location_search_url, headers=headers)
-                location_response.raise_for_status()
-                location_data = location_response.json()
+                response = requests.get(location_search_url, headers=headers)
+                response.raise_for_status()
+                location_data = response.json()
                 location_posts = [post["data"] for post in location_data.get("data", {}).get("children", [])]
             except requests.exceptions.RequestException:
-                pass  
+                pass
 
-       
-        general_subreddits = "travel+travelnopics+solotravel"
+        # Fetch posts from general subreddits
+        general_subreddits = ["travel", "solotravel", "travelnopics"]
+        if country_name:
+            general_subreddits.append(country_name)
+
         keywords_query = ' OR '.join(f'"{kw}"' for kw in keywords)
-        general_search_query = f'title:"{query}" ({keywords_query})'
-        encoded_general_search_query = quote(general_search_query)
-        general_search_url = f"https://www.reddit.com/r/{general_subreddits}/search.json?q={encoded_general_search_query}&restrict_sr=1&limit=100&sort=top"
+        general_search_query = f'title:"{query}" ({keywords_query})'  # Enforce location in title
+        general_search_url = f"https://www.reddit.com/r/{'+'.join(general_subreddits)}/search.json?q={quote(general_search_query)}&restrict_sr=1&limit=100&sort=top"
         general_posts = []
         try:
-            general_response = requests.get(general_search_url, headers=headers)
-            general_response.raise_for_status()
-            general_data = general_response.json()
+            response = requests.get(general_search_url, headers=headers)
+            response.raise_for_status()
+            general_data = response.json()
             general_posts = [post["data"] for post in general_data.get("data", {}).get("children", [])]
         except requests.exceptions.RequestException:
-            pass  
+            pass
 
-    
-        filtered_location_posts = filter_posts(location_posts)
-        filtered_general_posts = filter_posts(general_posts)
+        # Filter posts
+        filtered_location_posts = filter_posts(location_posts)[:4]  # Max 4 from r/[location]
+        filtered_general_posts = filter_posts(general_posts)[:8]  # Max 8 from general subreddits
 
-        top_posts = filtered_location_posts[:5] + filtered_general_posts[:5] 
-        random.shuffle(top_posts)  
+        # Combine and shuffle posts
+        top_posts = filtered_location_posts + filtered_general_posts
+        random.shuffle(top_posts)
 
-
-
+        # Fetch comments for the combined posts
         for post in top_posts:
             post_id = post.get("id")
             post_subreddit = post.get("subreddit")
@@ -143,5 +216,5 @@ def search():
         return jsonify({"error": str(e)}), 500
 
 if __name__ == "__main__":
-    port = int(os.environ.get("PORT", 5001))  
+    port = int(os.environ.get("PORT", 5001))  # Default local port
     app.run(host="0.0.0.0", port=port)

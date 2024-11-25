@@ -33,7 +33,12 @@ document.addEventListener("DOMContentLoaded", () => {
       if (posts.length === 0) {
         resultsDiv.innerHTML = "<p>No results found.</p>";
       } else {
-        resultsDiv.innerHTML = "<h2>Top Posts:</h2><ul id='post-list'></ul>";
+        resultsDiv.innerHTML = `
+          <h2>Top Posts:</h2>
+          <button id="generate-summary">Generate Summary</button>
+          <div id="summary-output"></div>
+          <ul id='post-list'></ul>
+        `;
         const postList = document.getElementById("post-list");
 
         posts.forEach((post) => {
@@ -113,6 +118,29 @@ document.addEventListener("DOMContentLoaded", () => {
 
           postList.appendChild(postItem);
         });
+
+        document
+          .getElementById("generate-summary")
+          .addEventListener("click", async () => {
+            try {
+              const response = await fetch("/summarize", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ posts, type }),
+              });
+
+              if (!response.ok) {
+                throw new Error(`Failed to summarize: ${response.statusText}`);
+              }
+
+              const { summary } = await response.json();
+              document.getElementById("summary-output").innerText = summary;
+            } catch (error) {
+              console.error(error);
+              document.getElementById("summary-output").innerText =
+                "Failed to generate summary.";
+            }
+          });
       }
     } catch (error) {
       console.error(error);

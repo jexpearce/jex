@@ -182,3 +182,39 @@ html, body {
 .comment:first-child {
     border-top: none;
 }
+#summary-container {
+    margin-top: 30px;
+    text-align: center;
+    display: none; /* Hidden until posts are fetched */
+}
+
+#generate-summary-button {
+    padding: 15px 25px;
+    font-size: 1.25em;
+    color: #fff;
+    background-color: #ffa500;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    margin-bottom: 15px;
+}
+
+#generate-summary-button:hover {
+    background-color: #ff8c00;
+    transform: scale(1.05);
+}
+
+#summary-output {
+    font-size: 1.1em;
+    color: #555;
+    margin-top: 10px;
+    background: #f9f9f9;
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    display: inline-block;
+    max-width: 600px;
+    text-align: left;
+}
