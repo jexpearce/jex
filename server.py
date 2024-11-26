@@ -10,8 +10,6 @@ import random
 import openai
 import os
 from openai import OpenAI
-
-# Create OpenAI client instance
 client = OpenAI(
     project='proj_Ae4DRM4LfOvsBwmuXUvqZwPr',
     api_key = os.environ.get("OPENAI_API_KEY"),
@@ -33,7 +31,7 @@ def summarize():
     try:
         data = request.get_json()
         posts = data.get("posts", [])
-        search_type = data.get("type", "travel").strip().lower()  # Expect "travel", "food", or "budget"
+        search_type = data.get("type", "travel").strip().lower() 
 
         if not posts:
             return jsonify({"error": "No posts provided for summarization."}), 400
@@ -72,7 +70,7 @@ def summarize():
             return jsonify({"error": "Invalid search type provided."}), 400
 
         response = client.chat.completions.create(
-            model="gpt-4o-mini",  # Replace with the desired model
+            model="gpt-4o-mini",  
             messages=[
                 {"role": "system", "content": "You are an expert travel assistant."},
                 {"role": "user", "content": f"{instruction}\n\n{content}"},
@@ -89,7 +87,6 @@ def summarize():
     
 from geopy.geocoders import Nominatim
 
-# Initialize geopy's Nominatim geolocator
 geolocator = Nominatim(user_agent="AuthenticAdventuresapp")
 current_time = time.time()
 eight_years_in_seconds = 8 * 365 * 24 * 60 * 60
@@ -103,16 +100,13 @@ def search():
         if not query:
             return jsonify({"error": "Query parameter is required."}), 400
 
-        # Headers for API requests
         headers = {"User-Agent": "AuthenticTravelApp/0.1"}
 
-        # Initialize geopy for country detection
         from geopy.geocoders import Nominatim
         geolocator = Nominatim(user_agent="AuthenticAdventuresApp")
         location = geolocator.geocode(query, addressdetails=True, language='en')
         country_name = location.raw.get("address", {}).get("country", "").lower() if location else None
 
-        # Keywords for filtering
         keywords = [
             "itinerary", "guide", "things to do", "trip",
             "recommendations", "must-see", "must-visit", "hidden gems",
@@ -125,7 +119,6 @@ def search():
         current_time = time.time()
         eight_years_in_seconds = 8 * 365 * 24 * 60 * 60
 
-        # Function to filter posts
         def filter_posts(posts):
             return [
                 post
@@ -137,8 +130,6 @@ def search():
                 and "media_metadata" not in post
                 and current_time - post.get("created_utc", current_time) <= eight_years_in_seconds
             ]
-
-        # Check if r/[location] exists
         specific_subreddit_exists = False
         specific_subreddit_url = f"https://www.reddit.com/r/{quote(query)}/about.json"
         try:
@@ -148,7 +139,6 @@ def search():
         except requests.exceptions.RequestException:
             pass
 
-        # Fetch posts from r/[location]
         location_posts = []
         if specific_subreddit_exists:
             keywords_query = ' OR '.join(f'"{kw}"' for kw in keywords)
@@ -160,14 +150,12 @@ def search():
                 location_posts = [post["data"] for post in location_data.get("data", {}).get("children", [])]
             except requests.exceptions.RequestException:
                 pass
-
-        # Fetch posts from general subreddits
         general_subreddits = ["travel", "solotravel", "travelnopics"]
         if country_name:
             general_subreddits.append(country_name)
 
         keywords_query = ' OR '.join(f'"{kw}"' for kw in keywords)
-        general_search_query = f'title:"{query}" ({keywords_query})'  # Enforce location in title
+        general_search_query = f'title:"{query}" ({keywords_query})' 
         general_search_url = f"https://www.reddit.com/r/{'+'.join(general_subreddits)}/search.json?q={quote(general_search_query)}&restrict_sr=1&limit=100&sort=top"
         general_posts = []
         try:
@@ -177,16 +165,12 @@ def search():
             general_posts = [post["data"] for post in general_data.get("data", {}).get("children", [])]
         except requests.exceptions.RequestException:
             pass
+        filtered_location_posts = filter_posts(location_posts)[:4]  
+        filtered_general_posts = filter_posts(general_posts)[:8] 
 
-        # Filter posts
-        filtered_location_posts = filter_posts(location_posts)[:4]  # Max 4 from r/[location]
-        filtered_general_posts = filter_posts(general_posts)[:8]  # Max 8 from general subreddits
-
-        # Combine and shuffle posts
         top_posts = filtered_location_posts + filtered_general_posts
         random.shuffle(top_posts)
 
-        # Fetch comments for the combined posts
         for post in top_posts:
             post_id = post.get("id")
             post_subreddit = post.get("subreddit")
