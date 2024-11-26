@@ -4,7 +4,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const budgetButton = document.getElementById("budget-button");
   const locationInput = document.getElementById("location-input");
   const resultsDiv = document.getElementById("results");
-  const body = document.getElementById("body");
+  const body = document.body; // Correct reference to the body element
 
   const performSearch = async (location, type) => {
     if (!location) {
@@ -40,6 +40,19 @@ document.addEventListener("DOMContentLoaded", () => {
           <ul id='post-list'></ul>
         `;
         const postList = document.getElementById("post-list");
+        const generateSummaryButton =
+          document.getElementById("generate-summary");
+
+        // Set the button text based on the search type
+        let summaryButtonText = "Generate Summarized Tips";
+        if (type === "travel") {
+          summaryButtonText = "Generate Summarized Travel Tips";
+        } else if (type === "food") {
+          summaryButtonText = "Generate Summarized Food/Nightlife Tips";
+        } else if (type === "budget") {
+          summaryButtonText = "Generate Summarized Budget Advice";
+        }
+        generateSummaryButton.textContent = summaryButtonText;
 
         posts.forEach((post) => {
           const title = post.title;
@@ -55,9 +68,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
           const postItem = document.createElement("li");
           postItem.innerHTML = `
-              <a href="${postUrl}" target="_blank" style="font-size: 1.2em; font-weight: bold; text-decoration: none; color: #333;">
-                ${title}
-              </a> (${upvotes} upvotes)
+              <a href="${postUrl}" target="_blank">${title}</a> (${upvotes} upvotes)
             `;
 
           if (postText) {
@@ -119,28 +130,33 @@ document.addEventListener("DOMContentLoaded", () => {
           postList.appendChild(postItem);
         });
 
-        document
-          .getElementById("generate-summary")
-          .addEventListener("click", async () => {
-            try {
-              const response = await fetch("/summarize", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ posts, type }),
-              });
+        generateSummaryButton.addEventListener("click", async () => {
+          try {
+            // Remove the Generate Summary button after it's clicked
+            generateSummaryButton.remove();
 
-              if (!response.ok) {
-                throw new Error(`Failed to summarize: ${response.statusText}`);
-              }
+            // Display loading state in the summary output
+            const summaryOutput = document.getElementById("summary-output");
+            summaryOutput.innerText = "Generating summary...";
 
-              const { summary } = await response.json();
-              document.getElementById("summary-output").innerText = summary;
-            } catch (error) {
-              console.error(error);
-              document.getElementById("summary-output").innerText =
-                "Failed to generate summary.";
+            const response = await fetch("/summarize", {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({ posts, type }),
+            });
+
+            if (!response.ok) {
+              throw new Error(`Failed to summarize: ${response.statusText}`);
             }
-          });
+
+            const { summary } = await response.json();
+            summaryOutput.innerText = summary;
+          } catch (error) {
+            console.error(error);
+            const summaryOutput = document.getElementById("summary-output");
+            summaryOutput.innerText = "Failed to generate summary.";
+          }
+        });
       }
     } catch (error) {
       console.error(error);
@@ -148,18 +164,20 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   };
 
-  searchButton.addEventListener("click", () => {
+  const handleSearch = (type) => {
     const location = locationInput.value.trim();
-    performSearch(location, "travel");
+    performSearch(location, type);
+  };
+
+  searchButton.addEventListener("click", () => {
+    handleSearch("travel");
   });
 
   foodButton.addEventListener("click", () => {
-    const location = locationInput.value.trim();
-    performSearch(location, "food");
+    handleSearch("food");
   });
 
   budgetButton.addEventListener("click", () => {
-    const location = locationInput.value.trim();
-    performSearch(location, "budget");
+    handleSearch("budget");
   });
 });

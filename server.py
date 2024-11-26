@@ -15,7 +15,6 @@ client = OpenAI(
     api_key = os.environ.get("OPENAI_API_KEY"),
 )
 
-
 app = Flask(__name__, static_folder="static")
 CORS(app, resources={r"/search": {"origins": "*"}})
 
@@ -51,20 +50,20 @@ def summarize():
 
         if search_type == "travel":
             instruction = (
-                "Analyze the posts and comments provided and create a list of the top things to do in the area. "
-                "Base your response on the posts' data where available and supplement with general knowledge if necessary. MAX 5 sentences, and ONLY talk about the location given."
+                "Analyze the posts and comments provided and provide max 10 bullet points with the best things to do and see ONLY IN THE SPECIFIED AREA, with MAX 1000 characters TOTAL (no #,* characters)."
+                "Base your response ONLY on the posts' data where available, if there is limited data, can supplement with general knowledge if necessary." 
+                "maybe throw in a 2-4 sentence summary at the end after the bullet points of the area."
+                
             )
         elif search_type == "food":
             instruction = (
-                "Analyze the posts and comments provided and create a summary of the best places to eat or nightlife "
-                "in the area, as well as the best dishes or food in the region or country. Use post data if available; "
-                "otherwise, supplement with general knowledge."
+                "Analyze the posts and comments provided and create a summary of the best places to eat or nightlife. ONLY IN THE SPECIFIED AREA with MAX 1000 characters TOTAL, like please keep it kinda short (no #,* characters)."
+                "in the area, as well as the best dishes or food in the region or country. Use post data if available; otherwise, supplement with general knowledge if necessary."
             )
         elif search_type == "budget":
             instruction = (
-                "Analyze the posts and comments provided and list the cheapest accommodations, such as hostels, "
-                "along with general money-saving tips for the area. Use post data if available; otherwise, "
-                "supplement with general knowledge."
+                "Analyze the posts and comments provided and list the cheapest accommodations, such as hostels, along with general money-saving tips for the area. ONLY IN THE SPECIFIED AREA with MAX 1000 characters TOTAL, like please keep it kinda short (no #,* characters)."
+                "Try to use post data as much as possible if available; otherwise, supplement with general knowledge if need be."                
             )
         else:
             return jsonify({"error": "Invalid search type provided."}), 400
@@ -97,6 +96,7 @@ google_headers = {"User-Agent": "AuthenticTravelApp/0.1"}
 def search():
     try:
         query = request.args.get("q", "").strip()
+        search_type = request.args.get("type", "travel").strip().lower()  # travel, food, or budget
         if not query:
             return jsonify({"error": "Query parameter is required."}), 400
 
@@ -107,11 +107,21 @@ def search():
         location = geolocator.geocode(query, addressdetails=True, language='en')
         country_name = location.raw.get("address", {}).get("country", "").lower() if location else None
 
-        keywords = [
-            "itinerary", "guide", "things to do", "trip",
-            "recommendations", "must-see", "must-visit", "hidden gems",
-            "attractions", "excursions"
-        ]
+        if search_type == "food":
+            keywords = [
+                "food", "restaurants", "bar", "nightlife", "pubs", "local dishes",
+                "street food", "cuisine", "club", "drink", "night market"
+            ]
+        elif search_type == "budget":
+            keywords = [
+                "budget", "cheap", "affordable", "hostel", "free",
+                "money-saving", "backpack", "deal", "cheap eats", "money"
+            ]
+        else:  # Default to travel
+            keywords = [
+                "itinerary", "guide", "things to do", "trip", "recommendations",
+                "hidden gems", "attractions", "adventures", "must-see", "excursions"
+            ]
         keyword_pattern = re.compile('|'.join(re.escape(kw) for kw in keywords), re.IGNORECASE)
         exclude_words = ["pic", "picture", "video", "photo"]
         exclude_pattern = re.compile('|'.join(re.escape(word) for word in exclude_words), re.IGNORECASE)

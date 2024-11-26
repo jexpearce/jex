@@ -182,39 +182,48 @@ html, body {
 .comment:first-child {
     border-top: none;
 }
+
+
+
 #summary-container {
-    margin-top: 30px;
+    margin-top: 20px;
     text-align: center;
     display: none; /* Hidden until posts are fetched */
 }
 
-#generate-summary-button {
+#generate-summary {
     padding: 15px 25px;
     font-size: 1.25em;
     color: #fff;
-    background-color: #ffa500;
+    background-color: #006d77; /* Darker teal */
     border: none;
     border-radius: 10px;
     cursor: pointer;
     transition: background-color 0.3s ease, transform 0.2s;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    margin-bottom: 15px;
+    margin-top: 15px;
 }
 
-#generate-summary-button:hover {
-    background-color: #ff8c00;
+#generate-summary:hover {
+    background-color: #83c5be; /* Lighter teal on hover */
     transform: scale(1.05);
 }
 
+/* Ensure the summary output is centered */
+/* Enhanced styles for the summary output */
 #summary-output {
+    /* Existing styles */
     font-size: 1.1em;
     color: #555;
     margin-top: 10px;
-    background: #f9f9f9;
-    padding: 15px;
+    background: #e0f7fa; /* Faint blue background */
+    padding: 10px; /* Reduced padding */
     border-radius: 10px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    display: inline-block;
-    max-width: 600px;
+    display: block; /* Changed from inline-block to block for full width */
+    width: 90%; /* Increased width for wider textbox */
+    max-width: none; /* Remove max-width constraint */
     text-align: left;
+    margin-left: auto;
+    margin-right: auto;
 }

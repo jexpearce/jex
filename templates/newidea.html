@@ -3,30 +3,37 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Poppins:wght@700&family=Lobster&display=swap"
+      rel="stylesheet"
+    />
     <title>Authentic Travel</title>
     <link rel="stylesheet" href="/static/newidea.css" />
   </head>
   <body id="body">
     <div class="content">
-      <h1>Authentic Travel</h1>
+      <h1>Authentic Adventures!</h1>
       <p class="subheading">
         Explore tips, nightlife, food, and budget ideas tailored for your
         destination!
       </p>
       <div class="search-box">
-        <input type="text" placeholder="Enter location" id="location-input" />
-        <div class="buttons-container">
+        <div style="display: flex; justify-content: center; align-items: center; gap: 10px; width: 100%;">
+          <input 
+            type="number" 
+            id="days-input" 
+            placeholder="Number of Days (Max 20)" 
+            min="1" 
+            max="20" 
+            style="padding: 10px; font-size: 1em; border: 1px solid #ccc; border-radius: 10px; max-width: 150px;" 
+          />
           <button id="search-button">Find Travel Tips</button>
-          <button id="food-button">Find Food/Nightlife Tips</button>
-          <button id="budget-button">Find Budget Tips</button>
+        </div>
+        <div class="buttons-container" style="margin-top: 20px;">
+          <button id="food-button" style="transform: scale(0.7);">Find Food/Nightlife Tips</button>
+          <button id="budget-button" style="transform: scale(0.7);">Find Budget Tips</button>
         </div>
       </div>
-      <div id="results"></div>
-      <div id="summary-container">
-        <button id="generate-summary-button">Generate Summary</button>
-        <p id="summary-output"></p>
-      </div>
-    </div>
     <script src="/static/newidea.js"></script>
   </body>
 </html>
