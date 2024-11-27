@@ -1,3 +1,4 @@
+/* General Reset */
 * {
     margin: 0;
     padding: 0;
@@ -42,21 +43,35 @@ html, body {
     margin-bottom: 30px;
 }
 
+/* Input and Buttons */
 .search-box {
     display: flex;
     flex-direction: column;
     align-items: center;
     width: 100%;
+    gap: 20px;
 }
 
-.search-box input[type="text"] {
+.input-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+    max-width: 600px;
+}
+
+.input-container input {
     padding: 15px;
-    font-size: 1.25em;
+    font-size: 1em;
     border: 1px solid #ccc;
     border-radius: 10px;
     width: 100%;
-    max-width: 500px;
-    margin-bottom: 25px;
+    max-width: 300px;
+}
+
+#days-input {
+    max-width: 150px;
 }
 
 .buttons-container {
@@ -183,8 +198,6 @@ html, body {
     border-top: none;
 }
 
-
-
 #summary-container {
     margin-top: 20px;
     text-align: center;
@@ -209,20 +222,17 @@ html, body {
     transform: scale(1.05);
 }
 
-/* Ensure the summary output is centered */
 /* Enhanced styles for the summary output */
 #summary-output {
-    /* Existing styles */
     font-size: 1.1em;
     color: #555;
     margin-top: 10px;
     background: #e0f7fa; /* Faint blue background */
-    padding: 10px; /* Reduced padding */
+    padding: 10px;
     border-radius: 10px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    display: block; /* Changed from inline-block to block for full width */
-    width: 90%; /* Increased width for wider textbox */
-    max-width: none; /* Remove max-width constraint */
+    display: block;
+    width: 90%;
     text-align: left;
     margin-left: auto;
     margin-right: auto;

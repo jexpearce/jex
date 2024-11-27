@@ -18,22 +18,28 @@
         destination!
       </p>
       <div class="search-box">
-        <div style="display: flex; justify-content: center; align-items: center; gap: 10px; width: 100%;">
-          <input 
-            type="number" 
-            id="days-input" 
-            placeholder="Number of Days (Max 20)" 
-            min="1" 
-            max="20" 
-            style="padding: 10px; font-size: 1em; border: 1px solid #ccc; border-radius: 10px; max-width: 150px;" 
+        <div class="input-container">
+          <input
+            type="text"
+            id="location-input"
+            placeholder="Enter a location"
           />
-          <button id="search-button">Find Travel Tips</button>
+          <input
+            type="number"
+            id="days-input"
+            placeholder="Number of Days (Max 20)"
+            min="1"
+            max="20"
+          />
         </div>
-        <div class="buttons-container" style="margin-top: 20px;">
-          <button id="food-button" style="transform: scale(0.7);">Find Food/Nightlife Tips</button>
-          <button id="budget-button" style="transform: scale(0.7);">Find Budget Tips</button>
+        <div class="buttons-container">
+          <button id="search-button">Find Travel Tips</button>
+          <button id="food-button">Find Food/Nightlife Tips</button>
+          <button id="budget-button">Find Budget Tips</button>
         </div>
       </div>
+      <div id="results"></div>
+    </div>
     <script src="/static/newidea.js"></script>
   </body>
 </html>
