@@ -6,7 +6,89 @@ document.addEventListener("DOMContentLoaded", () => {
   const locationInput = document.getElementById("location-input");
   const daysInput = document.getElementById("days-input");
   const resultsDiv = document.getElementById("results");
-  const body = document.body; // Correct reference to the body element
+  const body = document.body;
+
+  // Centralized function for rendering posts with Show Post/Comments functionality
+  const renderPosts = (posts) => {
+    const postList = document.getElementById("post-list");
+    postList.innerHTML = ""; // Clear previous posts
+
+    posts.forEach((post) => {
+      const title = post.title;
+      const postUrl = `https://reddit.com${post.permalink}`;
+      const upvotes = post.ups;
+      const postText = post.selftext || "";
+      const comments = (post.top_comments || []).filter(
+        (comment) =>
+          comment &&
+          comment.trim() !== "[deleted]" &&
+          comment.trim() !== "[removed]"
+      );
+
+      const postItem = document.createElement("li");
+      postItem.innerHTML = `
+          <a href="${postUrl}" target="_blank">${title}</a> (${upvotes} upvotes)
+        `;
+
+      if (postText) {
+        const showPostBtn = document.createElement("button");
+        showPostBtn.textContent = "Show Post";
+        showPostBtn.className = "show-post-btn";
+
+        const postTextDiv = document.createElement("div");
+        postTextDiv.style.display = "none";
+        const truncatedPostText =
+          postText.length > 500
+            ? `${postText.slice(
+                0,
+                500
+              )}<span style="color: blue; cursor: pointer;" class="show-more-post">... [show more]</span>`
+            : postText;
+
+        postTextDiv.innerHTML = truncatedPostText;
+
+        showPostBtn.addEventListener("click", () => {
+          if (postTextDiv.style.display === "none") {
+            postTextDiv.style.display = "block";
+            showPostBtn.textContent = "Hide Post";
+          } else {
+            postTextDiv.style.display = "none";
+            showPostBtn.textContent = "Show Post";
+          }
+        });
+
+        postItem.appendChild(showPostBtn);
+        postItem.appendChild(postTextDiv);
+      }
+
+      if (comments.length > 0) {
+        const commentsBtn = document.createElement("button");
+        commentsBtn.textContent = "Show Comments";
+        commentsBtn.className = "show-comments-btn";
+
+        const commentsDiv = document.createElement("div");
+        commentsDiv.style.display = "none";
+        commentsDiv.innerHTML = comments
+          .map((comment) => `<p>${comment}</p>`)
+          .join("");
+
+        commentsBtn.addEventListener("click", () => {
+          if (commentsDiv.style.display === "none") {
+            commentsDiv.style.display = "block";
+            commentsBtn.textContent = "Hide Comments";
+          } else {
+            commentsDiv.style.display = "none";
+            commentsBtn.textContent = "Show Comments";
+          }
+        });
+
+        postItem.appendChild(commentsBtn);
+        postItem.appendChild(commentsDiv);
+      }
+
+      postList.appendChild(postItem);
+    });
+  };
 
   const performSearch = async (location, type) => {
     if (!location) {
@@ -41,92 +123,14 @@ document.addEventListener("DOMContentLoaded", () => {
           <div id="summary-output"></div>
           <ul id='post-list'></ul>
         `;
-        const postList = document.getElementById("post-list");
         const generateSummaryButton =
           document.getElementById("generate-summary");
 
-        posts.forEach((post) => {
-          const title = post.title;
-          const postUrl = `https://reddit.com${post.permalink}`;
-          const upvotes = post.ups;
-          const postText = post.selftext || "";
-          const comments = (post.top_comments || []).filter(
-            (comment) =>
-              comment &&
-              comment.trim() !== "[deleted]" &&
-              comment.trim() !== "[removed]"
-          );
-
-          const postItem = document.createElement("li");
-          postItem.innerHTML = `
-              <a href="${postUrl}" target="_blank">${title}</a> (${upvotes} upvotes)
-            `;
-
-          if (postText) {
-            const showPostBtn = document.createElement("button");
-            showPostBtn.textContent = "Show Post";
-            showPostBtn.className = "show-post-btn";
-
-            const postTextDiv = document.createElement("div");
-            postTextDiv.style.display = "none";
-            const truncatedPostText =
-              postText.length > 500
-                ? `${postText.slice(
-                    0,
-                    500
-                  )}<span style="color: blue; cursor: pointer;" class="show-more-post">... [show more]</span>`
-                : postText;
-
-            postTextDiv.innerHTML = truncatedPostText;
-
-            showPostBtn.addEventListener("click", () => {
-              if (postTextDiv.style.display === "none") {
-                postTextDiv.style.display = "block";
-                showPostBtn.textContent = "Hide Post";
-              } else {
-                postTextDiv.style.display = "none";
-                showPostBtn.textContent = "Show Post";
-              }
-            });
-
-            postItem.appendChild(showPostBtn);
-            postItem.appendChild(postTextDiv);
-          }
-
-          if (comments.length > 0) {
-            const commentsBtn = document.createElement("button");
-            commentsBtn.textContent = "Show Comments";
-            commentsBtn.className = "show-comments-btn";
-
-            const commentsDiv = document.createElement("div");
-            commentsDiv.style.display = "none";
-            commentsDiv.innerHTML = comments
-              .map((comment) => `<p>${comment}</p>`)
-              .join("");
-
-            commentsBtn.addEventListener("click", () => {
-              if (commentsDiv.style.display === "none") {
-                commentsDiv.style.display = "block";
-                commentsBtn.textContent = "Hide Comments";
-              } else {
-                commentsDiv.style.display = "none";
-                commentsBtn.textContent = "Show Comments";
-              }
-            });
-
-            postItem.appendChild(commentsBtn);
-            postItem.appendChild(commentsDiv);
-          }
-
-          postList.appendChild(postItem);
-        });
+        renderPosts(posts); // Use the centralized rendering function
 
         generateSummaryButton.addEventListener("click", async () => {
           try {
-            // Remove the Generate Summary button after it's clicked
             generateSummaryButton.remove();
-
-            // Display loading state in the summary output
             const summaryOutput = document.getElementById("summary-output");
             summaryOutput.innerText = "Generating summary...";
 
@@ -177,26 +181,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
       const { itinerary, posts } = await response.json();
 
-      // Display itinerary and posts
       resultsDiv.innerHTML = `
         <h2>Your ${days}-Day Itinerary:</h2>
         <div id="itinerary-output">${itinerary}</div>
         <h2>Top Posts:</h2>
         <ul id='post-list'></ul>
       `;
-      const postList = document.getElementById("post-list");
 
-      posts.forEach((post) => {
-        const title = post.title;
-        const postUrl = `https://reddit.com${post.permalink}`;
-        const upvotes = post.ups;
-
-        const postItem = document.createElement("li");
-        postItem.innerHTML = `
-          <a href="${postUrl}" target="_blank">${title}</a> (${upvotes} upvotes)
-        `;
-        postList.appendChild(postItem);
-      });
+      renderPosts(posts); // Use the centralized rendering function
     } catch (error) {
       console.error(error);
       resultsDiv.innerHTML = `<p>Failed to generate itinerary: ${error.message}</p>`;

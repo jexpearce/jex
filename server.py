@@ -1,5 +1,5 @@
 import requests
-from flask import Flask, request, jsonify, send_from_directory
+from flask import Flask, request, jsonify, send_from_directory, session
 from flask_cors import CORS
 from flask_limiter import Limiter
 from flask_limiter.util import get_remote_address
@@ -18,6 +18,7 @@ client = OpenAI(
 )
 
 app = Flask(__name__, static_folder="static")
+app.secret_key = os.urandom(24)  
 CORS(app, resources={r"/search": {"origins": "*"}})
 
 limiter = Limiter(key_func=get_remote_address)
@@ -27,6 +28,104 @@ limiter.init_app(app)
 def serve_frontend():
     return send_from_directory("templates", "newidea.html")
 
+# Helper function for fetching and filtering Reddit posts
+def fetch_reddit_posts(query, search_type):
+    google_headers = {"User-Agent": "AuthenticTravelApp/0.1"}
+    current_time = time.time()
+    eight_years_in_seconds = 8 * 365 * 24 * 60 * 60
+
+    # Keywords and filters for different search types
+    if search_type == "food":
+        keywords = [
+            "food", "restaurants", "bar", "nightlife", "pubs", "local dishes",
+            "street food", "cuisine", "club", "drink", "night market"
+        ]
+    elif search_type == "budget":
+        keywords = [
+            "budget", "cheap", "affordable", "hostel", "free",
+            "money-saving", "backpack", "deal", "cheap eats", "money"
+        ]
+    else:  # Default to travel
+        keywords = [
+            "itinerary", "guide", "things to do", "trip", "recommendations",
+            "hidden gems", "attractions", "adventures", "must-see", "excursions"
+        ]
+    keyword_pattern = re.compile('|'.join(re.escape(kw) for kw in keywords), re.IGNORECASE)
+    exclude_words = ["pic", "picture", "video", "photo"]
+    exclude_pattern = re.compile('|'.join(re.escape(word) for word in exclude_words), re.IGNORECASE)
+
+    def filter_posts(posts):
+        return [
+            post
+            for post in posts
+            if keyword_pattern.search(post.get("title", ""))
+            and not exclude_pattern.search(post.get("title", ""))
+            and post.get("post_hint") != "image"
+            and not post.get("is_video", False)
+            and "media_metadata" not in post
+            and current_time - post.get("created_utc", current_time) <= eight_years_in_seconds
+        ]
+
+    # Fetching posts from general travel-related subreddits
+    general_subreddits = ["travel", "solotravel", "travelnopics"]
+    keywords_query = ' OR '.join(f'"{kw}"' for kw in keywords)
+    general_search_query = f'title:"{query}" ({keywords_query})'
+    general_search_url = f"https://www.reddit.com/r/{'+'.join(general_subreddits)}/search.json?q={quote(general_search_query)}&restrict_sr=1&limit=100&sort=top"
+    general_posts = []
+    try:
+        response = requests.get(general_search_url, headers=google_headers)
+        response.raise_for_status()
+        general_data = response.json()
+        general_posts = [post["data"] for post in general_data.get("data", {}).get("children", [])]
+    except requests.exceptions.RequestException:
+        pass
+
+    # Filter posts and return the results
+    return filter_posts(general_posts)[:12]  # Limit to top 12 posts
+
+@app.route("/search", methods=["GET"])
+@limiter.limit("8 per minute")
+def search():
+    try:
+        query = request.args.get("q", "").strip()
+        search_type = request.args.get("type", "travel").strip().lower()  # travel, food, or budget
+        if not query:
+            return jsonify({"error": "Query parameter is required."}), 400
+
+        posts = fetch_reddit_posts(query, search_type)
+
+        # Enrich posts with comments
+        headers = {"User-Agent": "AuthenticTravelApp/0.1"}
+        for post in posts:
+            post_id = post.get("id")
+            post_subreddit = post.get("subreddit")
+            if not post_id or not post_subreddit:
+                continue
+            comments_url = f"https://www.reddit.com/r/{post_subreddit}/comments/{post_id}.json?depth=1&limit=5"
+            try:
+                comments_response = requests.get(comments_url, headers=headers)
+                comments_response.raise_for_status()
+                comments_data = comments_response.json()
+                post["top_comments"] = [
+                    comment["data"]["body"]
+                    for comment in comments_data[1]["data"]["children"]
+                    if (
+                        comment.get("kind") == "t1"
+                        and comment["data"].get("body")
+                        and "[deleted]" not in comment["data"]["body"]
+                        and "[removed]" not in comment["data"]["body"]
+                    )
+                ]
+            except requests.exceptions.RequestException:
+                post["top_comments"] = []
+
+        session["cached_posts"] = posts
+        session["cached_query"] = query
+
+        return jsonify(posts)
+
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
 
 @app.route("/summarize", methods=["POST"])
 def summarize():
@@ -100,8 +199,42 @@ def generate_itinerary():
         if not query or not days:
             return jsonify({"error": "Location and number of days are required."}), 400
 
-        # Fetch posts using the same search logic
-        posts = fetch_reddit_posts(query)
+        # Retrieve cached posts if query matches
+        cached_query = session.get("cached_query")
+        cached_posts = session.get("cached_posts")
+        if cached_query == query and cached_posts:
+            posts = cached_posts
+        else:
+            posts = fetch_reddit_posts(query, "travel")
+
+            # Enrich posts with comments
+            headers = {"User-Agent": "AuthenticTravelApp/0.1"}
+            for post in posts:
+                post_id = post.get("id")
+                post_subreddit = post.get("subreddit")
+                if not post_id or not post_subreddit:
+                    continue
+                comments_url = f"https://www.reddit.com/r/{post_subreddit}/comments/{post_id}.json?depth=1&limit=5"
+                try:
+                    comments_response = requests.get(comments_url, headers=headers)
+                    comments_response.raise_for_status()
+                    comments_data = comments_response.json()
+                    post["top_comments"] = [
+                        comment["data"]["body"]
+                        for comment in comments_data[1]["data"]["children"]
+                        if (
+                            comment.get("kind") == "t1"
+                            and comment["data"].get("body")
+                            and "[deleted]" not in comment["data"]["body"]
+                            and "[removed]" not in comment["data"]["body"]
+                        )
+                    ]
+                except requests.exceptions.RequestException:
+                    post["top_comments"] = []
+
+            # Cache the query and posts
+            session["cached_query"] = query
+            session["cached_posts"] = posts
 
         # Create content for AI
         content = ""
@@ -117,11 +250,14 @@ def generate_itinerary():
                 content += "Comments:\n" + "\n".join(f"- {comment}" for comment in comments) + "\n"
             content += "\n"
 
-        # New instruction specifically for itinerary
+        # Instruction for AI
         instruction = (
-            f"Using the following posts and comments, create a {days}-day travel itinerary for {query}."
-            " For each day, recommend specific activities, locations, or experiences based on the posts' details."
-            " Keep it detailed and logical, spreading activities across all days where possible."
+            f"Using the following posts and comments only, create a {days}-day travel itinerary for {query}, maximum 800 characters (and no #,* characters)."
+            " For each day, recommend specific activities, locations, or experiences based on the posts and comments details only. If there is limited info, feel free to supplement with logical suggestions."
+            " Keep the language simple, avoid overly large or convoluted words, and spread activities logically across all days where possible."
+            " Format the itinerary clearly with line breaks and bullet points. For example:"
+            "'Day 1:' followed by a line break, then use '- Activity 1', line break, '- Activity 2', and so on for each day. Repeat this format for subsequent days."
+            " Start by saying '<n>-day itinerary in <location>', and do NOT add a summary of the area or how to get there (e.g., from the airport)."
         )
 
         # Use OpenAI to generate the itinerary
@@ -141,43 +277,6 @@ def generate_itinerary():
         print("Error in /generate_itinerary:", str(e))
         return jsonify({"error": str(e)}), 500
 
-
-# HELPER FUNCTION: Fetch Reddit posts (reusable for all routes)
-def fetch_reddit_posts(query):
-    headers = {"User-Agent": "AuthenticTravelApp/0.1"}
-    current_time = time.time()
-    eight_years_in_seconds = 8 * 365 * 24 * 60 * 60
-
-    # Fetch posts
-    search_url = f"https://www.reddit.com/search.json?q={quote(query)}&limit=50"
-    try:
-        response = requests.get(search_url, headers=headers)
-        response.raise_for_status()
-        data = response.json()
-        posts = [
-            post["data"] for post in data.get("data", {}).get("children", [])
-            if current_time - post["data"].get("created_utc", current_time) <= eight_years_in_seconds
-        ]
-    except requests.exceptions.RequestException:
-        posts = []
-
-    # Enrich posts with comments
-    for post in posts:
-        post_id = post.get("id")
-        subreddit = post.get("subreddit")
-        comments_url = f"https://www.reddit.com/r/{subreddit}/comments/{post_id}.json?depth=1&limit=5"
-        try:
-            comments_response = requests.get(comments_url, headers=headers)
-            comments_response.raise_for_status()
-            comments_data = comments_response.json()
-            post["top_comments"] = [
-                comment["data"]["body"] for comment in comments_data[1]["data"]["children"]
-                if comment["data"].get("body") not in ["[deleted]", "[removed]"]
-            ]
-        except:
-            post["top_comments"] = []
-
-    return posts
 
 
 if __name__ == "__main__":
