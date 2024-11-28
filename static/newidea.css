@@ -90,6 +90,22 @@ html, body {
     transition: background-color 0.3s ease, transform 0.2s;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
+#itinerary-button {
+    background-color: #6a0dad; /* Purple background */
+    color: white;
+    padding: 15px 20px;
+    font-size: 1.1em;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+#itinerary-button:hover {
+    background-color: #a67ae5; /* Lighter purple */
+    transform: scale(1.05);
+}
 
 #search-button {
     background-color: #ff6347;

@@ -2,7 +2,9 @@ document.addEventListener("DOMContentLoaded", () => {
   const searchButton = document.getElementById("search-button");
   const foodButton = document.getElementById("food-button");
   const budgetButton = document.getElementById("budget-button");
+  const itineraryButton = document.getElementById("itinerary-button"); // New itinerary button
   const locationInput = document.getElementById("location-input");
+  const daysInput = document.getElementById("days-input");
   const resultsDiv = document.getElementById("results");
   const body = document.body; // Correct reference to the body element
 
@@ -42,17 +44,6 @@ document.addEventListener("DOMContentLoaded", () => {
         const postList = document.getElementById("post-list");
         const generateSummaryButton =
           document.getElementById("generate-summary");
-
-        // Set the button text based on the search type
-        let summaryButtonText = "Generate Summarized Tips";
-        if (type === "travel") {
-          summaryButtonText = "Generate Summarized Travel Tips";
-        } else if (type === "food") {
-          summaryButtonText = "Generate Summarized Food/Nightlife Tips";
-        } else if (type === "budget") {
-          summaryButtonText = "Generate Summarized Budget Advice";
-        }
-        generateSummaryButton.textContent = summaryButtonText;
 
         posts.forEach((post) => {
           const title = post.title;
@@ -164,9 +155,63 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   };
 
+  const generateItinerary = async (location, days) => {
+    if (!location || !days) {
+      resultsDiv.innerHTML =
+        "<p>Please enter both a location and number of days.</p>";
+      return;
+    }
+
+    resultsDiv.innerHTML = "<p>Loading itinerary...</p>";
+
+    try {
+      const response = await fetch("/generate_itinerary", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ location, days }),
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      const { itinerary, posts } = await response.json();
+
+      // Display itinerary and posts
+      resultsDiv.innerHTML = `
+        <h2>Your ${days}-Day Itinerary:</h2>
+        <div id="itinerary-output">${itinerary}</div>
+        <h2>Top Posts:</h2>
+        <ul id='post-list'></ul>
+      `;
+      const postList = document.getElementById("post-list");
+
+      posts.forEach((post) => {
+        const title = post.title;
+        const postUrl = `https://reddit.com${post.permalink}`;
+        const upvotes = post.ups;
+
+        const postItem = document.createElement("li");
+        postItem.innerHTML = `
+          <a href="${postUrl}" target="_blank">${title}</a> (${upvotes} upvotes)
+        `;
+        postList.appendChild(postItem);
+      });
+    } catch (error) {
+      console.error(error);
+      resultsDiv.innerHTML = `<p>Failed to generate itinerary: ${error.message}</p>`;
+    }
+  };
+
   const handleSearch = (type) => {
     const location = locationInput.value.trim();
     performSearch(location, type);
+  };
+
+  const handleItinerary = () => {
+    const location = locationInput.value.trim();
+    const days = parseInt(daysInput.value.trim(), 10);
+    generateItinerary(location, days);
   };
 
   searchButton.addEventListener("click", () => {
@@ -180,4 +225,6 @@ document.addEventListener("DOMContentLoaded", () => {
   budgetButton.addEventListener("click", () => {
     handleSearch("budget");
   });
+
+  itineraryButton.addEventListener("click", handleItinerary);
 });
