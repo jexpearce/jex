@@ -11,7 +11,6 @@ import openai
 import os
 from openai import OpenAI
 
-# OpenAI Client Initialization
 client = OpenAI(
     project='proj_Ae4DRM4LfOvsBwmuXUvqZwPr',
     api_key=os.environ.get("OPENAI_API_KEY"),
@@ -28,13 +27,13 @@ limiter.init_app(app)
 def serve_frontend():
     return send_from_directory("templates", "newidea.html")
 
-# Helper function for fetching and filtering Reddit posts
+
 def fetch_reddit_posts(query, search_type):
     google_headers = {"User-Agent": "AuthenticTravelApp/0.1"}
     current_time = time.time()
     eight_years_in_seconds = 8 * 365 * 24 * 60 * 60
 
-    # Keywords and filters for different search types
+    #keywords
     if search_type == "food":
         keywords = [
             "food", "restaurants", "bar", "nightlife", "pubs", "local dishes",
@@ -45,7 +44,7 @@ def fetch_reddit_posts(query, search_type):
             "budget", "cheap", "affordable", "hostel", "free",
             "money-saving", "backpack", "deal", "cheap eats", "money"
         ]
-    else:  # Default to travel
+    else: 
         keywords = [
             "itinerary", "guide", "things to do", "trip", "recommendations",
             "hidden gems", "attractions", "adventures", "must-see", "excursions"
@@ -66,7 +65,7 @@ def fetch_reddit_posts(query, search_type):
             and current_time - post.get("created_utc", current_time) <= eight_years_in_seconds
         ]
 
-    # Fetching posts from general travel-related subreddits
+
     general_subreddits = ["travel", "solotravel", "travelnopics"]
     keywords_query = ' OR '.join(f'"{kw}"' for kw in keywords)
     general_search_query = f'title:"{query}" ({keywords_query})'
@@ -80,8 +79,8 @@ def fetch_reddit_posts(query, search_type):
     except requests.exceptions.RequestException:
         pass
 
-    # Filter posts and return the results
-    return filter_posts(general_posts)[:12]  # Limit to top 12 posts
+
+    return filter_posts(general_posts)[:12]  
 
 @app.route("/search", methods=["GET"])
 @limiter.limit("8 per minute")
@@ -94,7 +93,7 @@ def search():
 
         posts = fetch_reddit_posts(query, search_type)
 
-        # Enrich posts with comments
+
         headers = {"User-Agent": "AuthenticTravelApp/0.1"}
         for post in posts:
             post_id = post.get("id")
@@ -150,7 +149,7 @@ def summarize():
                 content += "Comments:\n" + "\n".join(f"- {comment}" for comment in comments) + "\n"
             content += "\n"
 
-        # Original search-type specific instructions
+
         if search_type == "travel":
             instruction = (
                 "Analyze the posts and comments provided and provide max 10 bullet points with the best things to do and see ONLY IN THE SPECIFIED AREA, with MAX 1000 characters TOTAL (no #,* characters)."
@@ -170,7 +169,6 @@ def summarize():
         else:
             return jsonify({"error": "Invalid search type provided."}), 400
 
-        # Use OpenAI to generate the summary
         response = client.chat.completions.create(
             model="gpt-4o-mini",
             messages=[
@@ -188,7 +186,7 @@ def summarize():
         return jsonify({"error": str(e)}), 500
 
 
-# NEW ROUTE: Generate 'n'-day itinerary
+
 @app.route("/generate_itinerary", methods=["POST"])
 def generate_itinerary():
     try:
@@ -199,7 +197,6 @@ def generate_itinerary():
         if not query or not days:
             return jsonify({"error": "Location and number of days are required."}), 400
 
-        # Retrieve cached posts if query matches
         cached_query = session.get("cached_query")
         cached_posts = session.get("cached_posts")
         if cached_query == query and cached_posts:
@@ -207,7 +204,7 @@ def generate_itinerary():
         else:
             posts = fetch_reddit_posts(query, "travel")
 
-            # Enrich posts with comments
+
             headers = {"User-Agent": "AuthenticTravelApp/0.1"}
             for post in posts:
                 post_id = post.get("id")
@@ -232,11 +229,10 @@ def generate_itinerary():
                 except requests.exceptions.RequestException:
                     post["top_comments"] = []
 
-            # Cache the query and posts
             session["cached_query"] = query
             session["cached_posts"] = posts
 
-        # Create content for AI
+
         content = ""
         for post in posts:
             title = post.get("title", "")
@@ -250,17 +246,15 @@ def generate_itinerary():
                 content += "Comments:\n" + "\n".join(f"- {comment}" for comment in comments) + "\n"
             content += "\n"
 
-        # Instruction for AI
         instruction = (
             f"Using the following posts and comments only, create a {days}-day travel itinerary for {query}, maximum 800 characters (and no #,* characters)."
             " For each day, recommend specific activities, locations, or experiences based on the posts and comments details only. If there is limited info, feel free to supplement with logical suggestions."
             " Keep the language simple, avoid overly large or convoluted words, and spread activities logically across all days where possible."
-            " Format the itinerary clearly with line breaks and bullet points. For example:"
+            " Format the itinerary clearly with line breaks and bullet points. Do a line break after EVERY day of the itinerary generated. For example:"
             "'Day 1:' followed by a line break, then use '- Activity 1', line break, '- Activity 2', and so on for each day. Repeat this format for subsequent days."
             " Start by saying '<n>-day itinerary in <location>', and do NOT add a summary of the area or how to get there (e.g., from the airport)."
         )
 
-        # Use OpenAI to generate the itinerary
         response = client.chat.completions.create(
             model="gpt-4o-mini",
             messages=[
@@ -280,5 +274,5 @@ def generate_itinerary():
 
 
 if __name__ == "__main__":
-    port = int(os.environ.get("PORT", 5001))  # Default local port
+    port = int(os.environ.get("PORT", 5001))  
     app.run(host="0.0.0.0", port=port)

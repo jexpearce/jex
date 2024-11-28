@@ -2,16 +2,15 @@ document.addEventListener("DOMContentLoaded", () => {
   const searchButton = document.getElementById("search-button");
   const foodButton = document.getElementById("food-button");
   const budgetButton = document.getElementById("budget-button");
-  const itineraryButton = document.getElementById("itinerary-button"); // New itinerary button
+  const itineraryButton = document.getElementById("itinerary-button");
   const locationInput = document.getElementById("location-input");
   const daysInput = document.getElementById("days-input");
   const resultsDiv = document.getElementById("results");
   const body = document.body;
 
-  // Centralized function for rendering posts with Show Post/Comments functionality
   const renderPosts = (posts) => {
     const postList = document.getElementById("post-list");
-    postList.innerHTML = ""; // Clear previous posts
+    postList.innerHTML = "";
 
     posts.forEach((post) => {
       const title = post.title;
@@ -118,7 +117,7 @@ document.addEventListener("DOMContentLoaded", () => {
         resultsDiv.innerHTML = "<p>No results found.</p>";
       } else {
         resultsDiv.innerHTML = `
-          <h2>Top Posts:</h2>
+          <h2 style="color: white;">Top Posts:</h2>
           <button id="generate-summary">Generate Summary</button>
           <div id="summary-output"></div>
           <ul id='post-list'></ul>
@@ -126,7 +125,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const generateSummaryButton =
           document.getElementById("generate-summary");
 
-        renderPosts(posts); // Use the centralized rendering function
+        renderPosts(posts);
 
         generateSummaryButton.addEventListener("click", async () => {
           try {
@@ -155,7 +154,7 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     } catch (error) {
       console.error(error);
-      resultsDiv.innerHTML = `<p>Failed to fetch data: ${error.message}</p>`;
+      resultsDiv.innerHTML = `<p style="color: white;">Failed to fetch data: ${error.message}</p>`;
     }
   };
 
@@ -182,16 +181,16 @@ document.addEventListener("DOMContentLoaded", () => {
       const { itinerary, posts } = await response.json();
 
       resultsDiv.innerHTML = `
-        <h2>Your ${days}-Day Itinerary:</h2>
+        <h2 style="color: white;">Your ${days}-Day Itinerary:</h2>
         <div id="itinerary-output">${itinerary}</div>
-        <h2>Top Posts:</h2>
+        <h2 style="color: white;">Top Posts:</h2>
         <ul id='post-list'></ul>
       `;
 
-      renderPosts(posts); // Use the centralized rendering function
+      renderPosts(posts);
     } catch (error) {
       console.error(error);
-      resultsDiv.innerHTML = `<p>Failed to generate itinerary: ${error.message}</p>`;
+      resultsDiv.innerHTML = `<p style="color: white;">Failed to generate itinerary: ${error.message}</p>`;
     }
   };
 
