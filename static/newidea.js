@@ -36,15 +36,39 @@ document.addEventListener("DOMContentLoaded", () => {
 
         const postTextDiv = document.createElement("div");
         postTextDiv.style.display = "none";
+
         const truncatedPostText =
           postText.length > 500
-            ? `${postText.slice(
-                0,
-                500
-              )}<span style="color: blue; cursor: pointer;" class="show-more-post">... [show more]</span>`
+            ? `<div class="truncated-content">
+             ${postText.slice(0, 500)}
+             <span class="show-more">[show more]</span>
+             <div class="full-text" style="display: none;">
+               ${postText.slice(500)}
+               <span class="show-less">[show less]</span>
+             </div>
+           </div>`
             : postText;
 
         postTextDiv.innerHTML = truncatedPostText;
+
+        // Update the click handler
+        const showMoreSpan = postTextDiv.querySelector(".show-more");
+        const showLessSpan = postTextDiv.querySelector(".show-less");
+        const fullText = postTextDiv.querySelector(".full-text");
+
+        if (showMoreSpan) {
+          showMoreSpan.addEventListener("click", () => {
+            showMoreSpan.style.display = "none";
+            fullText.style.display = "inline";
+          });
+        }
+
+        if (showLessSpan) {
+          showLessSpan.addEventListener("click", () => {
+            fullText.style.display = "none";
+            showMoreSpan.style.display = "inline";
+          });
+        }
 
         showPostBtn.addEventListener("click", () => {
           if (postTextDiv.style.display === "none") {
@@ -68,7 +92,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const commentsDiv = document.createElement("div");
         commentsDiv.style.display = "none";
         commentsDiv.innerHTML = comments
-          .map((comment) => `<p>${comment}</p>`)
+          .map((comment) => `<div class="comment">${comment}</div>`)
           .join("");
 
         commentsBtn.addEventListener("click", () => {
@@ -94,8 +118,12 @@ document.addEventListener("DOMContentLoaded", () => {
       resultsDiv.innerHTML = "<p>Please enter a location.</p>";
       return;
     }
-
-    resultsDiv.innerHTML = "<p>Loading...</p>";
+    resultsDiv.innerHTML = `
+      <div class="loading-indicator">
+        <i class="fas fa-spinner"></i>
+        <span>Finding the best ${type} tips...</span>
+      </div>
+    `;
     body.classList.add("results-shown");
 
     try {
@@ -165,7 +193,12 @@ document.addEventListener("DOMContentLoaded", () => {
       return;
     }
 
-    resultsDiv.innerHTML = "<p>Loading itinerary...</p>";
+    resultsDiv.innerHTML = `
+    <div class="loading-indicator">
+      <i class="fas fa-spinner"></i>
+      <span>Generating your perfect itinerary...</span>
+    </div>
+  `;
 
     try {
       const response = await fetch("/generate_itinerary", {
