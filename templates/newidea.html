@@ -181,6 +181,14 @@
         display: grid;
         grid-template-columns: repeat(3, 1fr);
         gap: 1rem;
+        margin-top: 1.2rem;
+      }
+      .recommendations-heading {
+        text-align: center;
+        color: #fff;
+        font-size: 1.2rem;
+        margin-bottom: 1rem;
+        opacity: 0.9;
       }
 
       button {
@@ -309,6 +317,44 @@
       .loading-indicator i {
         animation: spin 1s linear infinite;
       }
+      .location-input-wrapper {
+        position: relative;
+        flex: 1;
+        display: flex;
+      }
+
+      .autocomplete-dropdown {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background: rgba(255, 255, 255, 0.95);
+        border-radius: 8px;
+        margin-top: 4px;
+        max-height: 200px;
+        overflow-y: auto;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        z-index: 1000;
+        display: none;
+      }
+
+      .autocomplete-dropdown.active {
+        display: block;
+      }
+
+      .autocomplete-item {
+        padding: 8px 16px;
+        cursor: pointer;
+        color: #1f2937;
+      }
+
+      .autocomplete-item:hover {
+        background: rgba(0, 0, 0, 0.05);
+      }
+
+      .autocomplete-item.selected {
+        background: rgba(124, 58, 237, 0.1);
+      }
 
       @keyframes spin {
         from {
@@ -351,11 +397,13 @@
 
       <div class="input-card">
         <div class="input-container">
-          <input
-            type="text"
-            id="location-input"
-            placeholder="Enter Location (Ex. Paris)"
-          />
+          <div class="location-input-wrapper">
+            <input
+              type="text"
+              id="location-input"
+              placeholder="Enter Location (Ex. Paris)"
+            />
+          </div>
           <input
             type="number"
             id="days-input"
@@ -368,7 +416,7 @@
             Generate Itinerary
           </button>
         </div>
-
+        <h3 class="recommendations-heading">Other Recommendations</h3>
         <div class="buttons-container">
           <button id="search-button">
             <i class="fas fa-search"></i>

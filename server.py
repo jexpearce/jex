@@ -11,6 +11,28 @@ import openai
 import os
 from openai import OpenAI
 
+# Location to subreddit mappings
+LOCATION_MAPPINGS = {
+    # Southeast Asia
+    "vietnam": ["vietnam", "hanoi", "hochiminh", "saigon"],
+    "thailand": ["thailand", "bangkok", "chiangmai", "chiang mai","phuket"],
+    "singapore": ["singapore"],
+    "indonesia": ["indonesia", "bali", "jakarta"],
+    "laos": ["laos","vangvieng", "luangprabang", "vientiane", "pakse"],
+    ""
+    
+    # East Asia
+    "japan": ["japan", "tokyo", "osaka", "kyoto"],
+    "korea": ["korea", "seoul"],
+    "hong kong": ["hongkong"],
+    
+    # Europe
+    "france": ["france", "paris"],
+    "italy": ["italy", "rome", "florence", "venice"],
+    "germany": ["germany", "berlin", "munich"],
+    # Add more as needed...
+}
+
 client = OpenAI(
     project='proj_Ae4DRM4LfOvsBwmuXUvqZwPr',
     api_key=os.environ.get("OPENAI_API_KEY"),
@@ -46,42 +68,98 @@ def fetch_reddit_posts(query, search_type):
         ]
     else: 
         keywords = [
-            "itinerary", "guide", "things to do", "trip", "recommendations",
-            "hidden gems", "attractions", "adventures", "must-see", "excursions"
+            "itinerary", "guide", "things to do", "trip", "recommendations", "stuff to do",
+            "hidden gems", "attractions", "adventures", "must see", "excursions", "what to do"
         ]
     keyword_pattern = re.compile('|'.join(re.escape(kw) for kw in keywords), re.IGNORECASE)
     exclude_words = ["pic", "picture", "video", "photo"]
     exclude_pattern = re.compile('|'.join(re.escape(word) for word in exclude_words), re.IGNORECASE)
 
-    def filter_posts(posts):
-        return [
-            post
-            for post in posts
-            if keyword_pattern.search(post.get("title", ""))
-            and not exclude_pattern.search(post.get("title", ""))
-            and post.get("post_hint") != "image"
-            and not post.get("is_video", False)
-            and "media_metadata" not in post
-            and current_time - post.get("created_utc", current_time) <= eight_years_in_seconds
-        ]
+    def filter_posts(posts, require_location_keyword=True):
+        filtered = []
+        for post in posts:
+            title = post.get("title", "")
+            
+            # Basic exclusion criteria
+            if (post.get("post_hint") == "image" or 
+                post.get("is_video", False) or 
+                "media_metadata" in post or 
+                current_time - post.get("created_utc", current_time) > eight_years_in_seconds or
+                exclude_pattern.search(title)):
+                continue
 
+            # Different filtering for location-specific vs general subreddits
+            if require_location_keyword:
+                if keyword_pattern.search(title) and query.lower() in title.lower():
+                    filtered.append(post)
+            else:
+                # For location-specific subreddits, only check for activity keywords
+                if keyword_pattern.search(title):
+                    filtered.append(post)
+                    
+        return filtered
 
+    all_posts = []
+    # 1. Check general travel subreddits (with location keyword requirement)
     general_subreddits = ["travel", "solotravel", "travelnopics"]
-    keywords_query = ' OR '.join(f'"{kw}"' for kw in keywords)
-    general_search_query = f'title:"{query}" ({keywords_query})'
-    general_search_url = f"https://www.reddit.com/r/{'+'.join(general_subreddits)}/search.json?q={quote(general_search_query)}&restrict_sr=1&limit=100&sort=top"
-    general_posts = []
+    for subreddit in general_subreddits:
+        search_url = f"https://www.reddit.com/r/{subreddit}/search.json?q={quote(query)}&restrict_sr=1&limit=100&sort=top"
+        try:
+            response = requests.get(search_url, headers=google_headers)
+            if response.status_code == 200:
+                data = response.json()
+                posts = [post["data"] for post in data.get("data", {}).get("children", [])]
+                all_posts.extend(filter_posts(posts, require_location_keyword=True))
+        except requests.exceptions.RequestException:
+            pass
+
+    # 2. Check location-specific subreddit
     try:
-        response = requests.get(general_search_url, headers=google_headers)
-        response.raise_for_status()
-        general_data = response.json()
-        general_posts = [post["data"] for post in general_data.get("data", {}).get("children", [])]
+        # First, check if the location has its own subreddit
+        location_subreddit_url = f"https://www.reddit.com/r/{quote(query)}/about.json"
+        response = requests.get(location_subreddit_url, headers=google_headers)
+        if response.status_code == 200:
+            # Location subreddit exists, search it without location keyword requirement
+            search_url = f"https://www.reddit.com/r/{quote(query)}/search.json?q={quote(' OR '.join(keywords))}&restrict_sr=1&limit=100&sort=top"
+            try:
+                response = requests.get(search_url, headers=google_headers)
+                if response.status_code == 200:
+                    data = response.json()
+                    posts = [post["data"] for post in data.get("data", {}).get("children", [])]
+                    all_posts.extend(filter_posts(posts, require_location_keyword=False))
+            except requests.exceptions.RequestException:
+                pass
     except requests.exceptions.RequestException:
         pass
 
+    # 3. Check country/region subreddit from mappings
+    query_lower = query.lower()
+    for country, locations in LOCATION_MAPPINGS.items():
+        if query_lower in locations or query_lower == country:
+            # Found matching country/city, search its country subreddit
+            country_subreddit = locations[0]  # First item is always the country subreddit
+            search_url = f"https://www.reddit.com/r/{country_subreddit}/search.json?q={quote(query)}&restrict_sr=1&limit=100&sort=top"
+            try:
+                response = requests.get(search_url, headers=google_headers)
+                if response.status_code == 200:
+                    data = response.json()
+                    posts = [post["data"] for post in data.get("data", {}).get("children", [])]
+                    all_posts.extend(filter_posts(posts, require_location_keyword=True))
+            except requests.exceptions.RequestException:
+                pass
 
-    return filter_posts(general_posts)[:12]  
-
+    # Sort by upvotes and return top 12 unique posts
+    sorted_posts = sorted(all_posts, key=lambda x: x.get("ups", 0), reverse=True)
+    unique_posts = []
+    seen_ids = set()
+    for post in sorted_posts:
+        if post.get("id") not in seen_ids:
+            seen_ids.add(post.get("id"))
+            unique_posts.append(post)
+            if len(unique_posts) >= 12:
+                break
+                
+    return unique_posts
 @app.route("/search", methods=["GET"])
 @limiter.limit("8 per minute")
 def search():
