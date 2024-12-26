@@ -11,136 +11,6 @@ import openai
 import os
 from openai import OpenAI
 
-# Location to subreddit mappings
-LOCATION_MAPPINGS = {
-    # Southeast Asia
-    "vietnam": ["VietNam", "hanoi", "hochiminh", "saigon", "da nang"],
-    "thailand": ["thailand", "bangkok", "chiang mai","phuket"],
-    # "singapore": ["singapore"],
-    # "indonesia": ["indonesia", "bali", "jakarta","bromo","yogyakarta","sulawesi","sumatra","lombok"],
-     "laos": ["laos","vangvieng","luangprabang", "vientiane", "pakse"],
-     "cambodia": ["cambodia","siemreap","angkorwat", "phnompenh", "kohrong"],
-     "malaysia": ["malaysia","kualalumpur","langkawi", "penang"],
-    # "philippines": ["philippines", "manila", "cebu", "boracay", "palawan", "bohol", "siargao"],
-    
-    # Europe
-    # "france": ["france", "paris", "lyon", "nice", "marseille", "bordeaux", "lille", "strasbourg", "nantes", "toulouse", "cannes", "montpellier", "avignon", "annecy"],
-    # "spain": ["spain", "barcelona", "madrid", "seville", "granada", "malaga", "valencia", "bilbao", "toledo", "sansebastian", "cordoba", "zaragoza", "tenerife", "mallorca", "ibiza"],
-    # "italy": ["italy", "rome", "venice", "florence", "milan", "naples", "pisa", "bologna", "sicily", "sardinia", "cinqueterre", "verona", "turin", "amalfi"],
-    # "germany": ["germany", "berlin", "munich", "hamburg", "frankfurt", "dresden", "stuttgart", "cologne", "nuremberg", "heidelberg", "leipzig", "hanover", "bremen"],
-    # "unitedkingdom": ["unitedkingdom", "england", "london", "edinburgh", "glasgow", "manchester", "birmingham", "bath", "york", "cambridge", "oxford", "cardiff", "belfast"],
-    # "greece": ["greece", "athens", "santorini", "mykonos", "crete", "thessaloniki", "rhodes", "corfu", "delphi", "olympia"],
-    # "portugal": ["portugal", "lisbon", "porto", "algarve", "sintra", "madeira", "azores", "coimbra"],
-    # "netherlands": ["netherlands", "amsterdam", "rotterdam", "utrecht", "thehague", "delft", "maastricht"],
-    # "switzerland": ["switzerland", "zurich", "geneva", "lucerne", "interlaken", "zermatt", "bern", "grindelwald", "lausanne"],
-    # "austria": ["austria", "vienna", "salzburg", "innsbruck", "hallstatt", "graz", "linz"],
-    # "belgium": ["belgium", "brussels", "bruges", "ghent", "antwerp", "liege"],
-    # "czech": ["czechia", "prague", "ceskykrumlov", "brno", "karlovyvary"],
-    # "hungary": ["hungary", "budapest", "debrecen", "szeged", "eger"],
-    # "poland": ["poland", "warsaw", "krakow", "gdansk", "wroclaw", "poznan", "zakopane"],
-    # "croatia": ["croatia", "zagreb", "dubrovnik", "split", "zadar", "hvar", "korcula", "plivicenationalpark"],
-    # "turkey": ["turkey", "istanbul", "antalya", "cappadocia", "bodrum", "ankara", "izmir", "pamukkale"],
-    # "norway": ["norway", "oslo", "bergen", "tromso", "alesund", "stavanger", "lofoten"],
-    # "sweden": ["sweden", "stockholm", "gothenburg", "malmo", "uppsala"],
-    # "denmark": ["denmark", "copenhagen", "aarhus", "odense"],
-    # "finland": ["finland", "helsinki", "rovaniemi", "turku"],
-    # "iceland": ["iceland", "reykjavik", "akureyri", "goldencircle", "bluelagoon"],
-    # "ireland": ["ireland", "dublin", "galway", "cork", "limerick", "kilkenny", "kerry"],
-    # "scotland": ["scotland", "edinburgh", "glasgow", "inverness", "isleofskye"],
-    # "russia": ["russia", "moscow", "saintpetersburg", "kazan", "sochi", "vladivostok"],
-    # "ukraine": ["ukraine", "kyiv", "lviv", "odessa", "kharkiv"],
-    # "romania": ["romania", "bucharest", "brasov", "sibiu", "clujnapoca"],
-    # "bulgaria": ["bulgaria", "sofia", "plovdiv", "varna"],
-    # "slovakia": ["slovakia", "bratislava", "kosice"],
-    # "slovenia": ["slovenia", "ljubljana", "bled"],
-    # "estonia": ["estonia", "tallinn", "tartu"],
-    # "latvia": ["latvia", "riga"],
-    # "lithuania": ["lithuania", "vilnius", "kaunas"],
-    # "albania": ["albania", "tirana", "sarande"],
-    # "montenegro": ["montenegro", "kotor", "budva", "podgorica"],
-    # "serbia": ["serbia", "belgrade", "novisad"],
-    # "bosnia": ["bosnia", "sarajevo", "mostar"],
-    # "northmacedonia": ["northmacedonia", "skopje", "ohrid"],
-    # "luxembourg": ["luxembourg"],
-    # "malta": ["malta", "valletta", "gozo", "mdina"],
-
-    # East Asia
-    # "china": ["china", "beijing", "shanghai", "xian", "chengdu", "guangzhou", "shenzhen", "hangzhou", "suzhou", "zhangjiajie", "guilin", "yangshuo", "lijiang", "kunming", "hongkong", "macau", "tibet", "harbin"],
-    # "japan": ["japan", "tokyo", "kyoto", "osaka", "hiroshima", "nagasaki", "fukuoka", "sapporo", "okinawa", "hakone", "nara", "mtfuji", "kanazawa", "takayama"],
-    # "korea": ["korea", "seoul", "busan", "jeju", "incheon", "daegu", "gwangju", "suwon", "gangneung", "andong"],
-    # "taiwan": ["taiwan", "taipei", "kaohsiung", "taichung", "tainan", "hualien", "tarokogorge", "sunmoonlake", "alishan", "keelung"],
-    # "mongolia": ["mongolia", "ulanbator", "gobidesert", "karakorum", "tereljnationalpark", "khustainuruu"],
-    
-    #The Americas: 
-    # "california": ["california", "losangeles", "sanfrancisco", "sandiego", "yosemite", "deathvalley", "napa", "santamonica", "hollywood", "laketahoe"],
-    # "nyc": ["newyork", "newyorkcity", "brooklyn", "manhattan", "niagarafalls"],
-    # "florida": ["florida", "miami", "orlando", "tampa", "keywest", "everglades"],
-    # "arizona": ["arizona", "grandcanyon", "phoenix", "sedona", "antelopecanyon", "monumentvalley"],
-    # "texas": ["texas", "austin", "houston", "dallas", "sanantonio", "fortworth"],
-    # "washington": ["washington", "seattle", "olympicnationalpark", "mountsthelens", "spokane"],
-    # "nevada": ["nevada", "lasvegas", "renonv", "laketahoe"],
-    # "colorado": ["colorado", "denver", "rockymountains", "coloradosprings"],
-    # "hawaii": ["hawaii", "honolulu", "maui", "bigisland", "kauai"],
-    # "alaska": ["alaska", "anchorage", "denalinationalpark", "juneau"],
-    # "maine": ["maine", "portlandmaine", "acadianationalpark"],
-    # "utah": ["utah", "zionnationalpark", "brycecanyon", "saltlakecity"],
-    # "massachusetts": ["massachusetts", "boston", "capecod"],
-    # "oregon": ["oregon", "portlandoregon", "craterlake", "bendoregon"],
-
-    # "canada": ["canada", "toronto", "vancouver", "montreal", "quebeccity", "banff", "calgary", "niagarafalls", "ottawa", "victoria", "whistler"],
-    # "mexico": ["mexico", "mexicocity", "cancun", "tulum", "playadelcarmen", "puertovallarta", "guadalajara", "loscabos", "oaxaca", "merida", "cozumel"],
-    # "guatemala": ["guatemala", "antigua", "lagoatitlan", "tikal"],
-    # "costarica": ["costarica", "sanjose", "monteverde", "arenal", "manuelantonio", "tamarindo"],
-    # "panama": ["panama", "panamacity", "bocasdeltoro", "boquete", "sanblas"],
-    # "belize": ["belize", "belizecity", "ambergris", "caye", "cayecaulker", "belmopan"],
-
-    # South America
-    # "brazil": ["brazil", "riodejaneiro", "saopaulo", "iguazu", "salvador", "manaus", "pantanal", "florianopolis"],
-    # "argentina": ["argentina", "buenosaires", "patagonia", "iguazufalls", "bariloche", "ushuaia", "mendoza", "salta"],
-    # "peru": ["peru", "lima", "cusco", "machupicchu", "sacredvalley", "arequipa", "lakeniticaca"],
-    # "colombia": ["colombia", "cartagena", "medellin", "bogota", "salento", "tayrona"],
-    # "chile": ["chile", "santiago", "patagonia", "valparaiso", "easterisland", "atacamadesert"],
-    # "ecuador": ["ecuador", "quito", "galapagos", "guayaquil", "banos", "cuenca"],
-    # "bolivia": ["bolivia", "lapaz", "uyunisaltflats", "sucre", "copacabana"],
-
-    # #Africa
-    # "southafrica": ["southafrica", "capetown", "johannesburg", "durban", "krugernationalpark", "gardenroute", "stellenbosch"],
-    # "morocco": ["morocco", "marrakech", "casablanca", "fes", "chefchaouen", "merzouga", "tangier", "essaouira"],
-    # "tunisia": ["tunisia", "tunis", "sousse", "monastir", "dougga", "tozeur", "djerba"],
-    # "egypt": ["egypt", "cairo", "alexandria", "giza", "luxor", "aswan", "hurghada", "sharmelsheikh", "siwa"],
-    # "ghana": ["ghana", "accra"],
-    # "nigeria": ["nigeria", "lagos", "abuja", "calabar", "lekki", "kano"],
-    # "zimbabwe": ["zimbabwe", "victoriafalls"],
-    # "tanzania": ["tanzania", "zanzibar", "kilimanjaro", "serengeti", "ngorongoro", "daressalaam", "arusha"],
-    # "kenya": ["kenya", "nairobi", "masaimara", "mombasa", "lakenakuru"],
-    # "namibia": ["namibia", "windhoek", "sossusvlei", "etosha", "swakopmund", "skeletoncoast"],
-    # "botswana": ["botswana"],
-    # "ethiopia": ["ethiopia", "addisababa"],
-
-    #Central Asia
-    # "kazakhstan": ["kazakhstan", "almaty", "astana", "shymkent", "charyn"],
-    # "uzbekistan": ["uzbekistan", "samarkand", "bukhara", "khiva", "tashkent"],
-    # "kyrgyzstan": ["kyrgyzstan", "bishkek", "karakol", "issyk", "osh"],
-
-    # #Oceania
-    # "australia": ["australia", "sydney", "melbourne", "brisbane", "perth", "adelaide", "goldcoast", "uluru", "tasmania", "greatbarrierreef"],
-    # "new_zealand": ["newzealand", "auckland", "queenstown"],
-
-    # #Middle East
-    # "saudi_arabia": ["saudiarabia", "riyadh", "jeddah", "mecca"],
-    # "qatar": ["qatar", "doha"],
-    # "uae": ["uae", "dubai", "abudhabi", "sharjah"],
-    # "jordan": ["jordan", "amman", "petra", "wadirum", "deadsea", "aqaba"],
-    # "israel": ["israel", "jerusalem", "telaviv"],
-
-    # #South Asia
-    # "india": ["india", "delhi", "mumbai", "jaipur", "agra", "kerala", "varanasi", "goa", "ladakh", "kashmir", "kolkata", "hyderabad"],
-    # "pakistan": ["pakistan", "lahore", "karachi", "islamabad", "gilgit", "hunza", "swatvalley", "quetta"],
-    # "bangladesh": ["bangladesh", "dhaka", "chittagong", "sylhet", "coxsbazar", "sundarbans"],
-    # "sri_lanka": ["srilanka", "colombo", "kandy", "ella", "sigiriya", "galle", "nuwaraeliya"],
-    # "nepal": ["nepal", "kathmandu", "pokhara", "lukla", "everestbasecamp", "bhaktapur", "chitwannationalpark"],    
-}
-
 client = OpenAI(
     project='proj_Ae4DRM4LfOvsBwmuXUvqZwPr',
     api_key=os.environ.get("OPENAI_API_KEY"),
@@ -239,41 +109,20 @@ def fetch_reddit_posts(query, search_type):
                         data = response.json()
                         posts = [post["data"] for post in data.get("data", {}).get("children", [])]
                         filtered_posts = filter_posts(posts, is_location_specific_subreddit=True)
-                        add_limited_posts(filtered_posts, 4)
+                        add_limited_posts(filtered_posts, 6)
                         break  # Stop after finding first valid subreddit
                 except requests.exceptions.RequestException:
                     pass
     except requests.exceptions.RequestException:
         pass
 
-    # 2. Check country/region subreddit (max 3 posts)
-    query_lower = query.lower()
-    for country, locations in LOCATION_MAPPINGS.items():
-        # Check if any part of the query matches a location
-        if any(location in query_lower for location in locations) or query_lower == country:
-            country_subreddit = locations[0]
-        # Use the actual matched location for searching
-            matched_location = next((loc for loc in locations if loc in query_lower), query_lower)
-            search_url = f"https://www.reddit.com/r/{country_subreddit}/search.json?q={quote(matched_location)}&restrict_sr=1&limit=100&sort=top"
-            try:
-                response = requests.get(search_url, headers=google_headers)
-                if response.status_code == 200:
-                    data = response.json()
-                    posts = [post["data"] for post in data.get("data", {}).get("children", [])]
-                    print(f"Found {len(posts)} basic posts in r/{country_subreddit}") 
-                    filtered_posts = filter_posts(posts, is_location_specific_subreddit=False)
-                    print(f"Found {len(filtered_posts)} matching posts in r/{country_subreddit}")  # Debug print
-                    add_limited_posts(filtered_posts, 3)
-            except requests.exceptions.RequestException:
-                pass
-
     # 3. Check general travel subreddits for remaining slots
     general_subreddits = ["travel", "solotravel", "travelnopics"]
-    posts_needed = 12 - len(all_posts)
+    posts_needed = 16 - len(all_posts)
     if posts_needed > 0:
         posts_per_subreddit = max(1, posts_needed // len(general_subreddits))
         for subreddit in general_subreddits:
-            if len(all_posts) >= 12:
+            if len(all_posts) >= 16:
                 break
             search_url = f"https://www.reddit.com/r/{subreddit}/search.json?q={quote(query)}&restrict_sr=1&limit=100&sort=top"
             try:
@@ -282,7 +131,7 @@ def fetch_reddit_posts(query, search_type):
                     data = response.json()
                     posts = [post["data"] for post in data.get("data", {}).get("children", [])]
                     filtered_posts = filter_posts(posts, is_location_specific_subreddit=False)
-                    remaining_slots = min(posts_per_subreddit, 12 - len(all_posts))
+                    remaining_slots = min(posts_per_subreddit, 16 - len(all_posts))
                     add_limited_posts(filtered_posts, remaining_slots)
             except requests.exceptions.RequestException:
                 pass
