@@ -23,9 +23,17 @@ CORS(app, resources={r"/search": {"origins": "*"}})
 limiter = Limiter(key_func=get_remote_address)
 limiter.init_app(app)
 
+def get_posts_by_ids(post_ids, search_type="travel"):
+    """Fetch posts by their IDs"""
+    posts = fetch_reddit_posts(query, search_type)
+        # Filter posts to only those with matching IDs
+    return [post for post in posts if post.get("id") in post_ids]
+
+
 @app.route("/")
 def serve_frontend():
     return send_from_directory("templates", "newidea.html")
+
 
 def fetch_reddit_posts(query, search_type):
     google_headers = {"User-Agent": "AuthenticTravelApp/0.1"}
@@ -94,7 +102,7 @@ def fetch_reddit_posts(query, search_type):
                 all_posts.append(post)
                 added += 1
         return added
-
+    
     # 1. First check location-specific subreddit (max 6 posts)
     try:
         location_variants = normalize_location(query)
@@ -119,11 +127,9 @@ def fetch_reddit_posts(query, search_type):
     # 3. Check general travel subreddits for remaining slots
     general_subreddits = ["travel", "solotravel", "travelnopics"]
     posts_needed = 16 - len(all_posts)
+    
     if posts_needed > 0:
-        posts_per_subreddit = max(1, posts_needed // len(general_subreddits))
         for subreddit in general_subreddits:
-            if len(all_posts) >= 16:
-                break
             search_url = f"https://www.reddit.com/r/{subreddit}/search.json?q={quote(query)}&restrict_sr=1&limit=100&sort=top"
             try:
                 response = requests.get(search_url, headers=google_headers)
@@ -131,10 +137,9 @@ def fetch_reddit_posts(query, search_type):
                     data = response.json()
                     posts = [post["data"] for post in data.get("data", {}).get("children", [])]
                     filtered_posts = filter_posts(posts, is_location_specific_subreddit=False)
-                    remaining_slots = min(posts_per_subreddit, 16 - len(all_posts))
-                    add_limited_posts(filtered_posts, remaining_slots)
+                    add_limited_posts(filtered_posts, posts_needed)
             except requests.exceptions.RequestException:
-                pass
+                pass 
 
     # Final sort by upvotes
     return sorted(all_posts, key=lambda x: x.get("ups", 0), reverse=True)
@@ -174,7 +179,7 @@ def search():
             except requests.exceptions.RequestException:
                 post["top_comments"] = []
 
-        session["cached_posts"] = posts
+        session["cached_post_ids"] = [post.get("id") for post in posts]
         session["cached_query"] = query
 
         return jsonify(posts)
@@ -254,9 +259,9 @@ def generate_itinerary():
             return jsonify({"error": "Location and number of days are required."}), 400
 
         cached_query = session.get("cached_query")
-        cached_posts = session.get("cached_posts")
-        if cached_query == query and cached_posts:
-            posts = cached_posts
+        cached_post_ids = session.get("cached_post_ids", [])
+        if cached_query == query and cached_post_ids:
+            posts = get_posts_by_ids(cached_post_ids)
         else:
             posts = fetch_reddit_posts(query, "travel")
 
@@ -286,7 +291,7 @@ def generate_itinerary():
                     post["top_comments"] = []
 
             session["cached_query"] = query
-            session["cached_posts"] = posts
+            session["cached_post_ids"] = [post.get("id") for post in posts]
 
 
         content = ""
