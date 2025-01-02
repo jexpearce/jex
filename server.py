@@ -213,18 +213,22 @@ def summarize():
 
         if search_type == "travel":
             instruction = (
-                "Analyze the posts and comments provided and provide max 10 bullet points with the best things to do and see ONLY IN THE SPECIFIED AREA, with MAX 1000 characters TOTAL (no #,* characters)."
-                "Base your response ONLY on the posts' data where available, if there is limited data, can supplement with general knowledge if necessary." 
-                "maybe throw in a 2-4 sentence summary at the end after the bullet points of the area."
+                "Analyze the posts and comments provided and provide max 10 bullet points with the best things to do and see ONLY IN THE SPECIFIED AREA, with MAX 1000 characters TOTAL"
+                "Base your response ONLY on the posts' data where available, if there is limited data, can supplement with general knowledge if necessary."
+                "Format each bullet point with <br> after it for line breaks. Start each bullet with a • character."
+                "After bullet points, add <br><br> followed by a 2-4 sentence summary." 
             )
         elif search_type == "food":
             instruction = (
-                "Analyze the posts and comments provided and create a summary of the best places to eat or nightlife. ONLY IN THE SPECIFIED AREA with MAX 1000 characters TOTAL, like please keep it kinda short (no #,* characters)."
+                "Analyze the posts and comments provided and create a summary of the best places to eat or nightlife. ONLY IN THE SPECIFIED AREA with MAX 1000 characters TOTAL, like please keep it kinda short "
                 "in the area, as well as the best dishes or food in the region or country. Use post data if available; otherwise, supplement with general knowledge if necessary."
+                "Use bullet points of places to eat/nightlife if you have enough data, then can do a separate bullet point list for the best food in that region MAX 5 bullet points for food."
+                "Format each bullet point with <br> after it for line breaks. Start each bullet with a • character."
+                "After bullet points, add <br><br> followed by a 2-4 sentence summary." 
             )
         elif search_type == "budget":
             instruction = (
-                "Analyze the posts and comments provided and list the cheapest accommodations, such as hostels, along with general money-saving tips for the area. ONLY IN THE SPECIFIED AREA with MAX 1000 characters TOTAL, like please keep it kinda short (no #,* characters)."
+                "Analyze the posts and comments provided and list the cheapest accommodations, such as hostels, along with general money-saving tips for the area. ONLY IN THE SPECIFIED AREA with MAX 1000 characters TOTAL, like please keep it kinda short."
                 "Try to use post data as much as possible if available; otherwise, supplement with general knowledge if need be."                
             )
         else:
@@ -309,11 +313,11 @@ def generate_itinerary():
 
         instruction = (
             f"Using the following posts and comments only, create a {days}-day travel itinerary for {query}, maximum 800 characters (and no #,* characters)."
-            " For each day, recommend specific activities, locations, or experiences based on the posts and comments details only. If there is limited info, feel free to supplement with logical suggestions."
-            " Keep the language simple, avoid overly large or convoluted words, and spread activities logically across all days where possible."
-            " Format the itinerary clearly with line breaks and bullet points. Do a line break after EVERY day of the itinerary generated. For example:"
-            "'Day 1:' followed by a line break, then use '- Activity 1', line break, '- Activity 2', and so on for each day. Repeat this format for subsequent days."
-            " Start by saying '<n>-day itinerary in <location>', and do NOT add a summary of the area or how to get there (e.g., from the airport)."
+            " For each day, recommend specific activities, locations, or experiences based on the posts and comments details only. Only iff there is limited info (not many relevant posts/comments), feel free to supplement with suggestions that you know of."
+            " Format each day as '<strong>Day X:</strong><br>' and each activity as '• Activity<br>'."
+            " Add <br> between days for spacing."
+            " Start with '<strong>{days}-day itinerary in {query}</strong><br><br>'."
+            "do NOT add a summary of the area or how to get there (e.g., from the airport)."
         )
 
         response = client.chat.completions.create(
