@@ -409,7 +409,8 @@
             id="days-input"
             placeholder="Days"
             min="1"
-            max="20"
+            max="14"
+            oninput="if(this.value > 14) this.value = 14;"
           />
           <button id="itinerary-button">
             <i class="fas fa-route"></i>

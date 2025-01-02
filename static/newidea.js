@@ -397,6 +397,13 @@ document.addEventListener("DOMContentLoaded", () => {
   const resultsDiv = document.getElementById("results");
   const body = document.body;
 
+  const scrollToResults = () => {
+    const resultsDiv = document.getElementById("results");
+    if (window.innerWidth <= 768) {
+      resultsDiv.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  };
+
   // NEW: Create wrapper and dropdown for autocomplete
   const inputWrapper = document.createElement("div");
   inputWrapper.className = "location-input-wrapper";
@@ -722,9 +729,9 @@ document.addEventListener("DOMContentLoaded", () => {
       return;
     }
 
-    if (isNaN(days) || days < 1 || days > 20) {
+    if (isNaN(days) || days < 1 || days > 14) {
       resultsDiv.innerHTML =
-        "<p>Please enter a number of days between 1 and 20.</p>";
+        "<p>Please enter a number of days between 1 and 14.</p>";
       return;
     }
 
@@ -786,15 +793,21 @@ document.addEventListener("DOMContentLoaded", () => {
 
   searchButton.addEventListener("click", () => {
     handleSearch("travel");
+    scrollToResults();
   });
 
   foodButton.addEventListener("click", () => {
     handleSearch("food");
+    scrollToResults();
   });
 
   budgetButton.addEventListener("click", () => {
     handleSearch("budget");
+    scrollToResults();
   });
 
-  itineraryButton.addEventListener("click", handleItinerary);
+  itineraryButton.addEventListener("click", () => {
+    handleItinerary();
+    scrollToResults();
+  });
 });
