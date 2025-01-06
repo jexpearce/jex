@@ -1,0 +1,41 @@
+def check_spiral_completion(tip_history, min_points=20, angle_threshold=5.5):
+   # Check if we have enough frames to analyze
+   if len(tip_history) < min_points:
+       return False
+   
+   # Get last min_points frames
+   recent_tips = tip_history[-min_points:]
+   # Find tips in most recent frame
+   current_tips = np.argwhere(recent_tips[-1])
+   
+   for tip in current_tips:
+       angles = []
+       center = tip  # Use current tip as center point
+       
+       # Look through previous frames
+       for frame in recent_tips[:-1]:
+           points = np.argwhere(frame)
+           if len(points) > 0:
+               # Find nearest point to current center
+               distances = np.sqrt(np.sum((points - center)**2, axis=1))
+               closest = points[np.argmin(distances)]
+               # Calculate angle to this point
+               angle = np.arctan2(closest[1] - center[1], closest[0] - center[0])
+               angles.append(angle)
+               
+       if len(angles) > 1:
+           total_rotation = 0
+           # Calculate total angle change between frames
+           for i in range(len(angles)-1):
+               diff = angles[i+1] - angles[i]
+               # Handle angle wraparound at ±π
+               if diff > np.pi:
+                   diff -= 2*np.pi
+               elif diff < -np.pi:
+                   diff += 2*np.pi
+               total_rotation += diff
+           
+           # Check if we've rotated enough for a spiral
+           if abs(total_rotation) > angle_threshold:
+               return True
+   return False
