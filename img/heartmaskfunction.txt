@@ -1,0 +1,5 @@
+def heart_mask(points):
+    x = np.linspace(-1.2, 1.2, points)
+    y = np.linspace(1.2, -1.2, points)  
+    heart = ((X**2 + Y**2 - 1)**3 - X**2 * Y**3) <= 0
+    return heart
