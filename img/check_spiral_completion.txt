@@ -1,3 +1,4 @@
+import numpy as np
 def check_spiral_completion(tip_history, min_points=20, angle_threshold=5.5):
    # Check if we have enough frames to analyze
    if len(tip_history) < min_points:
@@ -7,6 +8,7 @@ def check_spiral_completion(tip_history, min_points=20, angle_threshold=5.5):
    recent_tips = tip_history[-min_points:]
    # Find tips in most recent frame
    current_tips = np.argwhere(recent_tips[-1])
+   #.argwhere is used to find the indices of array elements that are non-zero, grouped by element
    
    for tip in current_tips:
        angles = []
@@ -39,3 +41,7 @@ def check_spiral_completion(tip_history, min_points=20, angle_threshold=5.5):
            if abs(total_rotation) > angle_threshold:
                return True
    return False
+
+
+
+
