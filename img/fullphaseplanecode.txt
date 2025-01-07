@@ -1,0 +1,89 @@
+import numpy as np
+import matplotlib.pyplot as plt
+from IPython.display import HTML
+from matplotlib import animation
+
+epsilon = 0.3
+beta = 0.7
+gam = 0.5
+ustar = -1.032789870
+vstar = -0.6655797400
+loops = 2500
+dt = 0.01
+t = 0.0
+u = ustar + 0.29
+v = vstar
+ulist=[u] #need new ones
+vlist=[v]
+tlist=[t]
+
+for loop in range(loops):
+    du_dt = (u - (u**3) / 3.0 - v) / epsilon  # du/dt
+    dv_dt = epsilon * (u + beta - gam * v)  # dv/dt
+    t += dt
+    u += du_dt * dt
+    v += dv_dt * dt
+    ulist.append(u)
+    vlist.append(v)
+    tlist.append(t)
+
+#np.linspace is of the form: np.linspace(start, stop, num) where num is the # of points to generate.
+#its better for animated models than np.arrange() as thats more for static models
+
+uu = np.linspace(-2.5, 2.0, 500)
+
+nonlinearline=uu-(uu**3)/3.0 #when du/dt = 0
+linearline=(uu+beta)/gam #when dv/dt = 0
+
+#matplotfigure w/ nullcline plotting
+fig, ax = plt.subplots(figsize=(8, 6))
+ax.plot(uu, nonlinearline, color='red', label='du/dt = 0 (Nonlinear Nullcline)')
+ax.plot(uu, linearline, color='blue', label='dv/dt = 0 (Linear Nullcline)')
+
+#now for the trajectory lines of the moving black dot
+# created with empty data ([], []) as it will be updated
+trajectoryline, = ax.plot([], [], color='black', linewidth=1)
+movingdot, = ax.plot([], [], 'go')
+#.plot() , 'go' means the moving dot will be circular and green
+
+ax.set_title('FHN Evolving Phase Plane (w/ nullclines)')
+ax.set_xlabel('u')
+ax.set_ylabel('v')
+ax.set_xlim([-2.5, 2.0])
+ax.set_ylim([-1.5, 2.0])
+ax.legend()
+
+#this initializes the plot elements before the animation starts, .set_date([],[]) basically sets both the x and y values to empty lists
+
+def initialization():
+  trajectoryline.set_data([], []) #clears any existing data
+  movingdot.set_data([], []) #clears any existing data for the very beginning
+  return trajectoryline, movingdot
+
+#drawing the line
+
+def animate(i):
+  trajectoryline.set_data(ulist[:i], vlist[:i]) #this draws the trajectory line progressively
+  movingdot.set_data(ulist[i], vlist[i]) #then moves the green dot progressively
+  return trajectoryline, movingdot
+
+skippedframes = 10
+#This means that only every 10th data point from ulist and vlist will be used to create a certain frame.
+#lower number of frames means less computational load but higher numer means more 'smoothness'
+
+nonskippedframes = range(0, len(ulist), skippedframes) #range(start, end, stepsize)
+
+ani = animation.FuncAnimation(
+    fig,
+    animate,
+    init_func=initialization, #this is ensuring it uses the initialization function to start with a 'clean slate'
+    frames=nonskippedframes, #final number of frames
+    interval=20,  #delay between frames in microseconds 
+    blit=True
+)
+
+plt.close(fig)
+
+
+#it converts the Matplotlib animation into a JavaScript HTML5 video format.
+HTML(ani.to_jshtml())

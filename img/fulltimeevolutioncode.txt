@@ -1,0 +1,68 @@
+import numpy as np
+import matplotlib.pyplot as plt
+from IPython.display import HTML
+from matplotlib import animation
+
+epsilon = 0.3
+beta = 0.7
+gam = 0.5
+ustar = -1.032789870
+vstar = -0.6655797400
+
+loops = 2500
+dt = 0.01
+t = 0.0
+u = ustar + 0.29
+v = vstar
+
+ulist = [u]
+vlist = [v]
+tlist = [t]
+
+for loop in range(loops):
+    ut = (u - u**3 / 3.0 - v) / epsilon  # du/dt
+    vt = epsilon * (u + beta - gam * v)  # dv/dt
+    t += dt
+    u += ut * dt
+    v += vt * dt
+    ulist.append(u)
+    vlist.append(v)
+    tlist.append(t)
+fig, ax = plt.subplots(figsize=(10, 5))
+
+#creating the u(t) and v(t) lines
+uoftline, = ax.plot([], [], color='magenta', label='u(t)')
+voftline, = ax.plot([], [], color='cyan', label='v(t)')
+
+ax.set_xlim(0, 25)
+ax.set_ylim(-2, 2)
+ax.set_xlabel('Time (t)')
+ax.set_ylabel('Variables')
+ax.set_title('FitzHugh-Nagumo ODE: u(t) and v(t) Evolution')
+ax.legend()
+
+def initialization():
+    uoftline.set_data([], [])
+    voftline.set_data([], [])
+    return uoftline, voftline
+
+def animate(i):
+    idx = i * 10  #im putting the frame adjuster here instead
+    if idx > len(tlist) - 1:
+        idx = len(tlist) - 1
+    uoftline.set_data(tlist[:idx], ulist[:idx])
+    voftline.set_data(tlist[:idx], vlist[:idx])
+    return uoftline, voftline
+
+frames = int(len(tlist) / 10)
+
+ani = animation.FuncAnimation(
+    fig,
+    animate,
+    init_func=initialization,
+    frames=frames,
+    interval=20,
+    blit=True
+)
+plt.close(fig)
+HTML(ani.to_jshtml())
