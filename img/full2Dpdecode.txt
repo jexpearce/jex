@@ -1,0 +1,72 @@
+import numpy as np
+import matplotlib.pyplot as plt
+import matplotlib.animation as animation
+epsilon = 0.3
+beta = 0.7
+gam = 0.5
+ustar = -1.032789870
+vstar = -0.6655797400
+loops = 6000
+dt = 0.01
+t = 0.0
+often = 100
+count = 0
+points = 201
+dx = 0.75
+x = np.linspace(0, 50, points)
+y = np.linspace(0, 50, points)
+X, Y = np.meshgrid(x, y)
+
+u = ustar + 10 * np.exp(-((X-10) ** 2) / 100)
+v = vstar + 10 * np.exp(-((Y-10) ** 2) / 100)
+
+snapshots = []
+
+for i in range(1, loops + 1):
+    u2x = (u[2:, 1:-1] - 2 * u[1:-1, 1:-1] + u[:-2, 1:-1]) / dx ** 2
+    u2y = (u[1:-1, 2:] - 2 * u[1:-1, 1:-1] + u[1:-1, :-2]) / dx ** 2
+    u2xy = u2x + u2y
+    ut = (u[1:-1, 1:-1] - (u[1:-1, 1:-1] ** 3) / 3 - v[1:-1, 1:-1]) / epsilon
+    vt = epsilon * (u[1:-1, 1:-1] + beta - gam * v[1:-1, 1:-1])
+    u[1:-1, 1:-1] += dt * (ut + u2xy)
+    v[1:-1, 1:-1] += dt * (vt)
+
+    u[0, :] = ustar
+    u[-1, :] = ustar
+    u[:, 0] = ustar
+    u[:, -1] = ustar
+    v[0, :] = vstar
+    v[-1, :] = vstar
+    v[:, 0] = vstar
+    v[:, -1] = vstar
+
+    if i % often == 0:
+        snapshots.append(u.copy())
+fig, ax = plt.subplots(figsize=(8, 8))
+cax = ax.imshow(
+    snapshots[0],
+    extent=[x.min(), x.max(), y.min(), y.max()],
+    vmin=-2.5,
+    vmax=2.5,
+    cmap='RdBu',
+    animated=True
+)
+fig.colorbar(cax, label='u')
+title = ax.set_title('Spiral Wave Evolution at t=0.00')
+ax.set_xlabel('x')
+ax.set_ylabel('y')
+def animate_frame(i):
+    cax.set_array(snapshots[i])
+    current_time = (i * often * dt)
+    title.set_text(f'Spiral Wave Evolution at t={current_time:.2f}')
+    return [cax, title]
+ani = animation.FuncAnimation(
+    fig,
+    animate_frame,
+    frames=len(snapshots),
+    interval=100,
+    blit=True,
+    repeat=True
+)
+plt.close(fig)
+HTML(ani.to_jshtml())
