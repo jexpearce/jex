@@ -1,0 +1,96 @@
+import numpy as np
+import matplotlib.pyplot as plt
+import matplotlib.animation as animation
+from IPython.display import HTML
+
+#no change
+a = 0.5
+b = 0.05
+epsilon = 0.3
+beta = 0.7
+gam = 0.5
+ustar = -1.032789870
+vstar = -0.6655797400
+L = 100.0
+m = 201
+dx = 0.5
+x = np.linspace(-50, 50, m)
+dt = 0.01
+loops = 2000
+u = ustar + a * np.exp(-b * x**2)
+v = np.ones(m) * vstar
+
+skip = 20  #every 20th frame it will animate, the lower you go, the harder it is computationally
+snapshots = [u.copy()] # Stores copies of u at different times to create animation frames
+
+
+for loop in range(loops):
+    # same as before, compute the second spatial derivative of u using central differences
+    d2u_dx2 = np.zeros_like(u)
+    d2u_dx2[1:-1] = (u[2:] - 2 * u[1:-1] + u[:-2]) / dx**2
+
+    #same as before
+    ut = (u - (u**3) / 3.0 - v) / epsilon
+    vt = epsilon * (u + beta - gam * v)
+
+    # Update u and v using Euler's method
+    updatedu = u.copy()
+    updatedv = v.copy()
+    updatedu[1:-1] += dt * (ut[1:-1] + d2u_dx2[1:-1])
+    updatedv[1:-1] += dt * vt[1:-1]
+
+    #boundary conditions
+    updatedu[0], updatedu[-1] = ustar, ustar
+    updatedv[0], updatedv[-1] = vstar, vstar
+
+    #resetting the variables again
+    u, v = updatedu, updatedv
+
+    # store the snapshot of the static model at each skipped loop to not crash my computer
+    if (loop + 1) % skip == 0:
+        snapshots.append(u.copy())
+
+# this is merely the plot size
+fig, ax = plt.subplots(figsize=(10, 5))
+
+#line of u(x,t), will be updated during animation
+evolvingblueline, = ax.plot([], [], color='blue', label='u(x, t)')
+
+# setting the x-axis limits of the plot
+ax.set_xlim([-50, 50])
+
+# Calculates y-axis limits based on all u values
+all_u = np.concatenate(snapshots) #joins the line arrays together
+ymin = np.min(all_u) - 0.5
+ymax = np.max(all_u) + 0.5
+ax.set_ylim([ymin, ymax])
+ax.set_xlabel('x')
+ax.set_ylabel('u')
+ax.set_title('Evolving FitzHugh-Nagumo PDE: u(x, t) Over Time')
+ax.legend()
+ax.grid(True)
+
+
+# Starting function that creates empty plot for first frame
+def initialization():
+    evolvingblueline.set_data([], [])
+    return evolvingblueline,
+
+# Function that updates the line for each frame
+def animate(i):
+    currentu = snapshots[i] #gets the u values for the current frame in the loop
+    evolvingblueline.set_data(x, currentu) #updates the line with the new u values
+    return evolvingblueline,
+
+frames = len(snapshots)
+ani = animation.FuncAnimation(
+    fig, #figure to animate
+    animate, # this the function that updates plot
+    init_func=initialization, #the starting figure at t=0
+    frames=frames, #number of frames
+    interval=50, #time between frames in milliseconds 
+    blit=False #if true, only return the changed parts
+)
+
+plt.close(fig) #this closes the initial figure window at t=0
+HTML(ani.to_jshtml()) #this makes the animation work in google colab
