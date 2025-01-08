@@ -23,7 +23,7 @@ CORS(app, resources={r"/search": {"origins": "*"}})
 limiter = Limiter(key_func=get_remote_address)
 limiter.init_app(app)
 
-def get_posts_by_ids(post_ids, search_type="travel"):
+def get_posts_by_ids(post_ids, query, search_type="travel"):
     """Fetch posts by their IDs"""
     posts = fetch_reddit_posts(query, search_type)
         # Filter posts to only those with matching IDs
@@ -265,10 +265,18 @@ def generate_itinerary():
         cached_query = session.get("cached_query")
         cached_post_ids = session.get("cached_post_ids", [])
         if cached_query == query and cached_post_ids:
-            posts = get_posts_by_ids(cached_post_ids)
+            posts = get_posts_by_ids(cached_post_ids, query)
         else:
-            posts = fetch_reddit_posts(query, "travel")
-
+            try:
+                posts = fetch_reddit_posts(query, "travel")
+                #only cache if successful
+                session["cached_query"] = query
+                session["cached_post_ids"] = [post.get("id") for post in posts]
+            except Exception as e:
+                #clear it on error to stop it from always getting stuck
+                session.pop("cached_query", None)
+                session.pop("cached_post_ids", None)
+                raise e
 
             headers = {"User-Agent": "AuthenticTravelApp/0.1"}
             for post in posts:
