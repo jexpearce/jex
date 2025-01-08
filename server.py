@@ -213,23 +213,29 @@ def summarize():
 
         if search_type == "travel":
             instruction = (
-                "Analyze the posts and comments provided and provide max 10 bullet points with the best things to do and see ONLY IN THE SPECIFIED AREA, with MAX 1000 characters TOTAL"
-                "Base your response ONLY on the posts' data where available, if there is limited data, can supplement with general knowledge if necessary."
-                "Format each bullet point with <br> after it for line breaks. Start each bullet with a • character."
-                "After bullet points, add <br><br> followed by a 2-4 sentence summary." 
+                "Analyze the posts and comments provided and provide max 10 bullet points with the best things to do and see in the specified area ONLY, with MAX 1000 characters TOTAL"
+                "Base your response on the posts' data where available, if there is limited data, can supplement with general knowledge if necessary."
+                "Format each bullet point with line breaks after. Start each bullet with a • character."
+                "When mentioning specific locations or attractions, put them in bold instead of using asterisks. "
+                "If you get any data unrelated to the given location, do NOT include it in the bullet points or summary"
+                "After bullet points end, finish off with a 2-4 sentence summary." 
             )
         elif search_type == "food":
             instruction = (
-                "Analyze the posts and comments provided and create a summary of the best places to eat or nightlife. ONLY IN THE SPECIFIED AREA with MAX 1000 characters TOTAL, like please keep it kinda short "
-                "in the area, as well as the best dishes or food in the region or country. Use post data if available; otherwise, supplement with general knowledge if necessary."
-                "Use bullet points of places to eat/nightlife if you have enough data, then can do a separate bullet point list for the best food in that region MAX 5 bullet points for food."
-                "Format each bullet point with <br> after it for line breaks. Start each bullet with a • character."
-                "After bullet points, add <br><br> followed by a 2-4 sentence summary." 
+                "Analyze the posts and comments provided and create a summary of the best places to eat or nightlife, in the specified area ONLY, with MAX 1000 characters TOTAL"
+                "Base your response on the posts' data where available, if there is limited data, can supplement with general knowledge if necessary."
+                "Use bullet points of places to eat/nightlife if you have enough data, then can do a separate number list for the best food in that region MAX 5 bullet points for food."
+                "Format each bullet point with line breaks after. Start each bullet with a • character."
+                "When mentioning specific places to eat or nightlife, put them in bold instead of using asterisks. "
+                "If you get any data unrelated to the given location, do NOT include it in the bullet points or summary"
+                "After bullet points end, finish off with a 2-4 sentence summary."
             )
         elif search_type == "budget":
             instruction = (
-                "Analyze the posts and comments provided and list the cheapest accommodations, such as hostels, along with general money-saving tips for the area. ONLY IN THE SPECIFIED AREA with MAX 1000 characters TOTAL, like please keep it kinda short."
-                "Try to use post data as much as possible if available; otherwise, supplement with general knowledge if need be."                
+                "Analyze the posts and comments provided and list the cheapest accommodations, such as hostels, along with general money-saving tips for the area. ONLY IN THE SPECIFIED AREA with MAX 600 characters TOTAL."
+                "Try to use post data as much as possible if available; otherwise, supplement with general knowledge if there is not much relevant data to go off of." 
+                "If you get any data unrelated to the given location and subject of budget, do NOT include it" 
+                "When mentioning specific accommodations put them in bold instead of using asterisks. "              
             )
         else:
             return jsonify({"error": "Invalid search type provided."}), 400
