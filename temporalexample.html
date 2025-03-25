@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Progressive Hyperkalemia Example</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        line-height: 1.6;
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 20px;
+        background-color: #f8f9fa;
+        color: #333;
+      }
+
+      .container {
+        background-color: white;
+        border-radius: 8px;
+        padding: 30px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      }
+
+      h1 {
+        color: #2c3e50;
+        border-bottom: 2px solid #3498db;
+        padding-bottom: 10px;
+      }
+
+      h2 {
+        color: #2980b9;
+        margin-top: 25px;
+      }
+
+      .progression {
+        margin: 15px 0;
+        padding-left: 20px;
+      }
+
+      .progression li {
+        margin-bottom: 12px;
+        position: relative;
+      }
+
+      .arrow {
+        color: #e74c3c;
+        font-weight: bold;
+      }
+
+      .normal {
+        color: #27ae60;
+        font-weight: bold;
+      }
+
+      .elevated {
+        color: #f39c12;
+        font-weight: bold;
+      }
+
+      .high {
+        color: #e74c3c;
+        font-weight: bold;
+      }
+
+      .conclusion {
+        background-color: #eaf2f8;
+        padding: 15px;
+        border-left: 4px solid #3498db;
+        margin-top: 25px;
+      }
+
+      footer {
+        margin-top: 30px;
+        text-align: center;
+        font-size: 0.9em;
+        color: #7f8c8d;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Example: Progressive Hyperkalemia in Renal Failure</h1>
+
+      <h2>Progression in a Patient with Declining Kidney Function</h2>
+      <ul class="progression">
+        <li>
+          Initial serum K⁺: <span class="normal">4.2 mEq/L</span> (normal range)
+        </li>
+        <li>
+          As GFR drops from 40 to 30 mL/min, K⁺ rises to
+          <span class="elevated">4.8 mEq/L</span>
+        </li>
+        <li>
+          Further decline to GFR 25 mL/min <span class="arrow">→</span> K⁺
+          reaches <span class="elevated">5.3 mEq/L</span>
+        </li>
+        <li>
+          At GFR 15 mL/min <span class="arrow">→</span> K⁺ rises to
+          <span class="high">6.1 mEq/L</span>
+        </li>
+      </ul>
+
+      <h2>Effects at the Cellular Level</h2>
+      <ul class="progression">
+        <li>
+          Resting membrane potential progressively depolarizes:
+          <span class="normal">-90mV</span> <span class="arrow">→</span>
+          <span class="normal">-85mV</span> <span class="arrow">→</span>
+          <span class="elevated">-80mV</span> <span class="arrow">→</span>
+          <span class="high">-70mV</span>
+        </li>
+        <li>Each potassium value depends on previous concentrations</li>
+        <li>
+          Action potential duration shortens incrementally:
+          <span class="normal">250ms</span> <span class="arrow">→</span>
+          <span class="normal">230ms</span> <span class="arrow">→</span>
+          <span class="elevated">200ms</span> <span class="arrow">→</span>
+          <span class="high">170ms</span>
+        </li>
+        <li>Conduction velocity gradually slows across affected regions</li>
+      </ul>
+
+      <div class="conclusion">
+        <p>
+          This progression demonstrates temporal correlation where each state
+          depends on previous conditions - precisely what the Ornstein-Uhlenbeck
+          process models with its "memory" property. Unlike white noise, where
+          potassium would randomly jump between values, the OU process captures
+          this gradual, correlated progression of electrolyte disturbance.
+        </p>
+      </div>
+    </div>
+
+    <footer>&copy; 2025 Cardiac Electrophysiology Modeling Project</footer>
+  </body>
+</html>
